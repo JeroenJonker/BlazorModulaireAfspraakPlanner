@@ -1,9 +1,0 @@
-C:\Users\Jeroe\.nuget\packages\microsoft.aspnetcore.blazor\3.0.0-preview5-19227-01\lib\netstandard2.0\Microsoft.AspNetCore.Blazor.dll
-C:\Users\Jeroe\.nuget\packages\microsoft.aspnetcore.components\3.0.0-preview5-19227-01\lib\netstandard2.0\Microsoft.AspNetCore.Components.dll
-C:\Users\Jeroe\.nuget\packages\microsoft.aspnetcore.components.browser\3.0.0-preview5-19227-01\lib\netstandard2.0\Microsoft.AspNetCore.Components.Browser.dll
-C:\Users\Jeroe\.nuget\packages\microsoft.extensions.dependencyinjection\3.0.0-preview5.19227.9\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\Jeroe\.nuget\packages\microsoft.extensions.dependencyinjection.abstractions\3.0.0-preview5.19227.9\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\Jeroe\.nuget\packages\microsoft.jsinterop\3.0.0-preview5.19227.9\lib\netstandard2.0\Microsoft.JSInterop.dll
-C:\Users\Jeroe\.nuget\packages\mono.webassembly.interop\3.0.0-preview5.19227.9\lib\netstandard2.0\Mono.WebAssembly.Interop.dll
-C:\Users\Jeroe\.nuget\packages\system.componentmodel.annotations\4.6.0-preview5.19224.8\lib\netstandard2.0\System.ComponentModel.Annotations.dll
-C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\bin\Debug\netstandard2.0\testcoreblazor.Shared.dll

@@ -1,4 +1,0 @@
-C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Services\obj\Debug\netstandard2.0\BlazorAgenda.Services.csprojAssemblyReference.cache
-C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Services\obj\Debug\netstandard2.0\BlazorAgenda.Services.csproj.CoreCompileInputs.cache
-C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Services\obj\Debug\netstandard2.0\BlazorAgenda.Services.AssemblyInfoInputs.cache
-C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Services\obj\Debug\netstandard2.0\BlazorAgenda.Services.AssemblyInfo.cs
