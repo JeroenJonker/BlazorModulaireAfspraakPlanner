@@ -1,0 +1,21 @@
+﻿@using BlazorAgenda.Client.Viewmodels;
+@inherits LoginViewmodel
+
+<div class="contentBox">
+    <h1 class="mb-4">Login</h1>
+    <div class="input-group mb-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="oi oi-person"></i></span>
+        </div>
+        <input id="email" type="text" bind=User.Emailadress class="form-control" style="@Style" name="email" placeholder="Email" />
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="oi oi-key"></i></span>
+        </div>
+        <input id="password" type="password" bind=User.Password class="form-control" style="@Style" name="password" placeholder="Password" />
+    </div>
+    <button class="btn btn-primary" onclick=@LoginAsync>
+        @((IsLoggingIn) ? "Loading..." : "Log in")
+    </button>
+</div>

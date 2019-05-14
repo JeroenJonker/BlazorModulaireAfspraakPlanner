@@ -1,0 +1,26 @@
+﻿@using BlazorAgenda.Client.Viewmodels
+@using BlazorAgenda.Shared.Models
+@using BlazorAgenda.Shared.Enums
+@page "/"
+@inherits MainViewmodel
+
+
+@if (StateService.LoginUser == default(User) || StateService.LoginUser == null)
+{
+    <LoginView OnLogin=OnLoginCompleted />
+}
+else
+{
+    <NavigationBarView />
+    <div id="main">
+        @if (StateService.CurrentPage == Pages.Agenda)
+        {
+            <CalendarView />
+        }
+        else if (StateService.CurrentPage == Pages.Users)
+        {
+            <UsersView/>
+        }
+    </div>
+}
+<UserView/>

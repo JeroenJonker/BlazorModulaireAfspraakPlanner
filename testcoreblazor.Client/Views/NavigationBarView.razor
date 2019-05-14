@@ -1,0 +1,37 @@
+﻿@using BlazorAgenda.Client.Viewmodels;
+@using BlazorAgenda.Shared.Enums;
+@inherits NavigationBarViewModel
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a href="#" class="navbar-brand">Blazor agenda</a>
+    <span class="navbar-text mr-auto">
+        Hello @StateService.LoginUser.Firstname
+    </span>
+    <ul class="navbar-nav">
+        <li class="nav-item" onclick=@EditUser>
+            <a class="nav-link"><span class="oi oi-pencil"></span> Edit profile </a>
+        </li>
+        @if (StateService.LoginUser.Isadmin)
+        {
+            if (StateService.CurrentPage == Pages.Agenda)
+            {
+                <li class="nav-item" onclick=@ViewUsers>
+                    <a class="nav-link"><span class="oi oi-person"></span> View users </a>
+                </li>
+            }
+            else if (StateService.CurrentPage == Pages.Users)
+            {
+                <li class="nav-item" onclick=@ViewAgenda>
+                    <a class="nav-link">
+                        <span class="oi oi-calendar"></span> View agenda
+                    </a>
+                </li>
+            }
+        }
+        <li class="nav-item" onclick=@Logout>
+            <a class="nav-link">
+                <span class="oi oi-account-logout"></span> Logout
+            </a>
+        </li>
+    </ul>
+</nav>

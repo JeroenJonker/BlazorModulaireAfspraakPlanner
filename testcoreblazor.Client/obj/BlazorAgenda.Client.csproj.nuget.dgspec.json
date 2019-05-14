@@ -1,0 +1,202 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Client\\BlazorAgenda.Client.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Client\\BlazorAgenda.Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Client\\BlazorAgenda.Client.csproj",
+        "projectName": "BlazorAgenda.Client",
+        "projectPath": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Client\\BlazorAgenda.Client.csproj",
+        "packagesPath": "C:\\Users\\Jeroe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Client\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Jeroe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json": {},
+          "https://dotnet.myget.org/F/blazor-dev/api/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Services\\BlazorAgenda.Services.csproj": {
+                "projectPath": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Services\\BlazorAgenda.Services.csproj"
+              },
+              "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Shared\\BlazorAgenda.Shared.csproj": {
+                "projectPath": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Shared\\BlazorAgenda.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Blazor": {
+              "target": "Package",
+              "version": "[3.0.0-preview5-19227-01, )"
+            },
+            "Microsoft.AspNetCore.Blazor.Build": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0-preview5-19227-01, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Services\\BlazorAgenda.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Services\\BlazorAgenda.Services.csproj",
+        "projectName": "BlazorAgenda.Services",
+        "projectPath": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Services\\BlazorAgenda.Services.csproj",
+        "packagesPath": "C:\\Users\\Jeroe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Jeroe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Shared\\BlazorAgenda.Shared.csproj": {
+                "projectPath": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Shared\\BlazorAgenda.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Blazor": {
+              "target": "Package",
+              "version": "[3.0.0-preview5-19227-01, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Shared\\BlazorAgenda.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Shared\\BlazorAgenda.Shared.csproj",
+        "projectName": "BlazorAgenda.Shared",
+        "projectPath": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Shared\\BlazorAgenda.Shared.csproj",
+        "packagesPath": "C:\\Users\\Jeroe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jeroe\\source\\repos\\testcoreblazor\\testcoreblazor.Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Jeroe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\bin\Debug\netstandard2.0\testcoreblazor.Shared.deps.json
+C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\bin\Debug\netstandard2.0\testcoreblazor.Shared.dll
+C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\bin\Debug\netstandard2.0\testcoreblazor.Shared.pdb
+C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\obj\Debug\netstandard2.0\testcoreblazor.Shared.csprojAssemblyReference.cache
+C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\obj\Debug\netstandard2.0\testcoreblazor.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\obj\Debug\netstandard2.0\testcoreblazor.Shared.AssemblyInfoInputs.cache
+C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\obj\Debug\netstandard2.0\testcoreblazor.Shared.AssemblyInfo.cs
+C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\obj\Debug\netstandard2.0\testcoreblazor.Shared.dll
+C:\Users\Jeroe\source\repos\testcoreblazor\testcoreblazor.Shared\obj\Debug\netstandard2.0\testcoreblazor.Shared.pdb
