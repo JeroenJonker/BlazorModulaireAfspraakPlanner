@@ -40,7 +40,7 @@ namespace testcoreblazor.Server
                 endpoints.MapDefaultControllerRoute();
             });
 
-            app.UseBlazor<Client.Startup>();
+            app.UseBlazor<BlazorAgenda.Client.Startup>();
         }
     }
 }
