@@ -14,6 +14,9 @@ namespace BlazorAgenda.Shared.Models
 
         public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<EventOption> EventOption { get; set; }
+        public virtual DbSet<Option> Option { get; set; }
+        public virtual DbSet<Organization> Organization { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -50,6 +53,76 @@ namespace BlazorAgenda.Shared.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Event)
                     .HasForeignKey(d => d.Userid);
+            });
+
+            modelBuilder.Entity<EventOption>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.EventId).HasColumnName("EVENT_ID");
+
+                entity.Property(e => e.OptionId).HasColumnName("OPTION_ID");
+
+                entity.Property(e => e.Value)
+                    .HasColumnName("VALUE")
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.EventOption)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_Event_EventOption");
+
+                entity.HasOne(d => d.Option)
+                    .WithMany(p => p.EventOption)
+                    .HasForeignKey(d => d.OptionId)
+                    .HasConstraintName("FK_Option_EventOption");
+            });
+
+            modelBuilder.Entity<Option>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("DESCRIPTION")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.ElementType).HasColumnName("ELEMENT_TYPE");
+
+                entity.Property(e => e.OptionId).HasColumnName("OPTION_ID");
+
+                entity.Property(e => e.OrganizationId).HasColumnName("ORGANIZATION_ID");
+
+                entity.Property(e => e.PositionOrder).HasColumnName("POSITION_ORDER");
+
+                entity.Property(e => e.Text)
+                    .IsRequired()
+                    .HasColumnName("TEXT")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.TimeModifier).HasColumnName("TIME_MODIFIER");
+
+                entity.HasOne(d => d.OptionNavigation)
+                    .WithMany(p => p.InverseOptionNavigation)
+                    .HasForeignKey(d => d.OptionId)
+                    .HasConstraintName("FK_Option_Option");
+
+                entity.HasOne(d => d.Organization)
+                    .WithMany(p => p.Option)
+                    .HasForeignKey(d => d.OrganizationId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_Organization_Option");
+            });
+
+            modelBuilder.Entity<Organization>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.IsPrivate).HasColumnName("IS_PRIVATE");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("NAME")
+                    .HasMaxLength(30);
             });
 
             modelBuilder.Entity<User>(entity =>

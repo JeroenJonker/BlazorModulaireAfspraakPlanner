@@ -1,10 +1,15 @@
 ﻿using BlazorAgenda.Shared.Interfaces;
+using System.Collections.Generic;
 using System;
 
 namespace BlazorAgenda.Shared.Models
 {
     public partial class Event : IEvent
     {
+        public Event()
+        {
+            EventOption = new HashSet<EventOption>();
+        }
         public int Id { get; set; }
         public string Summary { get; set; }
         public DateTime Start { get; set; }
@@ -14,5 +19,6 @@ namespace BlazorAgenda.Shared.Models
         public bool Isprivate { get; set; }
 
         public User User { get; set; }
+        public ICollection<EventOption> EventOption { get; set; }
     }
 }
