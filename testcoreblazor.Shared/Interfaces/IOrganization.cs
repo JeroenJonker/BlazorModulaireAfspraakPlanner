@@ -12,5 +12,6 @@ namespace BlazorAgenda.Shared.Interfaces
         bool IsPrivate { get; set; }
 
         ICollection<Option> Option { get; set; }
+        ICollection<User> User { get; set; }
     }
 }

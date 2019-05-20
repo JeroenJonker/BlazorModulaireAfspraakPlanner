@@ -9,6 +9,7 @@ namespace BlazorAgenda.Shared.Models
         public Organization()
         {
             Option = new HashSet<Option>();
+            User = new HashSet<User>();
         }
 
         public int Id { get; set; }
@@ -16,5 +17,6 @@ namespace BlazorAgenda.Shared.Models
         public bool IsPrivate { get; set; }
 
         public ICollection<Option> Option { get; set; }
+        public ICollection<User> User { get; set; }
     }
 }

@@ -16,7 +16,9 @@ namespace BlazorAgenda.Shared.Models
         public string Lastname { get; set; }
         public string Password { get; set; }
         public bool Isadmin { get; set; }
+        public int? OrganizationId { get; set; }
 
+        public Organization Organization { get; set; }
         public ICollection<Event> Event { get; set; }
     }
 }

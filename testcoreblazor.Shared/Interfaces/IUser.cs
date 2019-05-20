@@ -11,7 +11,8 @@ namespace BlazorAgenda.Shared.Interfaces
         string Lastname { get; set; }
         string Password { get; set; }
         bool Isadmin { get; set; }
-
+        int? OrganizationId { get; set; }
+        Organization Organization { get; set; }
         ICollection<Event> Event { get; set; }
     }
 }

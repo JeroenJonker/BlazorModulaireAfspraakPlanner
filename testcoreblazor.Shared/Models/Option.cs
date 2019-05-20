@@ -20,6 +20,7 @@ namespace BlazorAgenda.Shared.Models
         public int TimeModifier { get; set; }
         public int? OrganizationId { get; set; }
         public int? OptionId { get; set; }
+        public bool IsMandatory { get; set; }
 
         public Option OptionNavigation { get; set; }
         public Organization Organization { get; set; }

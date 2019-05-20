@@ -15,6 +15,7 @@ namespace BlazorAgenda.Shared.Interfaces
         int TimeModifier { get; set; }
         int? OrganizationId { get; set; }
         int? OptionId { get; set; }
+        bool IsMandatory { get; set; }
 
         Option OptionNavigation { get; set; }
         Organization Organization { get; set; }
