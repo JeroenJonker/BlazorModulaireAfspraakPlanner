@@ -1,4 +1,4 @@
-﻿using BlazorAgenda.Server.Properties;
+﻿using BlazorAgenda.Server;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorAgenda.Shared.Models
