@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BlazorAgenda.Services
 {
-    public class Resources
+    public static class Resources
     {
         public const string ControllerApi = "api/";
 
