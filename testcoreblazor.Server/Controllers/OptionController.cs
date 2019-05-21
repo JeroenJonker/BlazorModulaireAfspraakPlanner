@@ -22,7 +22,7 @@ namespace BlazorAgenda.Server.Controllers
             return BadRequest();
         }
 
-        [HttpPost("[action]")]
+        [HttpDelete("[action]")]
         public IActionResult Delete([FromBody] Option Object)
         {
             if (OptionAccess.TryDeleteOption(Object))
@@ -32,7 +32,7 @@ namespace BlazorAgenda.Server.Controllers
             return BadRequest();
         }
 
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         public IActionResult Edit([FromBody] Option Object)
         {
             if (OptionAccess.TryUpdateOption(Object))
@@ -40,6 +40,12 @@ namespace BlazorAgenda.Server.Controllers
                 return Ok(Object);
             }
             return BadRequest();
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult GetOptions([FromBody] Organization Object)
+        {
+            return Ok(OptionAccess.GetOptions(Object));
         }
 
         private IActionResult GetObjectById(int id)

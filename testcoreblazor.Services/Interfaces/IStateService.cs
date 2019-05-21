@@ -8,6 +8,7 @@ namespace BlazorAgenda.Services.Interfaces
     public interface IStateService
     {
         User LoginUser { get; set; }
+        Organization Organization { get; set; }
         List<User> ChosenContacts { get; set; }
         void ResetState();
         event Action OnChange;

@@ -10,7 +10,7 @@ namespace BlazorAgenda.Services
     public class StateService : IStateService
     {
         [Inject] public User LoginUser { get; set; }
-
+        public Organization Organization { get; set; }
         public List<User> ChosenContacts { get; set; }
         
         public Pages CurrentPage { get; set; }

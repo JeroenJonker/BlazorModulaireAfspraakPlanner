@@ -1,4 +1,5 @@
 ﻿using BlazorAgenda.Shared.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,11 @@ namespace BlazorAgenda.Server.DataAccess
     public class OrganizationDataAccessLayer
     {
         AgendaDBContext db = new AgendaDBContext();
+
+        public IEnumerable<Organization> GetOrganizations()
+        {
+            return db.Organization.ToList();
+        }
         public Organization GetOrganization(int id)
         {
             List<Organization> organizations = db.Organization.Where(g => g.Id == id).ToList();

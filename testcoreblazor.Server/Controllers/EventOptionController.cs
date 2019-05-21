@@ -22,7 +22,7 @@ namespace BlazorAgenda.Server.Controllers
             return BadRequest();
         }
 
-        [HttpPost("[action]")]
+        [HttpDelete("[action]")]
         public IActionResult Delete([FromBody] EventOption Object)
         {
             if (EventOptionAccess.TryDeleteEventOption(Object))
@@ -32,7 +32,7 @@ namespace BlazorAgenda.Server.Controllers
             return BadRequest();
         }
 
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         public IActionResult Edit([FromBody] EventOption Object)
         {
             if (EventOptionAccess.TryUpdateEventOption(Object))

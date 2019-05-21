@@ -91,6 +91,8 @@ namespace BlazorAgenda.Shared.Models
 
                 entity.Property(e => e.OptionId).HasColumnName("OPTION_ID");
 
+                entity.Property(e => e.IsMandatory).HasColumnName("IS_MANDATORY");
+
                 entity.Property(e => e.OrganizationId).HasColumnName("ORGANIZATION_ID");
 
                 entity.Property(e => e.PositionOrder).HasColumnName("POSITION_ORDER");
@@ -148,10 +150,17 @@ namespace BlazorAgenda.Shared.Models
                     .HasColumnName("LASTNAME")
                     .HasMaxLength(40);
 
+                entity.Property(e => e.OrganizationId).HasColumnName("ORGANIZATION_ID");
+
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasColumnName("PASSWORD")
                     .HasMaxLength(65);
+
+                entity.HasOne(d => d.Organization)
+                    .WithMany(p => p.User)
+                    .HasForeignKey(d => d.OrganizationId)
+                    .HasConstraintName("FK_Organization_User");
             });
         }
     }

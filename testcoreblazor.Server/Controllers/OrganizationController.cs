@@ -22,7 +22,7 @@ namespace BlazorAgenda.Server.Controllers
             return BadRequest();
         }
 
-        [HttpPost("[action]")]
+        [HttpDelete("[action]")]
         public IActionResult Delete([FromBody] Organization Object)
         {
             if (OrganizationAccess.TryDeleteOrganization(Object))
@@ -32,7 +32,7 @@ namespace BlazorAgenda.Server.Controllers
             return BadRequest();
         }
 
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         public IActionResult Edit([FromBody] Organization Object)
         {
             if (OrganizationAccess.TryUpdateOrganization(Object))
@@ -40,6 +40,12 @@ namespace BlazorAgenda.Server.Controllers
                 return Ok(Object);
             }
             return BadRequest();
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetOrganizations()
+        {
+            return Ok(OrganizationAccess.GetOrganizations());
         }
 
         private IActionResult GetObjectById(int id)
