@@ -6,7 +6,7 @@
      ondragleave="$(this).css('z-index', 'auto');" ondragend="$('.event').css('z-index', '');" onclick=@ChangeShowModalEvent
      style="background-color:@(CalendarEvent.Color); height: @(Rowspan * 16)px; width: @((float)100 / NumEvents)%">
     @CalendarEvent.Event.Summary
-    @if(CalendarEvent.Event.Isprivate)
+    @if(CalendarEvent.Event.IsPrivate)
     {
         <span class="oi oi-lock-locked" title="This event is private and not visible for other users."></span>
     }
