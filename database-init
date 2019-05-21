@@ -1,0 +1,23 @@
+#!/bin/bash
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+
+cd "$parent_path"
+
+docker pull mcr.microsoft.com/mssql/server:2017-latest
+
+docker stop afspraak_planner
+
+docker rm afspraak_planner
+
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' \
+   -p 1433:1433 --name afspraak_planner \
+   -d mcr.microsoft.com/mssql/server:2017-latest
+
+docker exec -it afspraak_planner /opt/mssql-tools/bin/sqlcmd \
+   -S localhost -U SA -P '<YourStrong!Passw0rd>' \
+   -Q 'ALTER LOGIN SA WITH PASSWORD="Goa4BmXHikryKF"'
+
+docker cp ./testcoreblazor.Server/SQLCreateTables.txt afspraak_planner:/tmp/SQLCreateTables.txt
+
+docker exec afspraak_planner /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Goa4BmXHikryKF' -i /tmp/SQLCreateTables.txt
+
