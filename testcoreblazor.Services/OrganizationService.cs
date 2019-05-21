@@ -14,9 +14,9 @@ namespace BlazorAgenda.Services
         public OrganizationService(HttpClient client) : base(client)
         {
         }
-        public async Task<List<Organization>> GetOrganizationsAsync()
+        public async Task<Organization> GetObjectById(int organizationID)
         {
-            return await http.GetJsonAsync<List<Organization>>(Resources.OrganizationApi_GetOrganizations);
+            return await http.GetJsonAsync<Organization>(Resources.OrganizationApi_GetObjectById + organizationID);
         }
     }
 }
