@@ -17,10 +17,9 @@ namespace BlazorAgenda.Client.Viewmodels
             StateService.OnChange += StateHasChanged;
         }
 
-        public void OnLoginCompleted(User user, Organization organization)
+        public void OnLoginCompleted(User user)
         {
             StateService.LoginUser = user;
-            StateService.Organization = organization;
             StateService.ChosenContacts.Add(user);
             StateHasChanged();
         }

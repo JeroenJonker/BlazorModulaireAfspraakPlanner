@@ -4,16 +4,6 @@
 
 <div class="contentBox">
     <h1 class="mb-4">Login</h1>
-    @if (Organizations != null)
-    {
-        <select bind="@SelectedOrganizationName">
-            <option>Kies een organisatie</option>
-            @foreach (Organization organization in Organizations)
-            {
-                <option value="@organization.Name">@organization.Name</option>
-            }
-        </select>
-    }
     <div class="input-group mb-2">
         <div class="input-group-prepend">
             <span class="input-group-text"><i class="oi oi-person"></i></span>

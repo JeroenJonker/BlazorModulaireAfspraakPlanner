@@ -12,35 +12,13 @@ namespace BlazorAgenda.Client.Viewmodels
 {
     public class LoginViewmodel : ComponentBase
     {
-        [Parameter] Action<User,Organization> OnLogin { get; set; }
+        [Parameter] Action<User> OnLogin { get; set; }
         [Inject] protected IUser User { get; set; }
         [Inject] protected IUserService UserService { get; set; }
-        [Inject] protected IOrganizationService OrganizationService { get; set; }
-
-        protected List<Organization> Organizations { get; set; }
-
-        private string selectedOrganizationName;
-
-        public string SelectedOrganizationName
-        {
-            get { return selectedOrganizationName; }
-            set
-            {
-                selectedOrganizationName = value;
-                SelectedOrganization = Organizations.FirstOrDefault(organization => organization.Name == selectedOrganizationName);
-            }
-        }
-
-        public Organization SelectedOrganization { get; set; }
 
         public string Style { get; set; }
         public bool IsLoggingIn { get; set; } = false;
 
-        protected override async Task OnInitAsync()
-        {
-            Organizations = await OrganizationService.GetOrganizationsAsync();
-            await base.OnInitAsync();
-        }
         public async void LoginAsync()
         {
             IsLoggingIn = true;
@@ -50,7 +28,7 @@ namespace BlazorAgenda.Client.Viewmodels
                 if (await UserService.CheckUser(User as User) is User checkedUser)
                 {
                     Style = "";
-                    OnLogin?.Invoke(checkedUser, SelectedOrganization);
+                    OnLogin?.Invoke(checkedUser);
                 }
                 else
                 {
