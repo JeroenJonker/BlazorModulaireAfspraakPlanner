@@ -11,7 +11,7 @@ namespace BlazorAgenda.Shared.Interfaces
         DateTime End { get; set; }
         string Location { get; set; }
         int Userid { get; set; }
-        bool Isprivate { get; set; }
+        bool IsPrivate { get; set; }
 
         User User { get; set; }
     }

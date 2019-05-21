@@ -77,7 +77,7 @@ namespace BlazorAgenda.Client.Viewmodels
                 List<Event> userEvents = await EventService.GetEvents(StateService.ChosenContacts[i]);
                 foreach (Event ev in userEvents)
                 {
-                    if (ev.Userid == StateService.LoginUser.Id || !ev.Isprivate)
+                    if (ev.Userid == StateService.LoginUser.Id || !ev.IsPrivate)
                     {
                         string color = Colors.Items[i % Colors.Items.Length];
                         events.Add(new CalendarEvent { Event = ev, Color = color });

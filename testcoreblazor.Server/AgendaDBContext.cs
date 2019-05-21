@@ -32,6 +32,8 @@ namespace BlazorAgenda.Shared.Models
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.IsPrivate).HasColumnName("IS_PRIVATE");
+
                 entity.Property(e => e.End)
                     .HasColumnName("END")
                     .HasColumnType("datetime");
@@ -144,7 +146,7 @@ namespace BlazorAgenda.Shared.Models
                     .HasColumnName("FIRSTNAME")
                     .HasMaxLength(40);
 
-                entity.Property(e => e.Isadmin).HasColumnName("ISADMIN");
+                entity.Property(e => e.IsAdmin).HasColumnName("IS_ADMIN");
 
                 entity.Property(e => e.Lastname)
                     .HasColumnName("LASTNAME")

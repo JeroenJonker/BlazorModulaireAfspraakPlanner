@@ -57,10 +57,10 @@
             <span class="col-sm-4 input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
-                        <input type="checkbox" bind="@service.CurrentObject.Isprivate" />
+                        <input type="checkbox" bind="@service.CurrentObject.IsPrivate" />
                     </span>
                 </div>
-                <input class="form-control" type="text" value="@(service.CurrentObject.Isprivate ? "Yes": "No")" disabled="disabled" />
+                <input class="form-control" type="text" value="@(service.CurrentObject.IsPrivate ? "Yes": "No")" disabled="disabled" />
             </span>
         </div>
     </ModalContent>
