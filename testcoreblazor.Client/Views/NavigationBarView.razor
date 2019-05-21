@@ -11,7 +11,7 @@
         <li class="nav-item" onclick=@EditUser>
             <a class="nav-link"><span class="oi oi-pencil"></span> Edit profile </a>
         </li>
-        @if (StateService.LoginUser.Isadmin)
+        @if (StateService.LoginUser.IsAdmin)
         {
             if (StateService.CurrentPage != Pages.Users)
             {
