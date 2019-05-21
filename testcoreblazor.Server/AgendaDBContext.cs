@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BlazorAgenda.Server.Properties;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorAgenda.Shared.Models
 {
@@ -22,7 +23,7 @@ namespace BlazorAgenda.Shared.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost;Database=AgendaDB;Trusted_Connection=True;User ID=ADMINLOG;Password=12345;");
+                optionsBuilder.UseSqlServer(Resources.ServerSettings);
             }
         }
 
