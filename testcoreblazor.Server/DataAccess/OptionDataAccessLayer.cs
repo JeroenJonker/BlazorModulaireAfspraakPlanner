@@ -10,10 +10,10 @@ namespace BlazorAgenda.Server.DataAccess
     public class OptionDataAccessLayer
     {
         AgendaDBContext db = new AgendaDBContext();
-        public IEnumerable<Option> GetOptions(Organization organization)
+        public IEnumerable<Option> GetOrganizationOptions(int organizationId)
         {
             // change userid
-            IEnumerable<Option> options = db.Option.Where(g => g.Organization == organization).ToList();
+            IEnumerable<Option> options = db.Option.Where(g => g.Organization.Id == organizationId).ToList();
             return options;
         }
         public Option GetOption(int id)
