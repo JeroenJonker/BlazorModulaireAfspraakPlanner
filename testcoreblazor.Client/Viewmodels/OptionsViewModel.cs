@@ -16,8 +16,8 @@ namespace BlazorAgenda.Client.Viewmodels
 
         protected override void OnInit()
         {
-            Options = new List<Option>();
-            Console.WriteLine(StateService.LoginUser.Organization.Name);
+            //Options = new List<Option>();
+            //Console.WriteLine(StateService.LoginUser.Organization.Name);
             //Organization organization = StateService.LoginUser.Organization;
             base.OnInit();
         }

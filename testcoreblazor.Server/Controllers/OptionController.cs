@@ -48,6 +48,12 @@ namespace BlazorAgenda.Server.Controllers
             return Ok(OptionAccess.GetOptions(Object));
         }
 
+        [HttpGet("[action]/{parentOptionId}")]
+        public IActionResult GetOptionByParentOption(int parentOptionId)
+        {
+            return Ok(OptionAccess.GetOptionByParentOption(parentOptionId));
+        }
+
         private IActionResult GetObjectById(int id)
         {
             if (OptionAccess.GetOption(id) is Option option)

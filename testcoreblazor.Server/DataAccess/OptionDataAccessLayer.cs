@@ -62,5 +62,10 @@ namespace BlazorAgenda.Server.DataAccess
                 return false;
             }
         }
+
+        internal object GetOptionByParentOption(int parentOptionId)
+        {
+            return db.Option.Where(g => g.OptionId == parentOptionId).ToList();
+        }
     }
 }
