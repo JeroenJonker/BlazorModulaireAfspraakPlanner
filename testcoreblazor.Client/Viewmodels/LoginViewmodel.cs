@@ -12,9 +12,11 @@ namespace BlazorAgenda.Client.Viewmodels
 {
     public class LoginViewmodel : ComponentBase
     {
-        [Parameter] Action<User> OnLogin { get; set; }
+        [Parameter] Action<User, Organization> OnLogin { get; set; }
         [Inject] protected IUser User { get; set; }
         [Inject] protected IUserService UserService { get; set; }
+        [Inject]
+        protected IOrganizationService OrganizationService { get; set; }
 
         public string Style { get; set; }
         public bool IsLoggingIn { get; set; } = false;
@@ -28,7 +30,8 @@ namespace BlazorAgenda.Client.Viewmodels
                 if (await UserService.CheckUser(User as User) is User checkedUser)
                 {
                     Style = "";
-                    OnLogin?.Invoke(checkedUser);
+                    Organization organization = await OrganizationService.GetObjectById(checkedUser.OrganizationId.Value);
+                    OnLogin?.Invoke(checkedUser, organization);
                 }
                 else
                 {

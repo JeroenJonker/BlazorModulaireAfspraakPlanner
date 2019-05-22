@@ -1,5 +1,6 @@
 ﻿using BlazorAgenda.Services.Interfaces;
 using BlazorAgenda.Shared.Enums;
+using BlazorAgenda.Shared.Interfaces.BaseObjects;
 using BlazorAgenda.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -15,6 +16,9 @@ namespace BlazorAgenda.Services
         
         public Pages CurrentPage { get; set; }
 
+        public ModalTypes CurrentModalType { get; set; }
+        public IBaseObject CurrentObject { get; set; }
+
         public event Action OnChange;
 
         public StateService()
@@ -27,6 +31,8 @@ namespace BlazorAgenda.Services
         {
             LoginUser = default(User);
             CurrentPage = default(Pages);
+            CurrentObject = null;
+            Organization = null;
             ChosenContacts.Clear();
         }
 

@@ -15,9 +15,9 @@ namespace BlazorAgenda.Services
         {
         }
 
-        public async Task<List<Option>> GetOptionsAsync(User user)
+        public async Task<List<Option>> GetOptionsAsync(Organization organization)
         {
-            return await http.GetJsonAsync<List<Option>>(Resources.EventApi_GetUserEvents + user.Id);
+            return await http.GetJsonAsync<List<Option>>(Resources.OptionsApi_GetOrganizationOptions + organization.Id);
         }
     }
 }

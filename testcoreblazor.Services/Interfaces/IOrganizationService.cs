@@ -8,6 +8,6 @@ namespace BlazorAgenda.Services.Interfaces
 {
     public interface IOrganizationService : IDefaultObjectService<Organization>
     {
-        Task<List<Organization>> GetOrganizationsAsync();
+        Task<Organization> GetObjectById(int organizationID);
     }
 }
