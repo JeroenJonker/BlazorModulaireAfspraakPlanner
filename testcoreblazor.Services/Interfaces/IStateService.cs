@@ -1,4 +1,5 @@
 ﻿using BlazorAgenda.Shared.Enums;
+using BlazorAgenda.Shared.Interfaces.BaseObjects;
 using BlazorAgenda.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace BlazorAgenda.Services.Interfaces
         User LoginUser { get; set; }
         Organization Organization { get; set; }
         List<User> ChosenContacts { get; set; }
+        ModalTypes CurrentModalType { get; set; }
+        IBaseObject CurrentObject { get; set; }
         void ResetState();
         event Action OnChange;
         Pages CurrentPage { get; set; }

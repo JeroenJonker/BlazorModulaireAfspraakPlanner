@@ -1,0 +1,77 @@
+﻿@using BlazorAgenda.Client.Viewmodels;
+@using BlazorAgenda.Shared.Models;
+@using BlazorAgenda.Client.Views.BaseViews
+@using BlazorAgenda.Shared.Enums
+@inherits OptionViewModel
+
+<ModalTemplateView Title="@Title" IsVisible="true" OnClose="@OnClose">
+    <ModalContent>
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">Text</label>
+            </span>
+            <span class="col-sm-7 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">&#64;</span>
+                </div>
+                <input class="form-control" type="text" placeholder="Text" bind="@Option.Text" />
+            </span>
+        </div>
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">Description</label>
+            </span>
+            <span class="col-sm-7 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="oi oi-person"></i></span>
+                </div>
+                <input class="form-control" type="text" placeholder="Description" bind="@Option.Description" />
+            </span>
+        </div>
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">Field type</label>
+            </span>
+            <span class="col-sm-7 input-group">
+                <select bind="@SelectedElementType">
+                    @foreach (ElementTypes elementType in AvailableElementTypes)
+                    {
+                        <option value="@elementType">@elementType</option>
+                    }
+                </select>
+            </span>
+        </div>
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">Duration in minutes</label>
+            </span>
+            <span class="col-sm-7 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="oi oi-person"></i></span>
+                </div>
+                <input class="form-control" type="number" step="5" min="0" value="0" bind="@Option.TimeModifier" />
+            </span>
+        </div>
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">Mandatory</label>
+            </span>
+            <span class="col-sm-7 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="oi oi-person"></i></span>
+                </div>
+                <input class="form-control" type="checkbox" bind="@Option.IsMandatory" />
+            </span>
+        </div>
+    </ModalContent>
+    <FooterContent>
+        @if (Option.Id != default)
+        {
+            <ObjectBaseFooterView ObjectState=@BlazorAgenda.Shared.Enums.ObjectState.Edit OnSave="@Save"/>
+        }
+        else
+        {
+            <ObjectBaseFooterView ObjectState=BlazorAgenda.Shared.Enums.ObjectState.Add OnSave="@Save" OnDelete="@Delete"/>
+        }
+    </FooterContent>
+</ModalTemplateView>
