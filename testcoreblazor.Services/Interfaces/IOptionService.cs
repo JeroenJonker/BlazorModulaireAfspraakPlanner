@@ -8,6 +8,6 @@ namespace BlazorAgenda.Services.Interfaces
 {
     public interface IOptionService : IDefaultObjectService<Option>
     {
-        Task<List<Option>> GetOptionsAsync(User user);
+        Task<List<Option>> GetOptionsAsync(Organization organization);
     }
 }
