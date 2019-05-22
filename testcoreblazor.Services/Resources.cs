@@ -23,5 +23,7 @@ namespace BlazorAgenda.Services
         public const string UserApi_GetAllUsers = "api/User/GetAllUsers";
 
         public const string OrganizationApi_GetOrganizations = "api/Organization/GetOrganizations/";
+
+        public const string OptionsApi_GetOrganizationOptions = "api/Options/GetOrganizationOptions/";
     }
 }
