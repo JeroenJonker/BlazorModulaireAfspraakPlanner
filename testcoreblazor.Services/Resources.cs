@@ -26,6 +26,6 @@ namespace BlazorAgenda.Services
         
         public const string OrganizationApi_GetObjectById = "api/Organization/GetObjectById/";
 
-        public const string OptionsApi_GetOrganizationOptions = "api/Options/GetOrganizationOptions/";
+        public const string OptionsApi_GetOrganizationOptions = "api/Option/GetOrganizationOptions/";
     }
 }

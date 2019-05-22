@@ -17,6 +17,7 @@ namespace BlazorAgenda.Client.Viewmodels
 
         protected override async Task OnInitAsync()
         {
+            Users = new List<User>();
             Users = await UserService.GetContacts();
         }
 

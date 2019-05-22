@@ -42,10 +42,10 @@ namespace BlazorAgenda.Server.Controllers
             return BadRequest();
         }
 
-        [HttpPost("[action]")]
-        public IActionResult GetOptions([FromBody] Organization Object)
+        [HttpGet("[action]/{organizationId}")]
+        public IActionResult GetOrganizationOptions(int organizationId)
         {
-            return Ok(OptionAccess.GetOptions(Object));
+            return Ok(OptionAccess.GetOrganizationOptions(organizationId));
         }
 
         private IActionResult GetObjectById(int id)
