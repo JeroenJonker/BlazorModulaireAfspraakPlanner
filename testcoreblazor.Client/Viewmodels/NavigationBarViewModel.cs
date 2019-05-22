@@ -8,12 +8,12 @@ namespace BlazorAgenda.Client.Viewmodels
     public class NavigationBarViewModel : ComponentBase
     {
         [Inject] protected IStateService StateService { get; set; }
-        [Inject] protected UserViewService UserView { get; set; }
 
         public void EditUser()
         {
-            UserView.CurrentObject = StateService.LoginUser;
-            UserView.ChangeVisibility();
+            StateService.CurrentObject = StateService.LoginUser;
+            StateService.CurrentModalType = ModalTypes.User;
+            StateService.NotifyStateChanged();
         }
 
         public void Logout()
@@ -37,6 +37,7 @@ namespace BlazorAgenda.Client.Viewmodels
         public void ViewOptions()
         {
             StateService.CurrentPage = Pages.Options;
+            //StateService.CurrentModalType = ModalTypes.Option;
             StateService.NotifyStateChanged();
         }
     }

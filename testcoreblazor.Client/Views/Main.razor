@@ -19,12 +19,19 @@ else
         }
         else if (StateService.CurrentPage == Pages.Users)
         {
-            <UsersView/>
+            <UsersView />
         }
         else if (StateService.CurrentPage == Pages.Options)
         {
-            <OptionsView/>
+            <OptionsView />
         }
     </div>
 }
-<UserView/>
+@if (StateService.CurrentModalType == ModalTypes.Option)
+{
+    <OptionView />
+}
+@if (StateService.CurrentModalType == ModalTypes.User)
+{
+    <UserView />
+}

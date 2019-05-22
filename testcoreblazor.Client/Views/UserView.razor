@@ -1,10 +1,11 @@
 ﻿@using BlazorAgenda.Client.Services
 @using BlazorAgenda.Services.Interfaces
 @using BlazorAgenda.Client.Views.BaseViews
-@inject UserViewService service
-@inject IStateService StateService
+@using BlazorAgenda.Client.Viewmodels
 
-<ModalTemplateView Title="@service.Title" OnClose=@service.Close IsVisible="@service.IsVisible">
+@inherits UserViewModel
+
+<ModalTemplateView Title="@Title" OnClose="@OnClose" IsVisible="true">
     <ModalContent>
         <div class="form-row">
             <span class="col-sm-5">
@@ -14,7 +15,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">&#64;</span>
                 </div>
-                <input class="form-control" type="text" placeholder="Email" bind="@service.CurrentObject.Emailadress" />
+                <input class="form-control" type="text" placeholder="Email" bind="@User.Emailadress" />
             </span>
         </div>
         <div class="form-row">
@@ -25,7 +26,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="oi oi-person"></i></span>
                 </div>
-                <input class="form-control" type="text" placeholder="First name" bind="@service.CurrentObject.Firstname" />
+                <input class="form-control" type="text" placeholder="First name" bind="@User.Firstname" />
             </span>
         </div>
         <div class="form-row">
@@ -36,7 +37,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="oi oi-person"></i></span>
                 </div>
-                <input class="form-control" type="text" placeholder="Last Name" bind="@service.CurrentObject.Lastname" />
+                <input class="form-control" type="text" placeholder="Last Name" bind="@User.Lastname" />
             </span>
         </div>
         <div class="form-row">
@@ -47,26 +48,18 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="oi oi-lock-locked"></i></span>
                 </div>
-                <input class="form-control" type="password" placeholder="Password" bind="@service.CurrentObject.Password" />
+                <input class="form-control" type="password" placeholder="Password" bind="@User.Password" />
             </span>
         </div>
     </ModalContent>
     <FooterContent>
-        @if (StateService.LoginUser.Id != service.CurrentObject.Id)
+        @if (User.Id != default)
         {
-            <ObjectBaseFooterView ObjectState=@service.CurrentService.GetObjectState(service.CurrentObject) OnSave=@service.Save OnDelete=@service.Delete />
+            <ObjectBaseFooterView ObjectState="BlazorAgenda.Shared.Enums.ObjectState.Edit" OnSave="@Save" OnDelete="@Delete" />
         }
         else
         {
-            <ObjectBaseFooterView ObjectState=@service.CurrentService.GetObjectState(service.CurrentObject) OnSave=@service.Save />
+            <ObjectBaseFooterView ObjectState=@BlazorAgenda.Shared.Enums.ObjectState.Add OnSave="@Save" />
         }
     </FooterContent>
 </ModalTemplateView>
-
-@functions
-{
-    protected override void OnInit()
-    {
-        service.OnChange += StateHasChanged;
-    }
-}
