@@ -8,7 +8,14 @@ namespace BlazorAgenda.Shared.Enums
     {
         Text = 1,
         Check = 2,
-        Integer = 3,
-        Radiobutton = 4
+        Number = 3,
+        Radiobutton = 4,
+        Email = 5,
+        Address = 6,
+        Telephonenumber = 7,
+        StaffSelection = 8,
+        Date = 9,
+        MultiSelect = 10,
+        Dropdown = 11
     }
 }
