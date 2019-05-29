@@ -1,4 +1,5 @@
 ﻿using BlazorAgenda.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -65,6 +66,11 @@ namespace BlazorAgenda.Server.DataAccess
             {
                 return false;
             }
+        }
+
+        internal List<User> GetUsersByOrganization(int organizationId)
+        {
+            return db.User.Where(user => user.OrganizationId == organizationId).ToList();
         }
     }
 }
