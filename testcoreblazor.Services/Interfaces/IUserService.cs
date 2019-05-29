@@ -8,5 +8,7 @@ namespace BlazorAgenda.Services.Interfaces
     {
         Task<User> CheckUser(User user);
         Task<List<User>> GetContacts();
+
+        Task<List<User>> GetStaffByOrganization(Organization organization);
     }
 }

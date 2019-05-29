@@ -34,5 +34,10 @@ namespace BlazorAgenda.Services
         {
             return await http.GetJsonAsync<List<User>>(Resources.UserApi_GetAllUsers);
         }
+
+        public async Task<List<User>> GetStaffByOrganization(Organization organization)
+        {
+            return await http.GetJsonAsync<List<User>>(Resources.UserApi_GetStaffByOrganization + organization.Id);
+        }
     }
 }

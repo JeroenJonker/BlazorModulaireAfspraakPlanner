@@ -69,6 +69,17 @@ namespace BlazorAgenda.Server.Controllers
             return Ok(users);
         }
 
+        [HttpGet("[action]/{organiationId}")]
+        public IActionResult GetStaffByOrganization(int organiationId)
+        {
+            List<User> users = UserAccess.GetUsersByOrganization(organiationId);
+            foreach (User user in users)
+            {
+                user.Password = "";
+            }
+            return Ok(users);
+        }
+
         [HttpPost("[action]")]
         public IActionResult IsValidUser([FromBody] User loginuser)
         {
