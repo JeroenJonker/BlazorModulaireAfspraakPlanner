@@ -18,6 +18,8 @@ namespace BlazorAgenda.Shared.Models
         public virtual DbSet<EventOption> EventOption { get; set; }
         public virtual DbSet<Option> Option { get; set; }
         public virtual DbSet<Organization> Organization { get; set; }
+        public virtual DbSet<Job> Job { get; set; }
+        public virtual DbSet<UserJob> UserJob { get; set; }
 
         public virtual DbSet<Workhours> Workhours { get; set; }
 
@@ -53,7 +55,7 @@ namespace BlazorAgenda.Shared.Models
                     .HasColumnName("SUMMARY")
                     .HasMaxLength(30);
 
-                entity.Property(e => e.UserId).HasColumnName("USERID");
+                entity.Property(e => e.Userid).HasColumnName("USER_ID");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Event)
@@ -166,6 +168,38 @@ namespace BlazorAgenda.Shared.Models
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.OrganizationId)
                     .HasConstraintName("FK_Organization_User");
+            });
+
+            modelBuilder.Entity<Job>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("NAME")
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("DESCRIPTION")
+                    .HasMaxLength(30);
+            });
+
+            modelBuilder.Entity<UserJob>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
+
+                entity.Property(e => e.JobId).HasColumnName("JOB_ID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserJob)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_User_UserJob");
+
+                entity.HasOne(d => d.Job)
+                    .WithMany(p => p.UserJob)
+                    .HasForeignKey(d => d.JobId)
+                    .HasConstraintName("FK_Job_UserJob");
             });
 
             modelBuilder.Entity<Workhours>(entity =>
