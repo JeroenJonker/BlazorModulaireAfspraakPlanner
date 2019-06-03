@@ -60,6 +60,15 @@ CREATE TABLE [EventOption](
 );
 GO
 
+CREATE TABLE [Workhours](
+	[ID] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[START] datetime not null,
+	[END] datetime not null,
+	[USER_ID] int not null,
+	CONSTRAINT FK_User_Workhours FOREIGN KEY ([USER_ID]) REFERENCES [USER] (ID) ON DELETE CASCADE,
+);
+GO
+
 INSERT INTO [Organization] (NAME, IS_PRIVATE)
 VALUES ('Advocaat Jan', 0);
 GO

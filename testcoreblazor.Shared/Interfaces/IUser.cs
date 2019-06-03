@@ -14,5 +14,6 @@ namespace BlazorAgenda.Shared.Interfaces
         int? OrganizationId { get; set; }
         Organization Organization { get; set; }
         ICollection<Event> Event { get; set; }
+        ICollection<Workhours> Workhours { get; set; }
     }
 }
