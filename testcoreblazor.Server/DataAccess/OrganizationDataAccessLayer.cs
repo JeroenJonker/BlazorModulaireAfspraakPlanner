@@ -21,6 +21,11 @@ namespace BlazorAgenda.Server.DataAccess
             List<Organization> organizations = db.Organization.Where(g => g.Id == id).ToList();
             return organizations.Count > 0 ? organizations[0] : null;
         }
+        public Organization GetOrganizationByName(string name)
+        {
+            List<Organization> organizations = db.Organization.Where(g => g.Name == name).ToList();
+            return organizations.Count > 0 ? organizations[0] : null;
+        }
         public bool TryAddOrganization(Organization newOrganization)
         {
             try

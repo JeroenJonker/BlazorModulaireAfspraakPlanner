@@ -8,6 +8,7 @@ namespace BlazorAgenda.Shared.Models
         public User()
         {
             Event = new HashSet<Event>();
+            UserJob = new HashSet<UserJob>();
         }
 
         public int Id { get; set; }
@@ -20,5 +21,6 @@ namespace BlazorAgenda.Shared.Models
 
         public Organization Organization { get; set; }
         public ICollection<Event> Event { get; set; }
+        public ICollection<UserJob> UserJob { get; set; }
     }
 }

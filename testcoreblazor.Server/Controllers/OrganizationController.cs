@@ -51,5 +51,15 @@ namespace BlazorAgenda.Server.Controllers
             }
             return NotFound();
         }
+
+        [HttpGet("[action]/{organizationName}")]
+        public IActionResult GetObjectByName(string organizationName)
+        {
+            if (OrganizationAccess.GetOrganizationByName(organizationName) is Organization organization)
+            {
+                return Ok(organization);
+            }
+            return NotFound();
+        }
     }
 }
