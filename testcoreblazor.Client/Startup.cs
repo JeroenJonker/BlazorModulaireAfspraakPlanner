@@ -17,11 +17,14 @@ namespace BlazorAgenda.Client
             services.AddSingleton<IStateService, StateService>();
             services.AddSingleton<IOptionService, OptionService>();
             services.AddSingleton<IOrganizationService, OrganizationService>();
+            services.AddSingleton<IWorkhoursService, WorkhoursService>();
             services.AddSingleton<EventViewService>();
-            services.AddSingleton<UserViewService>();
+            //services.AddSingleton<UserViewService>();
             services.AddTransient<IUser, User>();
             services.AddTransient<IEvent, Event>();
             services.AddTransient<IOption, Option>();
+            services.AddTransient<IWorkhours, Workhours>();
+            services.AddTransient<IAppointment, Appointment>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
