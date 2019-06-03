@@ -10,15 +10,14 @@ namespace BlazorAgenda.Client.Viewmodels
 {
     public class UsersViewModel : ComponentBase
     {
-        public List<User> Users { get; set; }
+        public List<User> Users { get; set; } = new List<User>();
 
         [Inject] IUserService UserService { get; set; }
         [Inject] IStateService StateService { get; set; }
 
         protected override async Task OnInitAsync()
         {
-            Users = new List<User>();
-            Users = await UserService.GetContacts();
+            Users = new List<User>(await UserService.GetContacts());
         }
 
         public void EditUser(User user)

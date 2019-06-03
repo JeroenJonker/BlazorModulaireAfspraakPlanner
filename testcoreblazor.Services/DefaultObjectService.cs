@@ -25,7 +25,7 @@ namespace BlazorAgenda.Services
 
         public virtual ObjectState GetObjectState(T CurrentObject)
         {
-            return CurrentObject.Id != default(int) ? ObjectState.Edit : ObjectState.Add;
+            return CurrentObject.Id == default ? ObjectState.Add : ObjectState.Edit;
         }
 
         public virtual async Task ExecuteAsync(T CurrentObject)

@@ -1,4 +1,5 @@
-﻿
+﻿@using BlazorAgenda.Client.Services
+
     <div class="datePickerBox">
         <div class="datePickerHeader">
             <button onclick="@PreviousMonth"><span class="oi oi-arrow-thick-left"></span></button>
@@ -22,14 +23,6 @@
 
 @functions
 {
-    public class DateCell
-    {
-        public int Column { get; set; }
-        public int Row { get; set; }
-        public DateTime Date { get; set; }
-        public string StyleClass { get; set; }
-    }
-
     public DateTime CurrentDate { get; set; }
 
     public List<DateCell> DateCells { get; set; }
@@ -37,6 +30,8 @@
     public List<string> Days { get; set; }
 
     public DateCell SelectedDateCell { get; set; }
+
+    [Parameter] Action<DateTime> OnSelectedDate { get; set; }
 
     protected override void OnInit()
     {
@@ -97,6 +92,7 @@
             }
             dateCell.StyleClass = "dateCellSelected";
             SelectedDateCell = dateCell;
+            OnSelectedDate?.Invoke(dateCell.Date);
         }
     }
 }

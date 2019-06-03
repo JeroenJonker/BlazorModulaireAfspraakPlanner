@@ -15,5 +15,8 @@ namespace BlazorAgenda.Shared.Interfaces
         User ChosenStaffMember { get; set; }
 
         List<EventOption> ChosenEventOptions { get; set; }
+
+        Event Event { get; set; }
+
     }
 }

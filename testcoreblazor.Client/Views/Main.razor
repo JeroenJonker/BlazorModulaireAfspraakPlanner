@@ -19,11 +19,16 @@ else
         }
         else if (StateService.CurrentPage == Pages.Users)
         {
-            <UsersView />
+            <AppointmentDateTimeSelectionView />
+            @*<UsersView />*@
         }
         else if (StateService.CurrentPage == Pages.Options)
         {
             <OptionsView />
+        }
+        else if (StateService.CurrentPage == Pages.Workhours)
+        {
+            <CalendarWorkhoursView />
         }
     </div>
 }
@@ -35,3 +40,9 @@ else
 {
     <UserView />
 }
+@if (StateService.CurrentModalType == ModalTypes.Workhours)
+{
+    <WorkhoursView />
+}
+
+@*<InlineDatePicker/>*@

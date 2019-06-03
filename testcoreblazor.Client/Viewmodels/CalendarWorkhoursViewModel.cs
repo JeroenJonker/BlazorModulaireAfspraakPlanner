@@ -1,32 +1,32 @@
 ﻿using BlazorAgenda.Client.Services;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using BlazorAgenda.Services.Interfaces;
-using BlazorAgenda.Shared.Models;
 using BlazorAgenda.Shared.Interfaces;
-using Microsoft.AspNetCore.Components;
 using BlazorAgenda.Shared.Interfaces.BaseObjects;
+using BlazorAgenda.Shared.Models;
+using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlazorAgenda.Client.Viewmodels
 {
-    public class CalendarViewModel : ComponentBase
+    public class CalendarWorkhoursViewModel : ComponentBase
     {
         [Inject]
-        protected EventViewService EventViewService { get; set; }
-        [Inject]
-        protected IEventService EventService { get; set; }
+        protected IWorkhoursService WorkhoursService { get; set; }
         [Inject]
         protected IStateService StateService { get; set; }
-        [Inject] 
-        protected IEvent CurrentObject { get; set; }
+        [Inject]
+        protected IWorkhours Workhours { get; set; }
         [Inject]
         public IUserService UserService { get; set; }
-        public ObservableCollection<User> Contacts { get; set; }
+        [Parameter]
+        protected DateTime Start { get; set; }
+        public ObservableCollection<User> Contacts { get; set; } = new ObservableCollection<User>();
 
-        public ObservableCollection<User> SelectedContacts { get; set; }
+        public ObservableCollection<User> SelectedUsers { get; set; } = new ObservableCollection<User>();
 
         private DateTime selectedDate;
         public DateTime SelectedDate
@@ -39,7 +39,7 @@ namespace BlazorAgenda.Client.Viewmodels
             }
         }
         public DateTime StartOfWeekDate { get; set; }
-        
+
         public string CurrentMonthAndYear { get; set; }
 
         public enum ViewTypes
@@ -57,26 +57,23 @@ namespace BlazorAgenda.Client.Viewmodels
                 GoToSelectedDate();
             }
         }
-        
+
         protected override async Task OnInitAsync()
         {
-            EventViewService.OnSavedChange = CloseEventView;
-            SelectedContacts = new ObservableCollection<User>();
-            SelectedContacts.Add(StateService.LoginUser);
+            Contacts = SelectedUsers = new ObservableCollection<User>(await UserService.GetContacts());
             await UpdateEvents();
-            Contacts = new ObservableCollection<User>(await UserService.GetContacts());
             GoToToday();
         }
 
         public async Task UpdateChosenContacts(User user)
         {
-            if (SelectedContacts.Contains(user))
+            if (SelectedUsers.Contains(user))
             {
-                SelectedContacts.Remove(user);
+                SelectedUsers.Remove(user);
             }
             else
             {
-                SelectedContacts.Add(user);
+                SelectedUsers.Add(user);
             }
             await UpdateEvents();
         }
@@ -91,16 +88,13 @@ namespace BlazorAgenda.Client.Viewmodels
         public async Task<List<CalendarEvent>> GetCalendarEvents()
         {
             List<CalendarEvent> events = new List<CalendarEvent>();
-            for (int i = 0; i < SelectedContacts.Count; i++)
+            for (int i = 0; i < SelectedUsers.Count; i++)
             {
-                List<Event> userEvents = await EventService.GetEvents(SelectedContacts[i]);
-                foreach (Event ev in userEvents)
+                List<Workhours> userEvents = await WorkhoursService.GetWorkhours(SelectedUsers[i]);
+                foreach (Workhours ev in userEvents)
                 {
-                    if (ev.UserId == StateService.LoginUser.Id || !ev.IsPrivate)
-                    {
-                        string color = Colors.Items[i % Colors.Items.Length];
-                        events.Add(new CalendarEvent { Event = ev, Color = color });
-                    }
+                    string color = Colors.Items[i % Colors.Items.Length];
+                    events.Add(new CalendarEvent { Event = ev, Color = color });
                 }
             }
             return events;
@@ -139,7 +133,7 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public string GetCurrentMonthAndYear()
         {
-            if(ViewType == ViewTypes.Day)
+            if (ViewType == ViewTypes.Day)
             {
                 return SelectedDate.ToString("dd MMMM yyyy");
             }
@@ -168,22 +162,28 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void OnMoveEvent(IBaseEvent ev)
         {
-            EventService.ExecuteAsync(ev as Event);
+            WorkhoursService.ExecuteAsync(ev as Workhours);
             StateHasChanged();
         }
 
         public void OnNewEvent(DateTime start)
         {
-            CurrentObject.Start = start;
-            CurrentObject.End = start.AddHours(1);
-            CurrentObject.UserId = StateService.LoginUser.Id;
-            EventViewService.CurrentObject = CurrentObject as Event;
-            EventViewService.ChangeVisibility();
+            Start = start;
+            StateService.CurrentModalType = BlazorAgenda.Shared.Enums.ModalTypes.Workhours;
+            StateService.OnSetNewCurrentObject = SetNewCurrentObject;
+            StateService.NotifyStateChanged();
         }
 
         public async Task CloseEventView()
         {
             await UpdateEvents();
+        }
+
+        public IBaseObject SetNewCurrentObject(IBaseObject newObject)
+        {
+            Workhours newObjects = newObject as Workhours;
+            newObjects.Start = Start;
+            return newObjects;
         }
     }
 }

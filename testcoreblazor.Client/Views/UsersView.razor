@@ -15,7 +15,7 @@
         <tbody>
             @foreach (User user in Users)
             {
-                <tr onclick=@(() => EditUser(user))>
+                <tr onclick="@(() => EditUser(user))">
                     <td>@user.Firstname</td>
                     <td>@user.Lastname</td>
                     <td>@user.Emailadress</td>

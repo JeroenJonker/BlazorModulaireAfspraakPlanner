@@ -1,5 +1,6 @@
 ﻿using BlazorAgenda.Client.Services;
 using BlazorAgenda.Services.Interfaces;
+using BlazorAgenda.Shared.Interfaces.BaseObjects;
 using BlazorAgenda.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -12,7 +13,7 @@ namespace BlazorAgenda.Client.Viewmodels
         protected DateTime Start { get; set; }
 
         [Parameter]
-        protected Action<Event> MoveEvent { get; set; }
+        protected Action<IBaseEvent> MoveEvent { get; set; }
 
         [Parameter]
         protected Action<DateTime> NewEvent { get; set; }
@@ -24,7 +25,7 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void OnItemDragStart(UIDragEventArgs e, CalendarEvent calendarEvent)
         {
-            if (calendarEvent.Event.Userid == StateService.LoginUser.Id)
+            if ((calendarEvent.Event is Event && calendarEvent.Event.UserId == StateService.LoginUser.Id) || calendarEvent.Event is Workhours)
             {
                 DragDropHelper.Item = calendarEvent;
             }
@@ -52,7 +53,7 @@ namespace BlazorAgenda.Client.Viewmodels
 
         private void UpdateEvent(DateTime _start)
         {
-            Event item = DragDropHelper.Item.Event;
+            IBaseEvent item = DragDropHelper.Item.Event;
             TimeSpan duration = item.End - item.Start;
             item.Start = _start;
             item.End = _start.Add(duration);

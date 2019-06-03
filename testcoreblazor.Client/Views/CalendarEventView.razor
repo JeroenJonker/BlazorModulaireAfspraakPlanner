@@ -2,19 +2,28 @@
 @using BlazorAgenda.Client.Viewmodels
 @inherits CalendarEventViewModel
 
-<div class="event" draggable="true" ondragstart="@(e => DragStart?.Invoke(e, CalendarEvent as CalendarEvent))" ondragenter="$(this).css('z-index', 'unset');"
-     ondragleave="$(this).css('z-index', 'auto');" ondragend="$('.event').css('z-index', '');" onclick=@ChangeShowModalEvent
-     style="background-color:@(CalendarEvent.Color); height: @(Rowspan * 16)px; width: @((float)100 / NumEvents)%">
-    @CalendarEvent.Event.Summary
-    @if(CalendarEvent.Event.IsPrivate)
-    {
-        <span class="oi oi-lock-locked" title="This event is private and not visible for other users."></span>
-    }
-    <br />
-    <span class="oi oi-clock"></span> @CalendarEvent.Event.Start.ToString("HH:mm") - @CalendarEvent.Event.End.ToString("HH:mm")
-    @if(CalendarEvent.Event.Location != null)
-    {
-        <br />
-        @CalendarEvent.Event.Location
-    }
-</div>
+    <div class="event" draggable="true" ondragstart="@(e => DragStart?.Invoke(e, CalendarEvent as CalendarEvent))" ondragenter="$(this).css('z-index', 'unset');"
+         ondragleave="$(this).css('z-index', 'auto');" ondragend="$('.event').css('z-index', '');" onclick=@ChangeShowModalEvent
+         style="background-color:@(CalendarEvent.Color); height: @(Rowspan * 16)px; width: @((float)100 / NumEvents)%">
+        @if (CalendarEvent.Event is Event calendarevent)
+        {
+            @(calendarevent.Summary)
+            @if (calendarevent.IsPrivate)
+            {
+                <span class="oi oi-lock-locked" title="This event is private and not visible for other users."></span>
+            }
+            <br />
+            <span class="oi oi-clock"></span> @(calendarevent.Start.ToString("HH:mm") + "-" + calendarevent.End.ToString("HH:mm"))
+            @if (calendarevent.Location != null)
+            {
+                <br />
+                @(calendarevent.Location)
+            }
+
+        }
+        @if (CalendarEvent.Event is Workhours workhours)
+        {
+            <span class="oi oi-clock"></span> @(workhours.Start.ToString("HH:mm") + "-" + workhours.End.ToString("HH:mm"))
+        }
+
+    </div>

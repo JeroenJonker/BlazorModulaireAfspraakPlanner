@@ -5,7 +5,7 @@ namespace BlazorAgenda.Shared.Interfaces
 {
     public interface ICalendarEvent : IBaseObject
     {
-        Event Event { get; set; }
+        IBaseEvent Event { get; set; }
         string Color { get; set; }
     }
 }

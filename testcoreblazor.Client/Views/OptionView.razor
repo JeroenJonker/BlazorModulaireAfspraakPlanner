@@ -67,11 +67,11 @@
     <FooterContent>
         @if (Option.Id != default)
         {
-            <ObjectBaseFooterView ObjectState=@BlazorAgenda.Shared.Enums.ObjectState.Edit OnSave="@Save"/>
+            <ObjectBaseFooterView ObjectState=@BlazorAgenda.Shared.Enums.ObjectState.Add OnSave="@Save"/>
         }
         else
         {
-            <ObjectBaseFooterView ObjectState=BlazorAgenda.Shared.Enums.ObjectState.Add OnSave="@Save" OnDelete="@Delete"/>
+            <ObjectBaseFooterView ObjectState=BlazorAgenda.Shared.Enums.ObjectState.Edit OnSave="@Save" OnDelete="@Delete"/>
         }
     </FooterContent>
 </ModalTemplateView>

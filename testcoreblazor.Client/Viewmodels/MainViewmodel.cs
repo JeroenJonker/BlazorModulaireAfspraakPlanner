@@ -20,7 +20,6 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             StateService.LoginUser = user;
             StateService.Organization = organization;
-            StateService.ChosenContacts.Add(user);
             StateHasChanged();
         }
     }

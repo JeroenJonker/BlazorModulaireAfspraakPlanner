@@ -10,9 +10,10 @@ namespace BlazorAgenda.Services.Interfaces
     {
         User LoginUser { get; set; }
         Organization Organization { get; set; }
-        List<User> ChosenContacts { get; set; }
+        //List<User> ChosenContacts { get; set; }
         ModalTypes CurrentModalType { get; set; }
         IBaseObject CurrentObject { get; set; }
+        Func<IBaseObject, IBaseObject> OnSetNewCurrentObject { get; set; }
         void ResetState();
         event Action OnChange;
         Pages CurrentPage { get; set; }
