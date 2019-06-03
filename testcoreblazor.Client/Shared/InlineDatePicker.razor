@@ -1,0 +1,102 @@
+﻿
+    <div class="datePickerBox">
+        <div class="datePickerHeader">
+            <button onclick="@PreviousMonth"><span class="oi oi-arrow-thick-left"></span></button>
+            <h2 class="datePickerLabel">@CurrentDate.Year @CurrentDate.ToString("MMMM") </h2>
+            <button onclick="@NextMonth"><span class="oi oi-arrow-thick-right"></span></button>
+        </div>
+
+        <div class="grid-container">
+            @foreach (string day in Days)
+            {
+                <span class="dateCellDay" style="grid-column:@Days.FindIndex(day.StartsWith)">@day</span>
+            }
+            @foreach (DateCell datecell in DateCells)
+            {
+                <div onclick="@(() => OnDateCellClick(datecell))" class="@datecell.StyleClass" style="grid-row:@datecell.Row ; grid-column:@datecell.Column ;">
+                    <span>@datecell.Date.Day</span>
+                </div>
+            }
+        </div>
+    </div>
+
+@functions
+{
+    public class DateCell
+    {
+        public int Column { get; set; }
+        public int Row { get; set; }
+        public DateTime Date { get; set; }
+        public string StyleClass { get; set; }
+    }
+
+    public DateTime CurrentDate { get; set; }
+
+    public List<DateCell> DateCells { get; set; }
+
+    public List<string> Days { get; set; }
+
+    public DateCell SelectedDateCell { get; set; }
+
+    protected override void OnInit()
+    {
+        Days = new List<string>() { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+        CurrentDate = new DateTime(DateTime.Now.Year,DateTime.Now.Month,1);
+        SetDataCells();
+        base.OnInit();
+    }
+
+    public void SetDataCells()
+    {
+        DateCells = new List<DateCell>();
+        List<DateTime> dates = GetDates(CurrentDate.Year, CurrentDate.Month).ToList();
+        int row = 2;
+        foreach (DateTime date in dates)
+        {
+            DateCells.Add(new DateCell()
+            {
+                Column = (int)date.DayOfWeek == 0 ? 7 : (int)date.DayOfWeek,
+                Row = row,
+                Date = date,
+                StyleClass = date < new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day) ? "dateCellNotAvailable" : "dateCellNormal"
+            }
+            );
+            if ((int)date.DayOfWeek == 0)
+            {
+                row++;
+            }
+        }
+    }
+
+    public IEnumerable<DateTime> GetDates(int year, int month)
+    {
+        return Enumerable.Range(1, DateTime.DaysInMonth(year, month)).Select(day => new DateTime(year, month, day));
+    }
+
+    public void NextMonth()
+    {
+        CurrentDate = CurrentDate.AddMonths(1);
+        SetDataCells();
+        StateHasChanged();
+    }
+
+    public void PreviousMonth()
+    {
+        CurrentDate = CurrentDate.AddMonths(-1);
+        SetDataCells();
+        StateHasChanged();
+    }
+
+    public void OnDateCellClick(DateCell dateCell)
+    {
+        if (!(dateCell.Date < new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day)))
+        {
+            if (SelectedDateCell != null && SelectedDateCell != dateCell)
+            {
+                SelectedDateCell.StyleClass = "dateCellNormal";
+            }
+            dateCell.StyleClass = "dateCellSelected";
+            SelectedDateCell = dateCell;
+        }
+    }
+}

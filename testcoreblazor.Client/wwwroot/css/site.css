@@ -273,3 +273,57 @@ input[type=checkbox] {
     overflow: auto;
     height: 75vh;
 }
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    background-color: #fafafa;
+}
+
+.grid-container > div {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.dateCellSelected {
+    background-color: #E7E9ED;
+}
+
+.dateCellNormal {
+    background-color: ghostwhite;
+    cursor: pointer;
+}
+
+.dateCellNotAvailable {
+    color: lightgray;
+    cursor: not-allowed;
+}
+
+.datePickerBox {
+    font-size: 1.25rem;
+    max-width: 42rem;
+    box-shadow: 0 4px 22px 0 rgba(0, 0, 0, 0.05);
+    border: solid 1px #e7e9ed;
+    background-color: #fff;
+}
+
+.datePickerHeader {
+    display: flex;
+    padding: 1.2rem 1.4rem;
+    align-items: center;
+}
+
+.datePickerLabel {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dateCellDay {
+    background-color: #E7E9ED;
+    padding: 20px 0;
+    font-weight: bold;
+    text-align: center;
+    grid-row: 1;
+}
