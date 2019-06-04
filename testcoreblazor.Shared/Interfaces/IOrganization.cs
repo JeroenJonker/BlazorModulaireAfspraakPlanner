@@ -13,5 +13,6 @@ namespace BlazorAgenda.Shared.Interfaces
 
         ICollection<Option> Option { get; set; }
         ICollection<User> User { get; set; }
+        ICollection<Job> Job { get; set; }
     }
 }

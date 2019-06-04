@@ -28,7 +28,7 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             Workhours = await WorkhoursService.GetWorkhours(StateService.LoginUser);
             List<Option> ptions = await OptionService.GetOptionsAsync(StateService.Organization);
-            Options = ptions.Where(option => option.ElementType == 1 && option.ElementType != null || option.ElementType != default).ToList();
+            Options = ptions.Where(option => option.ElementType == 1 || option.ElementType != default).ToList();
             foreach (Option option in ptions)
             {
                 Console.WriteLine(option.ElementType);

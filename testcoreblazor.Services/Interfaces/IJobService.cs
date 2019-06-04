@@ -8,6 +8,6 @@ namespace BlazorAgenda.Services.Interfaces
 {
     public interface IJobService : IDefaultObjectService<Job>
     {
-        //
+        Task<List<Job>> GetJobsAsync(Organization organization);
     }
 }

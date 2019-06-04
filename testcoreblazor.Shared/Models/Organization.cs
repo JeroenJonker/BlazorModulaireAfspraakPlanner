@@ -18,5 +18,6 @@ namespace BlazorAgenda.Shared.Models
 
         public ICollection<Option> Option { get; set; }
         public ICollection<User> User { get; set; }
+        public ICollection<Job> Job { get; set; }
     }
 }

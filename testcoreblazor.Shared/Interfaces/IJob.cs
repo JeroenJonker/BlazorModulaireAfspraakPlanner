@@ -8,6 +8,9 @@ namespace BlazorAgenda.Shared.Interfaces
     {
         string Name { get; set; }
         string Description { get; set; }
+        int? OrganizationId { get; set; }
+        
+        Organization Organization { get; set; }
         ICollection<UserJob> UserJob { get; set; }
     }
 }

@@ -26,10 +26,14 @@ namespace BlazorAgenda.Services
         
         public const string OrganizationApi_GetObjectById = "api/Organization/GetObjectById/";
 
+        public const string OrganizationApi_GetObjectByName = "api/Organization/GetObjectByName/";
+
         public const string OptionsApi_GetOrganizationOptions = "api/Option/GetOrganizationOptions/";
 
         public const string UserApi_GetStaffByOrganization = "api/User/GetStaffByOrganization/";
 
         public const string WorkhoursApi_GetUserWorkhours = "api/Workhours/GetUserWorkhours/";
+
+        public const string JobApi_GetOrganizationJobs = "api/Job/GetOrganizationJobs/";
     }
 }

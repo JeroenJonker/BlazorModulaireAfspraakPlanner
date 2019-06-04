@@ -15,8 +15,7 @@ namespace BlazorAgenda.Client.Viewmodels
         [Parameter] Action<User, Organization> OnLogin { get; set; }
         [Inject] protected IUser User { get; set; }
         [Inject] protected IUserService UserService { get; set; }
-        [Inject]
-        protected IOrganizationService OrganizationService { get; set; }
+        [Inject] protected IOrganizationService OrganizationService { get; set; }
 
         public string Style { get; set; }
         public bool IsLoggingIn { get; set; } = false;

@@ -9,5 +9,6 @@ namespace BlazorAgenda.Services.Interfaces
     public interface IOrganizationService : IDefaultObjectService<Organization>
     {
         Task<Organization> GetObjectById(int organizationID);
+        Task<Organization> GetObjectByName(string organizationName);
     }
 }

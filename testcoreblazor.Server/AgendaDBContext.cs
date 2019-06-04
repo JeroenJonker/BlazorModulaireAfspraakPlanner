@@ -55,7 +55,7 @@ namespace BlazorAgenda.Shared.Models
                     .HasColumnName("SUMMARY")
                     .HasMaxLength(30);
 
-                entity.Property(e => e.Userid).HasColumnName("USER_ID");
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Event)
@@ -181,6 +181,13 @@ namespace BlazorAgenda.Shared.Models
                 entity.Property(e => e.Description)
                     .HasColumnName("DESCRIPTION")
                     .HasMaxLength(30);
+
+                entity.Property(e => e.OrganizationId).HasColumnName("ORGANIZATION_ID");
+
+                entity.HasOne(d => d.Organization)
+                    .WithMany(p => p.Job)
+                    .HasForeignKey(d => d.OrganizationId)
+                    .HasConstraintName("FK_Organization_Job");
             });
 
             modelBuilder.Entity<UserJob>(entity =>
