@@ -35,6 +35,14 @@
                     </a>
                 </li>
             }
+            if (StateService.CurrentPage != Pages.Workhours)
+            {
+                <li class="nav-item" onclick=@ViewWorkhours>
+                    <a class="nav-link">
+                        <span class="oi oi-task"></span> View workhours
+                    </a>
+                </li>
+            }
         }
         <li class="nav-item" onclick=@Logout>
             <a class="nav-link">

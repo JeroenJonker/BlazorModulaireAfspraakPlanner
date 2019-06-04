@@ -12,7 +12,6 @@ namespace BlazorAgenda.Services
     {
         [Inject] public User LoginUser { get; set; }
         public Organization Organization { get; set; }
-        public List<User> ChosenContacts { get; set; }
         
         public Pages CurrentPage { get; set; }
 
@@ -21,10 +20,11 @@ namespace BlazorAgenda.Services
 
         public event Action OnChange;
 
+        public Func<IBaseObject,IBaseObject> OnSetNewCurrentObject { get; set; }
+
         public StateService()
         {
             CurrentPage = Pages.Agenda;
-            ChosenContacts = new List<User>();
         }
 
         public void ResetState()
@@ -33,7 +33,6 @@ namespace BlazorAgenda.Services
             CurrentPage = default(Pages);
             CurrentObject = null;
             Organization = null;
-            ChosenContacts.Clear();
         }
 
         public void NotifyStateChanged() => OnChange?.Invoke();

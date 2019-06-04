@@ -23,6 +23,7 @@ namespace BlazorAgenda.Client
             services.AddTransient<IUser, User>();
             services.AddTransient<IEvent, Event>();
             services.AddTransient<IOption, Option>();
+            services.AddTransient<IEventOption, EventOption>();
             services.AddTransient<IWorkhours, Workhours>();
             services.AddTransient<IAppointment, Appointment>();
         }

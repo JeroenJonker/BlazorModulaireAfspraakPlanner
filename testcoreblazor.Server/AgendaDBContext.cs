@@ -21,6 +21,8 @@ namespace BlazorAgenda.Shared.Models
         public virtual DbSet<Job> Job { get; set; }
         public virtual DbSet<UserJob> UserJob { get; set; }
 
+        public virtual DbSet<Workhours> Workhours { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -57,7 +59,7 @@ namespace BlazorAgenda.Shared.Models
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Event)
-                    .HasForeignKey(d => d.Userid);
+                    .HasForeignKey(d => d.UserId);
             });
 
             modelBuilder.Entity<EventOption>(entity =>
@@ -198,6 +200,28 @@ namespace BlazorAgenda.Shared.Models
                     .WithMany(p => p.UserJob)
                     .HasForeignKey(d => d.JobId)
                     .HasConstraintName("FK_Job_UserJob");
+            });
+
+            modelBuilder.Entity<Workhours>(entity =>
+            {
+                entity.ToTable("WORKHOURS");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Start)
+                    .HasColumnName("START")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.End)
+                    .HasColumnName("END")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Workhours)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_User_Workhours");
             });
         }
     }

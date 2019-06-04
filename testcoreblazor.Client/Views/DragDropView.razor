@@ -2,6 +2,7 @@
 @using BlazorAgenda.Client.Viewmodels
 @using BlazorAgenda.Shared
 @using BlazorAgenda.Shared.Models
+@using BlazorAgenda.Shared.Interfaces.BaseObjects
 @inherits DragDropViewModel
 
 <td class="@(Start.Date == DateTime.Now.Date ? "active" : null)">
@@ -10,7 +11,7 @@
         onclick="@OnContainerClick" style="@HighlightDropTargetStyle">
         @foreach (CalendarEvent calendarEvent in DragDropHelper.Items)
         {
-            Event item = calendarEvent.Event;
+            IBaseEvent item = calendarEvent.Event;
             if (item.Start == Start)
             {
                 int rowspan = (int)((item.End - item.Start).TotalHours * 4);

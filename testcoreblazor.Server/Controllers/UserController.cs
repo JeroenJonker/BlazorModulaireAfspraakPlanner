@@ -61,7 +61,7 @@ namespace BlazorAgenda.Server.Controllers
         [HttpGet("[action]")]
         public IActionResult GetAllUsers()
         {
-            List<User> users = UserAccess.GetAllUsers();
+            IEnumerable<User> users = UserAccess.GetAllUsers();
             foreach (User user in users)
             {
                 user.Password = "";

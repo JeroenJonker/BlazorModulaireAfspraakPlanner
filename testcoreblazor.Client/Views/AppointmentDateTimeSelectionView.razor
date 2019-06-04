@@ -1,0 +1,19 @@
+﻿@using BlazorAgenda.Client.Viewmodels
+@using BlazorAgenda.Client.Shared;
+@using BlazorAgenda.Shared.Models
+@using BlazorAgenda.Shared.Enums
+
+@inherits AppointmentDateTimeSelectionViewModel
+
+<div>
+    <InlineDatePicker OnSelectedDate="@OnSelectedDate" />
+    @foreach (DateTime time in AvailableTimes)
+    {
+        <p>@time.ToString("HH:mm")</p>
+    }
+    @foreach (Option option in Options)
+    {
+        <OptionTypeComponent ElementType="@((ElementTypes)option.ElementType)"/>
+    }
+
+</div>

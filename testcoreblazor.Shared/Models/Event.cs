@@ -15,7 +15,7 @@ namespace BlazorAgenda.Shared.Models
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public string Location { get; set; }
-        public int Userid { get; set; }
+        public int UserId { get; set; }
         public bool IsPrivate { get; set; }
 
         public User User { get; set; }

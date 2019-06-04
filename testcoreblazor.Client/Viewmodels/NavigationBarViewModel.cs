@@ -40,5 +40,11 @@ namespace BlazorAgenda.Client.Viewmodels
             //StateService.CurrentModalType = ModalTypes.Option;
             StateService.NotifyStateChanged();
         }
+
+        public void ViewWorkhours()
+        {
+            StateService.CurrentPage = Pages.Workhours;
+            StateService.NotifyStateChanged();
+        }
     }
 }

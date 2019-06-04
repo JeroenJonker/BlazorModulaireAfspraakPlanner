@@ -1,64 +1,66 @@
 ﻿using BlazorAgenda.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlazorAgenda.Server.DataAccess
 {
-    public class EventDataAccessLayer
+    public class WorkhoursDataAccessLayer
     {
         AgendaDBContext db = new AgendaDBContext();
 
-        public Event GetEvent(int id)
+        public List<Workhours> GetUserWorkhours(int userid)
         {
-            List<Event> events = db.Event.Where(g => g.Id == id).ToList();
+            return db.Workhours.Where(g => g.UserId == userid).ToList();
+        }
+
+        public bool TryAddEvent(Workhours newWorkhours)
+        {
+            try
+            {
+                db.Workhours.Add(newWorkhours);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool TryUpdateWorkhours(Workhours updatedWorkhours)
+        {
+            try
+            {
+                db.Entry(updatedWorkhours).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool TryDeleteWorkhours(Workhours deletedWorkhours)
+        {
+            try
+            {
+                db.Workhours.Remove(deletedWorkhours);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public Workhours GetWorkhours(int id)
+        {
+            List<Workhours> events = db.Workhours.Where(g => g.Id == id).ToList();
             return events.Count > 0 ? events[0] : null;
-        }
-
-        public List<Event> GetUserEvents(int userid)
-        {
-            return db.Event.Where(g => g.UserId == userid).ToList();
-        }
- 
-        public bool TryAddEvent(Event newevent)
-        {
-            try
-            {
-                db.Event.Add(newevent);
-                db.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-    
-        public bool TryUpdateEvent(Event updatedEvent)
-        {
-            try
-            {
-                db.Entry(updatedEvent).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                db.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool TryDeleteEvent(Event deletedEvent)
-        {
-            try
-            {
-                db.Event.Remove(deletedEvent);
-                db.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }

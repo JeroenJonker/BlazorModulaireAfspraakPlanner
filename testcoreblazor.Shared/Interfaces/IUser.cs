@@ -15,5 +15,6 @@ namespace BlazorAgenda.Shared.Interfaces
         Organization Organization { get; set; }
         ICollection<Event> Event { get; set; }
         ICollection<UserJob> UserJob { get; set; }
+        ICollection<Workhours> Workhours { get; set; }
     }
 }

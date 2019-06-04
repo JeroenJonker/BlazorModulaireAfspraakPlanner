@@ -55,7 +55,7 @@
 @functions
 {
     [Parameter] protected ElementTypes ElementType { get; set; }
-    [Parameter] protected EventOption EventOption { get; set; }
+    [Inject] protected IEventOption EventOption { get; set; }
     [Inject] protected IUserService UserService { get; set; }
     [Inject] protected IOptionService OptionService { get; set; }
     [Inject] protected IStateService StateService { get; set; }

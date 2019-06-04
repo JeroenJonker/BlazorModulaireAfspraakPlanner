@@ -6,6 +6,6 @@ namespace BlazorAgenda.Shared.Enums
 {
     public enum ModalTypes
     {
-        None, Option, User
+        None, Option, User, Workhours
     }
 }

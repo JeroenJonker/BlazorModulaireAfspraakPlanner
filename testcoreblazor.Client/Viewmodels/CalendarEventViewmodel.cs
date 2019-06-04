@@ -31,10 +31,16 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void ChangeShowModalEvent()
         {
-            if (CalendarEvent.Event.Userid == StateService.LoginUser.Id)
+            if (CalendarEvent.Event is Event && CalendarEvent.Event.UserId == StateService.LoginUser.Id)
             {
                 UserView.CurrentObject = CalendarEvent.Event as Event;
                 UserView.ChangeVisibility();
+            }
+            else if (CalendarEvent.Event is Workhours)
+            {
+                StateService.CurrentObject = CalendarEvent.Event;
+                StateService.CurrentModalType = BlazorAgenda.Shared.Enums.ModalTypes.Workhours;
+                StateService.NotifyStateChanged();
             }
         }
     }
