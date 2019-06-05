@@ -18,5 +18,12 @@ namespace BlazorAgenda.Services
         {
             return await http.GetJsonAsync<Organization>(Resources.OrganizationApi_GetObjectById + organizationID);
         }
+
+        public async Task<Organization> GetObjectByName(string organizationName)
+        {
+            Organization organization = await http.GetJsonAsync<Organization>(Resources.OrganizationApi_GetObjectByName + organizationName);
+            organization.Job = await http.GetJsonAsync<List<Job>>(Resources.JobApi_GetOrganizationJobs + organization.Id);
+            return organization;
+        }
     }
 }

@@ -13,6 +13,8 @@ docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' \
    -p 1433:1433 --name afspraak_planner \
    -d mcr.microsoft.com/mssql/server:2017-latest
 
+sleep 5
+
 docker exec -it afspraak_planner /opt/mssql-tools/bin/sqlcmd \
    -S localhost -U SA -P '<YourStrong!Passw0rd>' \
    -Q 'ALTER LOGIN SA WITH PASSWORD="Goa4BmXHikryKF"'
