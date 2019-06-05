@@ -32,9 +32,9 @@ namespace BlazorAgenda.Client.Viewmodels
         protected override async Task OnInitAsync()
         {
             Workhours = await WorkhoursService.GetWorkhours(StateService.LoginUser);
-            List<Option> ptions = await OptionService.GetOptionsAsync(StateService.Organization);
-            Options = ptions.Where(option => option.ElementType == 1 && option.ElementType != default).ToList();
-            foreach (Option option in ptions)
+            List<Option> options = await OptionService.GetOptionsAsync(StateService.Organization);
+            Options = options.Where(option => option.ElementType == 1 && option.ElementType != default).ToList();
+            foreach (Option option in options)
             {
                 Console.WriteLine(option.ElementType);
             }

@@ -9,6 +9,8 @@ namespace BlazorAgenda.Shared.Interfaces
         string Summary { get; set; }
         string Location { get; set; }
         bool IsPrivate { get; set; }
+        int JobId { get; set; }
+        Job Job { get; set; }
 
     }
 }
