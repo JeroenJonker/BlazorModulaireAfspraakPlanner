@@ -12,6 +12,11 @@ namespace BlazorAgenda.Server.Controllers
     public class OrganizationController : Controller, IObjectController<Organization>
     {
         OrganizationDataAccessLayer OrganizationAccess = new OrganizationDataAccessLayer();
+        UserDataAccessLayer UserAccess = new UserDataAccessLayer();
+        JobDataAccessLayer JobAccess = new JobDataAccessLayer();
+        UserJobDataAccessLayer UserJobAccess = new UserJobDataAccessLayer();
+
+
         [HttpPost("[action]")]
         public IActionResult Add([FromBody] Organization Object)
         {
@@ -57,6 +62,11 @@ namespace BlazorAgenda.Server.Controllers
         {
             if (OrganizationAccess.GetOrganizationByName(organizationName) is Organization organization)
             {
+                organization.Job = JobAccess.GetOrganizationJobs(organization.Id).ToList();
+                organization.User = UserAccess.GetUsersByOrganization(organization.Id).ToList();
+                foreach(Job job in organization.Job) {
+                    job.UserJob = UserJobAccess.GetUserJobs(job.Id).ToList();
+                }
                 return Ok(organization);
             }
             return NotFound();
