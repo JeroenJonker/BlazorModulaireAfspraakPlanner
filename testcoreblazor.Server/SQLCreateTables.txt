@@ -99,3 +99,7 @@ GO
 INSERT INTO [Job] (NAME, DESCRIPTION, ORGANIZATION_ID)
 VALUES ('Kapper', 'krabt de krullen van de trap', 1);
 GO
+
+INSERT INTO [UserJob] (USER_ID, JOB_ID)
+VALUES (1, 1);
+GO

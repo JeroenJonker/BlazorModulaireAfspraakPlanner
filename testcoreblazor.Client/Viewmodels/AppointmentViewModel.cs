@@ -39,6 +39,11 @@ namespace BlazorAgenda.Client.Viewmodels
             
         }
 
+        public void SetEventJob()
+        {
+            Event.Job = StateService.Organization.Job.First(job => job.Id == Event.JobId);
+        }
+
         public void SubmitEventOptions()
         {
             //
