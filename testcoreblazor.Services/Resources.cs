@@ -31,5 +31,7 @@ namespace BlazorAgenda.Services
         public const string UserApi_GetStaffByOrganization = "api/User/GetStaffByOrganization/";
 
         public const string WorkhoursApi_GetUserWorkhours = "api/Workhours/GetUserWorkhours/";
+
+        public const string EventOptionApi_PostCollection = "api/EventOption/PostCollection/";
     }
 }

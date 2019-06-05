@@ -36,7 +36,7 @@
                 <select bind="@SelectedElementType">
                     @foreach (ElementTypes elementType in AvailableElementTypes)
                     {
-                        <option value="@elementType">@elementType</option>
+                        <option value="@elementType" selected="@(nameof(elementType) == SelectedElementType )">@elementType</option>
                     }
                 </select>
             </span>
@@ -67,11 +67,11 @@
     <FooterContent>
         @if (Option.Id != default)
         {
-            <ObjectBaseFooterView ObjectState=@BlazorAgenda.Shared.Enums.ObjectState.Add OnSave="@Save"/>
+            <ObjectBaseFooterView ObjectState="@BlazorAgenda.Shared.Enums.ObjectState.Edit" OnSave="@Save" OnDelete="@Delete" />
         }
         else
         {
-            <ObjectBaseFooterView ObjectState=BlazorAgenda.Shared.Enums.ObjectState.Edit OnSave="@Save" OnDelete="@Delete"/>
+            <ObjectBaseFooterView ObjectState="@BlazorAgenda.Shared.Enums.ObjectState.Add" OnSave="@Save" />
         }
     </FooterContent>
 </ModalTemplateView>

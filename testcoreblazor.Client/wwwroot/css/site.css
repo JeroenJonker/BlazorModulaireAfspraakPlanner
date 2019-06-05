@@ -301,8 +301,8 @@ input[type=checkbox] {
 }
 
 .datePickerBox {
-    font-size: 1.25rem;
-    max-width: 42rem;
+    font-size: 1.2rem;
+    max-width: 28rem;
     box-shadow: 0 4px 22px 0 rgba(0, 0, 0, 0.05);
     border: solid 1px #e7e9ed;
     background-color: #fff;
@@ -326,4 +326,17 @@ input[type=checkbox] {
     font-weight: bold;
     text-align: center;
     grid-row: 1;
+}
+
+.timeSlot {
+    border-top: 1px solid #ddd; 
+}
+
+.timeSlot:hover {
+    background-color: lightgray;
+}
+
+.dateTimeSelectionView {
+    display: grid;
+    grid-template-columns: auto auto;
 }

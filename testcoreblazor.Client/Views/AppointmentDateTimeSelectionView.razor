@@ -5,15 +5,41 @@
 
 @inherits AppointmentDateTimeSelectionViewModel
 
-<div>
+<div class="dateTimeSelectionView">
     <InlineDatePicker OnSelectedDate="@OnSelectedDate" />
-    @foreach (DateTime time in AvailableTimes)
-    {
-        <p>@time.ToString("HH:mm")</p>
-    }
-    @foreach (Option option in Options)
-    {
-        <OptionTypeComponent ElementType="@((ElementTypes)option.ElementType)"/>
-    }
-
+    <div>
+        <div style="padding: 10px">
+            @if (AvailableTimes.Count > 0)
+            {
+                <h3>Available appointments</h3>
+                @foreach (DateTime time in AvailableTimes)
+                {
+                    <div class="timeSlot" onclick="@( () =>  OnSelectedTime(time))">
+                        <span class="input-group-text">
+                            <i class="oi oi-clock" />
+                            &nbsp;@time.ToString("HH:mm")
+                        </span>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
+
+<form onsubmit="@SubmitEventOptions" class="container-fluid">
+    <fieldset>
+        @foreach (Option option in Options)
+        {
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">@option.Description</label>
+            </span>
+            <span class="col-sm-7 input-group">
+                <OptionTypeComponent Option="@option" OnNewEventOption="@(eventOption => AddNewEventOption(eventOption))" />
+            </span>
+        </div>
+        }
+        <button type="submit" value="Submit" />
+    </fieldset>
+</form>
+

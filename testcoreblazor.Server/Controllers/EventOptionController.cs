@@ -50,5 +50,27 @@ namespace BlazorAgenda.Server.Controllers
             }
             return NotFound();
         }
+
+        [HttpPost("[action]")]
+        public IActionResult PostCollection([FromBody] List<EventOption> collection)
+        {
+            //if (collection.Any(eventOption => eventOption.Option.IsMandatory && eventOption.Value == string.Empty))
+            //{
+            //    return BadRequest();
+            //}
+            foreach (EventOption eventOption in collection)
+            {
+                if (EventOptionAccess.TryAddEventOption(eventOption))
+                {
+                    return CreatedAtAction(nameof(GetObjectById), new { id = eventOption.Id }, eventOption);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+
+            return BadRequest();
+        }
     }
 }

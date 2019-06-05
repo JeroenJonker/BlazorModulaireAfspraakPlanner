@@ -18,6 +18,7 @@ namespace BlazorAgenda.Client
             services.AddSingleton<IOptionService, OptionService>();
             services.AddSingleton<IOrganizationService, OrganizationService>();
             services.AddSingleton<IWorkhoursService, WorkhoursService>();
+            services.AddSingleton<IEventOptionService, EventOptionService>();
             services.AddSingleton<EventViewService>();
             //services.AddSingleton<UserViewService>();
             services.AddTransient<IUser, User>();

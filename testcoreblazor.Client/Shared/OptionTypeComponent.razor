@@ -1,74 +1,179 @@
 ﻿@using BlazorAgenda.Shared.Enums;
 @using BlazorAgenda.Shared.Models;
+@using BlazorAgenda.Shared.Interfaces;
 @using BlazorAgenda.Shared.Interfaces.BaseObjects;
 @using BlazorAgenda.Services.Interfaces;
 
-@switch (ElementType)
+@switch ((ElementTypes)Option.ElementType)
 {
     case ElementTypes.Text:
-        <input class="form-control" type="text" bind="@EventOption.Value" />
+        if (Option.IsMandatory)
+        {
+            <input class="form-control" type="text" bind="@EventOption.Value" required />
+        }
+        else
+        {
+            <input class="form-control" type="text" bind="@EventOption.Value" />
+        }
         break;
     case ElementTypes.Check:
-        <input class="form-control" type="checkbox" bind="@EventOption.Value" />
+        if (Option.IsMandatory)
+        {
+            <input class="form-control" type="checkbox" bind="@CheckBoxValue" required />
+        }
+        else
+        {
+            <input class="form-control" type="checkbox" bind="@CheckBoxValue" />
+        }
         break;
     case ElementTypes.Number:
-        <input class="form-control" type="number" bind="@EventOption.Value" />
+        if (Option.IsMandatory)
+        {
+            <input class="form-control" type="number" step="1" bind="@EventOption.Value" required />
+        }
+        else
+        {
+            <input class="form-control" type="number" step="1" bind="@EventOption.Value" />
+        }
         break;
     case ElementTypes.Telephonenumber:
-        <input class="form-control" type="tel" pattern="[0-9]{8}" bind="@EventOption.Value" />
+        if (Option.IsMandatory)
+        {
+            <input class="form-control" type="tel" pattern="[0-9]{8}" bind="@EventOption.Value" required />
+        }
+        else
+        {
+            <input class="form-control" type="tel" pattern="[0-9]{8}" bind="@EventOption.Value" />
+        }
         break;
     case ElementTypes.Address:
-        <input class="form-control" type="text" pattern="^\d{4}\D{2}$" bind="@EventOption.Value" />
+        if (Option.IsMandatory)
+        {
+            <input class="form-control" type="text" pattern="^\d{4}\D{2}$" bind="@EventOption.Value" required />
+        }
+        else
+        {
+            <input class="form-control" type="text" pattern="^\d{4}\D{2}$" bind="@EventOption.Value" />
+        }
         break;
     case ElementTypes.Date:
-        <input class="form-control" type="date" bind="@EventOption.Value" />
+        if (Option.IsMandatory)
+        {
+            <input class="form-control" type="date" bind="@EventOption.Value" required />
+        }
+        else
+        {
+            <input class="form-control" type="date" bind="@EventOption.Value" />
+        }
         break;
     case ElementTypes.Email:
-        <input class="form-control" type="email" bind="@EventOption.Value" />
+        if (Option.IsMandatory)
+        {
+            <input class="form-control" type="email" bind="@EventOption.Value" />
+        }
+        else
+        {
+            <input class="form-control" type="email" bind="@EventOption.Value" />
+        }
         break;
     case ElementTypes.StaffSelection:
-        <select bind="@EventOption.Value">
-            <option selected>-- Choose a staffmember --</option>
-            @foreach (User dropdownItem in StaffMembers)
-            {
-            <option value="@dropdownItem.Emailadress">"@dropdownItem.Firstname @dropdownItem.Lastname"</option>
-            }
-        </select>
+        if (Option.IsMandatory)
+        {
+            <select bind="@EventOption.Value" required>
+                <option value="" selected disabled hidden>-- Choose a staffmember --</option>
+                @foreach (User dropdownItem in StaffMembers)
+                {
+                    <option value="@dropdownItem.Emailadress">@dropdownItem.Firstname @dropdownItem.Lastname</option>
+                }
+            </select>
+        }
+        else
+        {
+            <select bind="@EventOption.Value">
+                <option value="" selected>-- Choose a staffmember --</option>
+                @foreach (User dropdownItem in StaffMembers)
+                {
+                    <option value="@dropdownItem.Emailadress">@dropdownItem.Firstname @dropdownItem.Lastname</option>
+                }
+            </select>
+        }
+
         break;
     case ElementTypes.Dropdown:
-        <select bind="@EventOption.Value">
-            <option selected>-- Choose an option --</option>
-            @foreach (Option dropdownItem in DropdownItems)
-            {
-            <option value="@dropdownItem.Text">"@dropdownItem.Text"</option>
-            }
-        </select>
+        if (Option.IsMandatory)
+        {
+            <select bind="@EventOption.Value" required>
+                <option value="" selected disabled hidden>-- Choose an option --</option>
+                @foreach (Option dropdownItem in DropdownItems)
+                {
+                    <option value="@dropdownItem.Text">"@dropdownItem.Text"</option>
+                }
+            </select>
+        }
+        else
+        {
+            <select bind="@EventOption.Value">
+                <option value="" selected>-- Choose an option --</option>
+                @foreach (Option dropdownItem in DropdownItems)
+                {
+                    <option value="@dropdownItem.Text">"@dropdownItem.Text"</option>
+                }
+            </select>
+        }
+
         break;
         @*case ElementTypes.MultiSelect:
-                <input class="form-control" type="email" bind="@EventOption.Value" />
-                break;
-        case ElementTypes.Radiobutton:
-            <input class="form-control" type="checkbox" bind="@EventOption.Value" />
-            break;*@
+                    <input class="form-control" type="email" bind="@EventOption.Value" />
+                    break;
+            case ElementTypes.Radiobutton:
+                <input class="form-control" type="checkbox" bind="@EventOption.Value" />
+                break;*@
 }
 
 @functions
 {
-    [Parameter] protected ElementTypes ElementType { get; set; }
+    [Parameter] protected IOption Option { get; set; }
+
     [Inject] protected IEventOption EventOption { get; set; }
+
     [Inject] protected IUserService UserService { get; set; }
     [Inject] protected IOptionService OptionService { get; set; }
     [Inject] protected IStateService StateService { get; set; }
     public List<User> StaffMembers { get; set; }
     public List<Option> DropdownItems { get; set; }
+    [Parameter] Action<IEventOption> OnNewEventOption { get; set; }
+    private bool _checkboxValue;
+
+    public bool CheckBoxValue
+    {
+        get { return _checkboxValue; }
+        set { _checkboxValue = value; EventOption.Value = CheckBoxValue.ToString(); }
+    }
+
+
+    protected override void OnInit()
+    {
+        if ((ElementTypes)Option.ElementType == ElementTypes.Check)
+        {
+            CheckBoxValue = false;
+        }
+        base.OnInit();
+    }
+
+    protected override void OnParametersSet()
+    {
+        EventOption.Option = Option as Option;
+        OnNewEventOption?.Invoke(EventOption);
+    }
 
     protected override async Task OnInitAsync()
     {
-        if (ElementType == ElementTypes.StaffSelection)
+        if ((ElementTypes)Option.ElementType == ElementTypes.StaffSelection)
         {
+            StaffMembers = new List<User>();
             StaffMembers = await UserService.GetStaffByOrganization(StateService.Organization);
         }
-        else if (ElementType == ElementTypes.Dropdown)
+        else if ((ElementTypes)Option.ElementType == ElementTypes.Dropdown)
         {
             //DropdownItems = await OptionService.
         }
