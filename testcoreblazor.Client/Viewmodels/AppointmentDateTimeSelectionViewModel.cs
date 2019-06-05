@@ -17,18 +17,23 @@ namespace BlazorAgenda.Client.Viewmodels
         [Inject] IAppointment Appointment { get; set; }
         [Inject] IEvent Event { get; set; }
 
-        public List<DateTime> AvailableTimes { get; set; } = new List<DateTime>(0);
+        public List<DateTime> AvailableTimes { get; set; } = new List<DateTime>();
 
         List<Workhours> Workhours { get; set; } = new List<Workhours>();
 
+        List<EventOption> ChosenOptions { get; set; } = new List<EventOption>();
+
         [Inject] IOptionService OptionService { get; set; }
         public List<Option> Options { get; set; } = new List<Option>();
+
+        [Inject] protected IEventOptionService EventOptionService { get; set; }
+        [Inject] protected IEventService EventService { get; set; }
 
         protected override async Task OnInitAsync()
         {
             Workhours = await WorkhoursService.GetWorkhours(StateService.LoginUser);
             List<Option> ptions = await OptionService.GetOptionsAsync(StateService.Organization);
-            Options = ptions.Where(option => option.ElementType == 1 || option.ElementType != default).ToList();
+            Options = ptions.Where(option => option.ElementType == 1 && option.ElementType != default).ToList();
             foreach (Option option in ptions)
             {
                 Console.WriteLine(option.ElementType);
@@ -46,6 +51,29 @@ namespace BlazorAgenda.Client.Viewmodels
                 }
             }
             StateHasChanged();
+        }
+
+        public void AddNewEventOption(IEventOption eventOption)
+        {
+            Console.WriteLine("a");
+            eventOption.OptionId = eventOption.Option.Id;
+            eventOption.Option = default;
+            eventOption.EventId = 44;
+            ChosenOptions.Add(eventOption as EventOption);
+            Console.WriteLine(ChosenOptions.Count());
+        }
+
+        public void SubmitEventOptions()
+        {
+            EventService.ExecuteAsync(Event as Event);
+            EventOptionService.PostCollection(ChosenOptions);
+        }
+
+        public void OnSelectedTime(DateTime selectedTime)
+        {
+            Event.Start = selectedTime;
+            Event.End = selectedTime.AddMinutes(15);
+            Event.UserId = StateService.LoginUser.Id;
         }
     }
 }

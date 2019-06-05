@@ -32,11 +32,12 @@ namespace BlazorAgenda.Client.Viewmodels
         protected override void OnInit()
         {
             AvailableElementTypes = Enum.GetValues(typeof(ElementTypes)).Cast<ElementTypes>().ToList();
+            SelectedElementType = Enum.GetName(typeof(ElementTypes), ElementTypes.Text);
             if (StateService.CurrentObject is IOption currentOption)
             {
                 Option = currentOption;
+                SelectedElementType = Enum.GetName(typeof(ElementTypes), (ElementTypes)Option.ElementType);
             }
-            SelectedElementType = nameof(ElementTypes.Text);
             Option.OrganizationId = StateService.Organization.Id;
         }
 

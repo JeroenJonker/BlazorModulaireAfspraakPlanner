@@ -1,9 +1,11 @@
 ﻿using BlazorAgenda.Services.Interfaces;
 using BlazorAgenda.Shared.Models;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BlazorAgenda.Services
 {
@@ -11,6 +13,11 @@ namespace BlazorAgenda.Services
     {
         public EventOptionService(HttpClient client) : base(client)
         {
+
+        }
+        public async Task PostCollection(List<EventOption> collection)
+        {
+            await http.PostJsonAsync(Resources.EventOptionApi_PostCollection, collection);
         }
     }
 }

@@ -37,5 +37,7 @@ namespace BlazorAgenda.Services
         public const string JobApi_GetOrganizationJobs = "api/Job/GetOrganizationJobs/";
         
         public const string UserJobApi_GetUserJobsByJob = "api/UserJob/GetUserJobs/";
+
+        public const string EventOptionApi_PostCollection = "api/EventOption/PostCollection/";
     }
 }
