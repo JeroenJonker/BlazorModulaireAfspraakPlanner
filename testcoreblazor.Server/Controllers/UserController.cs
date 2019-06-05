@@ -72,11 +72,7 @@ namespace BlazorAgenda.Server.Controllers
         [HttpGet("[action]/{organiationId}")]
         public IActionResult GetStaffByOrganization(int organiationId)
         {
-            List<User> users = UserAccess.GetUsersByOrganization(organiationId);
-            foreach (User user in users)
-            {
-                user.Password = "";
-            }
+            IEnumerable<User> users = UserAccess.GetUsersByOrganization(organiationId);
             return Ok(users);
         }
 

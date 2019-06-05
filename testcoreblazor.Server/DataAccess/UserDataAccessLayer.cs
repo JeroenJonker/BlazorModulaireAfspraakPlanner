@@ -68,9 +68,11 @@ namespace BlazorAgenda.Server.DataAccess
             }
         }
 
-        internal List<User> GetUsersByOrganization(int organizationId)
+        internal IEnumerable<User> GetUsersByOrganization(int organizationId)
         {
-            return db.User.Where(user => user.OrganizationId == organizationId).ToList();
+            return db.User
+                .Where(user => user.OrganizationId == organizationId)
+                .Select(user => new User { Id = user.Id, Firstname = user.Firstname, Lastname = user.Lastname, Emailadress = user.Emailadress });
         }
     }
 }

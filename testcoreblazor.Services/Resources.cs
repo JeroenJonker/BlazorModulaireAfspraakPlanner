@@ -35,5 +35,7 @@ namespace BlazorAgenda.Services
         public const string WorkhoursApi_GetUserWorkhours = "api/Workhours/GetUserWorkhours/";
 
         public const string JobApi_GetOrganizationJobs = "api/Job/GetOrganizationJobs/";
+        
+        public const string UserJobApi_GetUserJobsByJob = "api/UserJob/GetUserJobs/";
     }
 }

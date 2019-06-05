@@ -26,8 +26,7 @@ namespace BlazorAgenda.Server.DataAccess
         public IEnumerable<Job> GetOrganizationJobs(int organizationId)
         {
             // change userid
-            IEnumerable<Job> jobs = db.Job.Where(g => g.Organization.Id == organizationId).ToList();
-            return jobs;
+            return db.Job.Where(g => g.Organization.Id == organizationId);
         }
 
         public bool TryAddJob(Job newJob)
