@@ -25,11 +25,19 @@ namespace BlazorAgenda.Client.Viewmodels
             try
             {
                 StateService.Organization = await OrganizationService.GetObjectByName(OrgName);
+                
+                Options = StateService.Organization.Option.Where(x => x.TimeModifier != 0 || 
+                                                                 (x.InverseOptionNavigation.Count != 0 && 
+                                                                 x.InverseOptionNavigation.FirstOrDefault(y => y.TimeModifier != 0) != null)).ToList();
+
                 foreach(Job job in StateService.Organization.Job) {
                     Console.WriteLine(job.Name);
                 }
                 foreach(User user in StateService.Organization.User) {
                     Console.WriteLine(user.Firstname + " " + user.Lastname);
+                }
+                foreach(Option option in Options) {
+                    Console.WriteLine(option.Text);
                 }
             } 
             catch
