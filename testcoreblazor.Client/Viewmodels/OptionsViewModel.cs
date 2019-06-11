@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlazorAgenda.Shared.Enums;
+using System;
 
 namespace BlazorAgenda.Client.Viewmodels
 {
@@ -16,11 +17,12 @@ namespace BlazorAgenda.Client.Viewmodels
 
         [Inject] IOptionService OptionService { get; set; }
 
+        [Inject] DragDropService DragDropService { get; set; }
+
         protected override async Task OnInitAsync()
         {
             Options = new List<Option>();
             Options = await OptionService.GetOptionsAsync(StateService.Organization);
-            TableDragDropHelper.Items = Options;
         }
 
         public void EditOption(Option option)
@@ -33,6 +35,30 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             StateService.CurrentModalType = ModalTypes.Option;
             StateService.NotifyStateChanged();
+        }
+
+        protected void OnDrop(Option dropOption)
+        {
+            List<Option> newOrder = new List<Option>();
+            foreach (Option option in Options)
+            {
+                if (option == dropOption)
+                {
+                    Option dragOption = DragDropService.Data as Option;
+                    dragOption.PositionOrder = newOrder.Count;
+                    newOrder.Add(DragDropService.Data as Option);
+                }
+                if (option != DragDropService.Data as Option)
+                {
+                    option.PositionOrder = newOrder.Count;
+                    newOrder.Add(option);
+                }
+            }
+        }
+
+        protected void OnDragStart(Option option)
+        {
+            DragDropService.StartDrag(option, "");
         }
 
         // public async Task CloseOptionView()
