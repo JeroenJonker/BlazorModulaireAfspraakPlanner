@@ -20,6 +20,7 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             Options = new List<Option>();
             Options = await OptionService.GetOptionsAsync(StateService.Organization);
+            TableDragDropHelper.Items = Options;
         }
 
         public void EditOption(Option option)

@@ -17,6 +17,10 @@ namespace BlazorAgenda.Server.Controllers
         {
             if (OptionAccess.TryAddOption(Object))
             {
+                if (Object.OptionId == default)
+                {
+                    UpdateDropdownItems(Object);
+                }
                 return CreatedAtAction(nameof(GetObjectById), new { id = Object.Id }, Object);
             }
             return BadRequest();
@@ -35,11 +39,48 @@ namespace BlazorAgenda.Server.Controllers
         [HttpPut("[action]")]
         public IActionResult Edit([FromBody] Option Object)
         {
+
             if (OptionAccess.TryUpdateOption(Object))
             {
+                if (Object.OptionId == default)
+                {
+                    UpdateDropdownItems(Object);
+                }
                 return Ok(Object);
             }
             return BadRequest();
+        }
+
+        private void UpdateDropdownItems(Option Object)
+        {
+            List<Option> newOptions = Object.InverseOptionNavigation.ToList();
+            for (int i = 0; i < newOptions.Count(); i++)
+            {
+                newOptions[i].OptionId = Object.Id;
+                newOptions[i].OptionNavigation = null;
+                if (newOptions[i].Id == default)
+                {
+                    Add(newOptions[i]);
+                }
+                else
+                {
+                    Edit(newOptions[i]);
+                }
+            }
+            Object.InverseOptionNavigation = newOptions;
+            //foreach (Option option in Object.InverseOptionNavigation)
+            //{
+            //    option.OptionId = Object.Id;
+            //    if (option.Id == default)
+            //    {
+            //        Add(option);
+            //    }
+            //    else
+            //    {
+            //        Edit(option);
+            //    }
+            //    option.OptionNavigation = null;
+            //}
         }
 
         [HttpGet("[action]/{organizationId}")]
