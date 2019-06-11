@@ -16,12 +16,14 @@ namespace BlazorAgenda.Client.Viewmodels
         [Inject] protected IOptionService OptionService { get; set; }
         [Inject] protected IStateService StateService { get; set; }
         public List<ElementTypes> AvailableElementTypes { get; set; }
+
+        public List<Option> DropdownItemOptions { get; set; } = new List<Option>();
         private string selectedElementType;
 
         public string SelectedElementType
         {
             get { return selectedElementType; }
-            set { selectedElementType = value; Enum.TryParse(selectedElementType, out ElementTypes myStatus); Option.ElementType = (int)myStatus; }
+            set { selectedElementType = value; Enum.TryParse(selectedElementType, out ElementTypes myStatus); Option.ElementType = (int)myStatus; StateHasChanged(); }
         }
 
         public string Title
@@ -37,8 +39,23 @@ namespace BlazorAgenda.Client.Viewmodels
             {
                 Option = currentOption;
                 SelectedElementType = Enum.GetName(typeof(ElementTypes), (ElementTypes)Option.ElementType);
+                DropdownItemOptions = Option.InverseOptionNavigation.ToList();
             }
             Option.OrganizationId = StateService.Organization.Id;
+        }
+
+        protected override async Task OnInitAsync()
+        {
+            if (Option.PositionOrder == null)
+            {
+                Option.PositionOrder = 1;
+                List<Option> options = new List<Option>();
+                options = await OptionService.GetOptionsAsync(StateService.Organization);
+                if (options.Aggregate((x, y) => x.PositionOrder > y.PositionOrder ? x : y).PositionOrder is int lastorder)
+                {
+                    Option.PositionOrder += lastorder;
+                }
+            }
         }
 
         public void OnClose()
@@ -58,6 +75,19 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             await OptionService.Delete(Option as Option);
             OnClose();
+        }
+
+        public void AddDropdownItem()
+        {
+            Option newDropdownItem = new Option() { ElementType = (int)ElementTypes.Text, OrganizationId = StateService.Organization.Id };
+            Option.InverseOptionNavigation.Add(newDropdownItem);
+            DropdownItemOptions.Add(newDropdownItem);
+        }
+
+        public void RemoveDropdownItem(Option dropdownitem)
+        {
+            Option.InverseOptionNavigation.Remove(dropdownitem);
+            DropdownItemOptions.Remove(dropdownitem);
         }
     }
 }

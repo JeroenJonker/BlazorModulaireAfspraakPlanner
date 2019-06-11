@@ -19,11 +19,11 @@
     case ElementTypes.Check:
         if (Option.IsMandatory)
         {
-            <input class="form-control" type="checkbox" bind="@CheckBoxValue" required />
+            <input class="form-control" type="checkbox" onchange="@OnCheckboxChanged" required />
         }
         else
         {
-            <input class="form-control" type="checkbox" bind="@CheckBoxValue" />
+            <input class="form-control" type="checkbox" onchange="@OnCheckboxChanged" />
         }
         break;
     case ElementTypes.Number:
@@ -102,11 +102,11 @@
     case ElementTypes.Dropdown:
         if (Option.IsMandatory)
         {
-            <select bind="@EventOption.Value" required>
+            <select bind="@EventOption.Value" onch required>
                 <option value="" selected disabled hidden>-- Choose an option --</option>
-                @foreach (Option dropdownItem in DropdownItems)
+                @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
-                    <option value="@dropdownItem.Text">"@dropdownItem.Text"</option>
+                    <option value="@dropdownItem.Text">@dropdownItem.Text</option>
                 }
             </select>
         }
@@ -114,9 +114,9 @@
         {
             <select bind="@EventOption.Value">
                 <option value="" selected>-- Choose an option --</option>
-                @foreach (Option dropdownItem in DropdownItems)
+                @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
-                    <option value="@dropdownItem.Text">"@dropdownItem.Text"</option>
+                    <option value="@dropdownItem.Text">@dropdownItem.Text</option>
                 }
             </select>
         }
@@ -142,20 +142,13 @@
     [Parameter] public List<User> StaffMembers { get; set; }
     public List<Option> DropdownItems { get; set; }
     [Parameter] Action<IEventOption> OnNewEventOption { get; set; }
-    private bool _checkboxValue;
-
-    public bool CheckBoxValue
-    {
-        get { return _checkboxValue; }
-        set { _checkboxValue = value; EventOption.Value = CheckBoxValue.ToString(); }
-    }
 
 
     protected override void OnInit()
     {
         if ((ElementTypes)Option.ElementType == ElementTypes.Check)
         {
-            CheckBoxValue = false;
+            EventOption.Value = "False";
         }
         base.OnInit();
     }
@@ -177,5 +170,10 @@
         {
             //DropdownItems = await OptionService.
         }
+    }
+
+    public void OnCheckboxChanged(UIChangeEventArgs e)
+    {
+        EventOption.Value = e.Value.ToString();
     }
 }

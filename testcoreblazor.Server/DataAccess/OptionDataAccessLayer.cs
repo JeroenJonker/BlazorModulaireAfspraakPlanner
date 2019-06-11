@@ -10,17 +10,32 @@ namespace BlazorAgenda.Server.DataAccess
     public class OptionDataAccessLayer
     {
         AgendaDBContext db = new AgendaDBContext();
-        public IEnumerable<Option> GetOrganizationOptions(int organizationId)
+        public List<Option> GetOrganizationOptions(int organizationId)
         {
-            // change userid
-            IEnumerable<Option> options = db.Option.Where(g => g.Organization.Id == organizationId).ToList();
-            return options;
+            IEnumerable<Option> options = db.Option.Where(g => g.Organization.Id == organizationId && g.OptionId == null);
+            options = GetSubOptions(options).OrderBy(x => x.PositionOrder);
+            return options.ToList();
         }
         public Option GetOption(int id)
         {
             List<Option> options = db.Option.Where(g => g.Id == id).ToList();
+            options = GetSubOptions(options).ToList();
             return options.Count > 0 ? options[0] : null;
         }
+
+        private IEnumerable<Option> GetSubOptions(IEnumerable<Option> options)
+        {
+            foreach (Option option in options)
+            {
+                option.InverseOptionNavigation = db.Option.Where(g => g.OptionId == option.Id).ToList();
+                foreach (Option subOption in option.InverseOptionNavigation)
+                {
+                    subOption.OptionNavigation = null;
+                }
+            }
+            return options;
+        }
+
         public bool TryAddOption(Option newOption)
         {
             try

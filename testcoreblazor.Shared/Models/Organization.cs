@@ -10,6 +10,7 @@ namespace BlazorAgenda.Shared.Models
         {
             Option = new HashSet<Option>();
             User = new HashSet<User>();
+            Job = new HashSet<Job>();
         }
 
         public int Id { get; set; }
