@@ -14,7 +14,7 @@
                     <label class="col-form-label">Job</label>
                 </span>
                 <span class="col-sm-7 input-group">
-                    <select bind="@Event.JobId" onchange="@SetEventJob" required>
+                    <select onchange="@SetEventJob" required>
                         <option value="" selected disabled hidden>-- Choose a job --</option>
                         @foreach (Job job in StateService.Organization.Job)
                         {
@@ -23,7 +23,7 @@
                     </select>
                 </span>
             </div>
-            @if (Event.Job != null) {
+            @if (SelectedJobUsers.Count != 0) {
                 <!-- User -->
                 <div class="form-row">
                     <span class="col-sm-5">
@@ -31,8 +31,10 @@
                     </span>
                     <span class="col-sm-7 input-group">
                         <select bind="@Event.UserId" required>
-                            <option value="" selected disabled hidden>-- Choose a user --</option>
-                            @foreach (User user in StateService.Organization.User.Join(Event.Job.UserJob, u => u.Id, uj => uj.UserId, (u, uj) => u))
+                            <option value="-1" selected disabled hidden>-- Choose a user --</option>
+                            <option value="-2">No preference</option>
+
+                            @foreach (User user in SelectedJobUsers)
                             {
                                 <option value="@user.Id">@user.Firstname @user.Lastname</option>
                             }
