@@ -17,7 +17,6 @@ namespace BlazorAgenda.Client.Viewmodels
         [Inject] protected IOrganizationService OrganizationService { get; set; }
         [Inject] public IEvent Event { get; set; }
         public List<Option> Options { get; set; } = new List<Option>();
-        List<EventOption> ChosenOptions { get; set; } = new List<EventOption>();
         protected List<User> SelectedJobUsers{ get; set; } = new List<User>();
         
         protected override async Task OnInitAsync()
@@ -25,11 +24,19 @@ namespace BlazorAgenda.Client.Viewmodels
             try
             {
                 StateService.Organization = await OrganizationService.GetObjectByName(OrgName);
+                
+                Options = StateService.Organization.Option.Where(x => x.TimeModifier != 0 || 
+                                                                 (x.InverseOptionNavigation.Count != 0 && 
+                                                                 x.InverseOptionNavigation.FirstOrDefault(y => y.TimeModifier != 0) != null)).ToList();
+
                 foreach(Job job in StateService.Organization.Job) {
                     Console.WriteLine(job.Name);
                 }
                 foreach(User user in StateService.Organization.User) {
                     Console.WriteLine(user.Firstname + " " + user.Lastname);
+                }
+                foreach(Option option in Options) {
+                    Console.WriteLine(option.Text);
                 }
             } 
             catch
@@ -60,6 +67,13 @@ namespace BlazorAgenda.Client.Viewmodels
         public void SubmitEventOptions()
         {
             //
+        }
+
+        public void AddNewEventOption(IEventOption eventOption)
+        {
+            eventOption.OptionId = eventOption.Option.Id;
+            eventOption.Option = default;
+            Event.EventOption.Add(eventOption);
         }
     }
 }

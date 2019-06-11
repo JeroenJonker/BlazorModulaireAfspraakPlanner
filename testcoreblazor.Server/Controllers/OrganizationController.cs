@@ -15,6 +15,7 @@ namespace BlazorAgenda.Server.Controllers
         UserDataAccessLayer UserAccess = new UserDataAccessLayer();
         JobDataAccessLayer JobAccess = new JobDataAccessLayer();
         UserJobDataAccessLayer UserJobAccess = new UserJobDataAccessLayer();
+        OptionDataAccessLayer OptionAccess = new OptionDataAccessLayer();
 
 
         [HttpPost("[action]")]
@@ -67,6 +68,7 @@ namespace BlazorAgenda.Server.Controllers
                 foreach(Job job in organization.Job) {
                     job.UserJob = UserJobAccess.GetUserJobs(job.Id).ToList();
                 }
+                organization.Option = OptionAccess.GetOrganizationOptions(organization.Id).ToList();
                 return Ok(organization);
             }
             return NotFound();
