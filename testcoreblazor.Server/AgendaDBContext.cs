@@ -55,7 +55,7 @@ namespace BlazorAgenda.Shared.Models
                     .HasColumnName("SUMMARY")
                     .HasMaxLength(30);
 
-                entity.Property(e => e.UserId).HasColumnName("USER_ID");
+                entity.Property(e => e.UserId).HasColumnName("USERID");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Event)

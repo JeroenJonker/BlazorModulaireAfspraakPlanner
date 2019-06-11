@@ -105,9 +105,9 @@
         {
             <select bind="@EventOption.Value" required>
                 <option value="" selected disabled hidden>-- Choose an option --</option>
-                @foreach (Option dropdownItem in DropdownItems)
+                @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
-                    <option value="@dropdownItem.Text">"@dropdownItem.Text"</option>
+                    <option value="@dropdownItem.Text">@dropdownItem.Text</option>
                 }
             </select>
         }
@@ -115,9 +115,9 @@
         {
             <select bind="@EventOption.Value">
                 <option value="" selected>-- Choose an option --</option>
-                @foreach (Option dropdownItem in DropdownItems)
+                @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
-                    <option value="@dropdownItem.Text">"@dropdownItem.Text"</option>
+                    <option value="@dropdownItem.Text">@dropdownItem.Text</option>
                 }
             </select>
         }
