@@ -57,9 +57,15 @@ namespace BlazorAgenda.Shared.Models
 
                 entity.Property(e => e.UserId).HasColumnName("USERID");
 
+                entity.Property(e => e.JobId).HasColumnName("JOB_ID");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Event)
                     .HasForeignKey(d => d.UserId);
+
+                entity.HasOne(d => d.Job)
+                    .WithMany(p => p.Event)
+                    .HasForeignKey(d => d.JobId);
             });
 
             modelBuilder.Entity<EventOption>(entity =>

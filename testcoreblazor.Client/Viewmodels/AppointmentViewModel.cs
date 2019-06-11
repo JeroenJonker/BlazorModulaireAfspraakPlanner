@@ -12,18 +12,22 @@ namespace BlazorAgenda.Client.Viewmodels
 {
     public class AppointmentViewModel : ComponentBase
     {
-        [Parameter] protected string Text { get; set; } = "fantastic";
+        [Parameter] protected string OrgName { get; set; }
+        [Inject] protected IStateService StateService{ get; set; }
         [Inject] protected IOrganizationService OrganizationService { get; set; }
+        [Inject] public IEvent Event { get; set; }
+        public List<Option> Options { get; set; } = new List<Option>();
+        List<EventOption> ChosenOptions { get; set; } = new List<EventOption>();
         
         protected override async Task OnInitAsync()
         {
             try
             {
-                Organization organization = await OrganizationService.GetObjectByName(Text);
-                foreach(Job job in organization.Job) {
+                StateService.Organization = await OrganizationService.GetObjectByName(OrgName);
+                foreach(Job job in StateService.Organization.Job) {
                     Console.WriteLine(job.Name);
                 }
-                foreach(User user in organization.User) {
+                foreach(User user in StateService.Organization.User) {
                     Console.WriteLine(user.Firstname + " " + user.Lastname);
                 }
             } 
@@ -33,6 +37,11 @@ namespace BlazorAgenda.Client.Viewmodels
             }
             
             
+        }
+
+        public void SubmitEventOptions()
+        {
+            //
         }
     }
 }

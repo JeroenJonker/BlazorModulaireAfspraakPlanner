@@ -3,10 +3,42 @@
 @using BlazorAgenda.Shared.Enums
 @inherits AppointmentViewModel
 @page "/appointment"
-@page "/appointment/{text}"
+@page "/appointment/{orgname}"
 
-<h1>Blazor is @Text!</h1>
-
-@functions {
-    //
-}
+<form onsubmit="@SubmitEventOptions" class="container-fluid">
+    <fieldset>
+        <!-- Job -->
+        @if (StateService.Organization is Organization) {
+            <div class="form-row">
+                <span class="col-sm-5">
+                    <label class="col-form-label">Job</label>
+                </span>
+                <span class="col-sm-7 input-group">
+                    <select bind="@Event.JobId" required>
+                        <option value="" selected disabled hidden>-- Choose a job --</option>
+                        @foreach (Job job in StateService.Organization.Job)
+                        {
+                            <option value="@job.Id">@job.Name</option>
+                        }
+                    </select>
+                </span>
+            </div>
+            <!-- User -->
+            <div class="form-row">
+                <span class="col-sm-5">
+                    <label class="col-form-label">User</label>
+                </span>
+                <span class="col-sm-7 input-group">
+                    <select bind="@Event.UserId" required>
+                        <option value="" selected disabled hidden>-- Choose a user --</option>
+                        @foreach (User user in StateService.Organization.User)
+                        {
+                            <option value="@user.Id">@user.Firstname @user.Lastname</option>
+                        }
+                    </select>
+                </span>
+            </div>
+        }
+        <button type="submit" value="Submit" />
+    </fieldset>
+</form>
