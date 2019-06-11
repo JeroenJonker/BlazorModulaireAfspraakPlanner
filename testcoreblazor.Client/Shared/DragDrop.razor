@@ -1,0 +1,39 @@
+﻿@using BlazorAgenda.Client.Services
+@using BlazorAgenda.Shared.Interfaces
+@using BlazorAgenda.Shared.Models
+@inject DragDropService DragAndDropService
+@typeparam T
+<tr onclick="@(() => onClicked?.Invoke(Data))" draggable="true" ondragstart="@OnDragStart" ondragover="event.preventDefault()" ondrop="@OnDrop">
+    @ChildContent
+</tr>
+
+@functions {
+    [Parameter]
+    Action<T> onClicked { get; set; }
+
+    [Parameter]
+    RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    string Zone { get; set; }
+
+    [Parameter]
+    T Data { get; set; }
+
+    [Parameter]
+    Action<T> Drop { get; set; }
+
+    void OnDrop()
+    {
+        if (Drop != null && DragAndDropService.Accepts(Zone))
+        {
+            Drop((T)DragAndDropService.Data);
+        }
+    }
+
+    void OnDragStart()
+    {
+        // Notify the DragAndDropService what the current Data and Zone are.
+        DragAndDropService.StartDrag(Data, Zone);
+    }
+}

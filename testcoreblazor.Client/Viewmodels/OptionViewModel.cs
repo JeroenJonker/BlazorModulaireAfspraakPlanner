@@ -23,7 +23,13 @@ namespace BlazorAgenda.Client.Viewmodels
         public string SelectedElementType
         {
             get { return selectedElementType; }
-            set { selectedElementType = value; Enum.TryParse(selectedElementType, out ElementTypes myStatus); Option.ElementType = (int)myStatus; StateHasChanged(); }
+            set
+            {
+                selectedElementType = value;
+                Enum.TryParse(selectedElementType, out ElementTypes myStatus);
+                Option.ElementType = (int)myStatus;
+                StateHasChanged();
+            }
         }
 
         public string Title

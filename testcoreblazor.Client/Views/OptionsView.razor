@@ -17,7 +17,7 @@
         <tbody>
             @foreach (Option option in Options)
             {
-                <tr onclick="@(() => EditOption(option))">
+                <tr onclick="@(() => EditOption(option))" draggable="true" ondragstart="@(() => OnDragStart(option))" ondragover="event.preventDefault()" ondrop="@(() => OnDrop(option))">
                     <td>@option.Text</td>
                     <td>@option.Description</td>
                     <td>@option.IsMandatory</td>

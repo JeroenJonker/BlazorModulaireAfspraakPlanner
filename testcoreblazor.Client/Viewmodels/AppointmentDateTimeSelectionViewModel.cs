@@ -21,8 +21,6 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public List<Workhours> Workhours { get; set; } = new List<Workhours>();
 
-        public List<EventOption> ChosenOptions { get; set; } = new List<EventOption>();
-
         [Inject] protected IOptionService OptionService { get; set; }
         public List<Option> Options { get; set; } = new List<Option>();
 
@@ -54,18 +52,14 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void AddNewEventOption(IEventOption eventOption)
         {
-            Console.WriteLine("a");
             eventOption.OptionId = eventOption.Option.Id;
             eventOption.Option = default;
-            eventOption.EventId = 44;
-            ChosenOptions.Add(eventOption as EventOption);
-            Console.WriteLine(ChosenOptions.Count());
+            Event.EventOption.Add(eventOption as EventOption);
         }
 
         public void SubmitEventOptions()
         {
             EventService.ExecuteAsync(Event as Event);
-            EventOptionService.PostCollection(ChosenOptions);
         }
 
         public void OnSelectedTime(DateTime selectedTime)

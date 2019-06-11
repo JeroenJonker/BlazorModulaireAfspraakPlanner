@@ -1,6 +1,7 @@
 ﻿using BlazorAgenda.Shared.Interfaces.BaseObjects;
 using BlazorAgenda.Shared.Models;
 using System;
+using System.Collections.Generic;
 
 namespace BlazorAgenda.Shared.Interfaces
 {
@@ -11,6 +12,6 @@ namespace BlazorAgenda.Shared.Interfaces
         bool IsPrivate { get; set; }
         int JobId { get; set; }
         Job Job { get; set; }
-
+        ICollection<EventOption> EventOption { get; set; }
     }
 }
