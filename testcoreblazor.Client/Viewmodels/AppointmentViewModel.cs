@@ -73,7 +73,7 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             eventOption.OptionId = eventOption.Option.Id;
             eventOption.Option = default;
-            Event.EventOption.Add(eventOption);
+            Event.EventOption.Add(eventOption as EventOption);
         }
     }
 }

@@ -340,3 +340,11 @@ input[type=checkbox] {
     display: grid;
     grid-template-columns: auto auto;
 }
+
+.scrollAble {
+    overflow-y: auto;
+}
+
+.dropdownItemsTable {
+    border-bottom: 0px solid #000;
+}

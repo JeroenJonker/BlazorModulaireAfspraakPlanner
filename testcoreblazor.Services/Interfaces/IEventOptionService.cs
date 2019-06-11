@@ -8,6 +8,7 @@ namespace BlazorAgenda.Services.Interfaces
 {
     public interface IEventOptionService : IDefaultObjectService<EventOption>
     {
+        //kan weg
         Task PostCollection(List<EventOption> collection);
     }
 }
