@@ -188,6 +188,8 @@ namespace BlazorAgenda.Shared.Models
                     .HasColumnName("DESCRIPTION")
                     .HasMaxLength(30);
 
+                entity.Property(e => e.TimeModifier).HasColumnName("TIME_MODIFIER");
+
                 entity.Property(e => e.OrganizationId).HasColumnName("ORGANIZATION_ID");
 
                 entity.HasOne(d => d.Organization)
