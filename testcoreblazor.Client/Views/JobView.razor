@@ -1,0 +1,54 @@
+﻿@using BlazorAgenda.Client.Services
+@using BlazorAgenda.Services.Interfaces
+@using BlazorAgenda.Client.Views.BaseViews
+@using BlazorAgenda.Client.Viewmodels
+
+@inherits JobViewModel
+
+<ModalTemplateView Title="@Title" OnClose="@OnClose" IsVisible="true">
+    <ModalContent>
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">Name</label>
+            </span>
+            <span class="col-sm-7 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">&#64;</span>
+                </div>
+                <input class="form-control" type="text" placeholder="Name" bind="@Job.Name" />
+            </span>
+        </div>
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">Description</label>
+            </span>
+            <span class="col-sm-7 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="oi oi-person"></i></span>
+                </div>
+                <input class="form-control" type="text" placeholder="Description" bind="@Job.Description" />
+            </span>
+        </div>
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">Duration in minutes</label>
+            </span>
+            <span class="col-sm-7 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="oi oi-person"></i></span>
+                </div>
+                <input class="form-control" type="number" step="5" min="0" value="0" bind="@Job.TimeModifier" />
+            </span>
+        </div>
+    </ModalContent>
+    <FooterContent>
+        @if (Job.Id != default)
+        {
+            <ObjectBaseFooterView ObjectState="BlazorAgenda.Shared.Enums.ObjectState.Edit" OnSave="@Save" OnDelete="@Delete" />
+        }
+        else
+        {
+            <ObjectBaseFooterView ObjectState=@BlazorAgenda.Shared.Enums.ObjectState.Add OnSave="@Save" />
+        }
+    </FooterContent>
+</ModalTemplateView>

@@ -20,8 +20,6 @@ namespace BlazorAgenda.Services
 
         public const string UserApi_IsValidUser = "api/User/IsValidUser";
 
-        public const string UserApi_GetAllUsers = "api/User/GetAllUsers";
-
         public const string OrganizationApi_GetOrganizations = "api/Organization/GetOrganizations/";
         
         public const string OrganizationApi_GetObjectById = "api/Organization/GetObjectById/";

@@ -11,19 +11,25 @@ namespace BlazorAgenda.Server.DataAccess
 
         public User GetUser(int id)
         {
-            List<User> users = db.User.Where(g => g.Id == id).ToList();
-            return users.Count > 0 ? users[0] : null;
-        }
-
-        public List<User> GetAllUsers()
-        {
-            return db.User.ToList();
+            return db.User.Select(g => new User {
+                              Id = g.Id, 
+                              Emailadress = g.Emailadress, 
+                              Firstname = g.Firstname,
+                              Lastname = g.Lastname,
+                              IsAdmin = g.IsAdmin,
+                              OrganizationId = g.OrganizationId
+                          })
+                          .FirstOrDefault(g => g.Id == id);
         }
 
         public User GetUserByEmail(string email)
         {
-            List<User> users = db.User.Where(g => g.Emailadress == email).ToList();
-            return users.Count > 0 ? users[0] : null;
+            return db.User.FirstOrDefault(g => g.Emailadress == email);
+        }
+
+        public User IsValidUser(User user)
+        {
+            return db.User.FirstOrDefault(g => g.Emailadress == user.Emailadress && g.Password == user.Password);
         }
 
         public bool TryAddUser(User user)
@@ -70,9 +76,14 @@ namespace BlazorAgenda.Server.DataAccess
 
         internal IEnumerable<User> GetUsersByOrganization(int organizationId)
         {
-            return db.User
-                .Where(user => user.OrganizationId == organizationId)
-                .Select(user => new User { Id = user.Id, Firstname = user.Firstname, Lastname = user.Lastname, Emailadress = user.Emailadress });
+            return db.User.Select(g => new User {
+                              Id = g.Id, 
+                              Emailadress = g.Emailadress, 
+                              Firstname = g.Firstname,
+                              Lastname = g.Lastname,
+                              IsAdmin = g.IsAdmin,
+                              OrganizationId = g.OrganizationId
+                          }).Where(user => user.OrganizationId == organizationId);
         }
     }
 }

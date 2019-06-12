@@ -59,8 +59,7 @@ namespace BlazorAgenda.Server.DataAccess
 
         public Workhours GetWorkhours(int id)
         {
-            List<Workhours> events = db.Workhours.Where(g => g.Id == id).ToList();
-            return events.Count > 0 ? events[0] : null;
+            return db.Workhours.FirstOrDefault(g => g.Id == id);
         }
     }
 }

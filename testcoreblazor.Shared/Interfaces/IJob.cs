@@ -8,6 +8,7 @@ namespace BlazorAgenda.Shared.Interfaces
     {
         string Name { get; set; }
         string Description { get; set; }
+        int TimeModifier { get; set; }
         int? OrganizationId { get; set; }
         
         Organization Organization { get; set; }

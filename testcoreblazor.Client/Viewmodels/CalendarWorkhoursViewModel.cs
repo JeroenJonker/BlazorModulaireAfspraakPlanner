@@ -60,7 +60,7 @@ namespace BlazorAgenda.Client.Viewmodels
 
         protected override async Task OnInitAsync()
         {
-            Contacts = SelectedUsers = new ObservableCollection<User>(await UserService.GetContacts());
+            Contacts = SelectedUsers = new ObservableCollection<User>(await UserService.GetStaffByOrganization(StateService.Organization));
             await UpdateEvents();
             GoToToday();
         }

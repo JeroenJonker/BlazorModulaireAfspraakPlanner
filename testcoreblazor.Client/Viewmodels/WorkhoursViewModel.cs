@@ -49,7 +49,7 @@ namespace BlazorAgenda.Client.Viewmodels
 
         protected override async Task OnInitAsync()
         {
-            StaffMembers = new List<User>(await UserService.GetContacts());
+            StaffMembers = new List<User>(await UserService.GetStaffByOrganization(StateService.Organization));
         }
 
         public string Title

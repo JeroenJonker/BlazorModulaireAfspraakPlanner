@@ -13,8 +13,7 @@ namespace BlazorAgenda.Server.DataAccess
 
         public EventOption GetEventOption(int id)
         {
-            List<EventOption> eventOptions = db.EventOption.Where(g => g.Id == id).ToList();
-            return eventOptions.Count > 0 ? eventOptions[0] : null;
+            return db.EventOption.FirstOrDefault(g => g.Id == id);
         }
         public bool TryAddEventOption(EventOption newEventOption)
         {

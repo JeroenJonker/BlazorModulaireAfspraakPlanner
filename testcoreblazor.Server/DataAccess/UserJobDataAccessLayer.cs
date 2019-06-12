@@ -14,13 +14,7 @@ namespace BlazorAgenda.Server.DataAccess
 
         public UserJob GetUserJob(int id)
         {
-            List<UserJob> userJobs = db.UserJob.Where(g => g.Id == id).ToList();
-            return userJobs.Count > 0 ? userJobs[0] : null;
-        }
-
-        public List<UserJob> GetAllUserJobs()
-        {
-            return db.UserJob.ToList();
+            return db.UserJob.FirstOrDefault(g => g.Id == id);
         }
 
         public IEnumerable<UserJob> GetUserJobs(int jobId)
