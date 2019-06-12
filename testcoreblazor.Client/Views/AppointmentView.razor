@@ -1,59 +1,26 @@
-@using BlazorAgenda.Client.Viewmodels
-@using BlazorAgenda.Shared.Models
-@using BlazorAgenda.Shared.Enums
-@inherits AppointmentViewModel
+﻿@using BlazorAgenda.Client.Viewmodels
+@using BlazorAgenda.Client.Shared;
+
 @page "/appointment"
 @page "/appointment/{orgname}"
 
-<form onsubmit="@SubmitEventOptions" class="container-fluid">
-    <fieldset>
-        @if (StateService.Organization is Organization) {
-            <!-- Job -->
-            <div class="form-row">
-                <span class="col-sm-5">
-                    <label class="col-form-label">Job</label>
-                </span>
-                <span class="col-sm-7 input-group">
-                    <select onchange="@SetEventJob" required>
-                        <option value="" selected disabled hidden>-- Choose a job --</option>
-                        @foreach (Job job in StateService.Organization.Job)
-                        {
-                            <option value="@job.Id">@job.Name</option>
-                        }
-                    </select>
-                </span>
-            </div>
-            @if (SelectedJobUsers.Count != 0) {
-                <!-- User -->
-                <div class="form-row">
-                    <span class="col-sm-5">
-                        <label class="col-form-label">User</label>
-                    </span>
-                    <span class="col-sm-7 input-group">
-                        <select bind="@Event.UserId" required>
-                            <option value="-1" selected disabled hidden>-- Choose a user --</option>
-                            <option value="-2">No preference</option>
+@inherits AppointmentViewModel
 
-                            @foreach (User user in SelectedJobUsers)
-                            {
-                                <option value="@user.Id">@user.Firstname @user.Lastname</option>
-                            }
-                        </select>
-                    </span>
-                </div>
-            }
-            @foreach (Option option in Options)
-            {
-            <div class="form-row">
-                <span class="col-sm-5">
-                    <label class="col-form-label">@option.Text</label>
-                </span>
-                <span class="col-sm-7 input-group">
-                    <OptionTypeComponent Option="@option" OnNewEventOption="@(eventOption => AddNewEventOption(eventOption))" />
-                </span>
-            </div>
-        }
-        }
-        <button type="submit" value="Submit" />
-    </fieldset>
-</form>
+@if (StateService.Organization != null)
+{
+    if (Step == 0)
+    {
+        <AppointmentJobView Event="@Event" OnSubmit="@NextStep" />
+
+    }
+    else if (Step == 1)
+    {
+        <AppointmentDateTimeSelectionView Event="@Event" OnSubmit="@NextStep" />
+    }
+    else if (Step == 2)
+    {
+        <AppointmentOptionsView Event="@Event" OnSubmit="@Commit"/>
+    }
+}
+
+<button onclick="@Check" />

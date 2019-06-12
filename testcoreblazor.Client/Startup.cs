@@ -27,7 +27,6 @@ namespace BlazorAgenda.Client
             services.AddTransient<IOption, Option>();
             services.AddTransient<IEventOption, EventOption>();
             services.AddTransient<IWorkhours, Workhours>();
-            services.AddTransient<IAppointment, Appointment>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
