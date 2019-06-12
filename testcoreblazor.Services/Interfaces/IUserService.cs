@@ -7,7 +7,6 @@ namespace BlazorAgenda.Services.Interfaces
     public interface IUserService : IDefaultObjectService<User>
     {
         Task<User> CheckUser(User user);
-        Task<IEnumerable<User>> GetContacts();
 
         Task<List<User>> GetStaffByOrganization(Organization organization);
     }

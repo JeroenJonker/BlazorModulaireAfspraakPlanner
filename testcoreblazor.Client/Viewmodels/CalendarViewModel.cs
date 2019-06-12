@@ -64,7 +64,7 @@ namespace BlazorAgenda.Client.Viewmodels
             SelectedContacts = new ObservableCollection<User>();
             SelectedContacts.Add(StateService.LoginUser);
             await UpdateEvents();
-            Contacts = new ObservableCollection<User>(await UserService.GetContacts());
+            Contacts = new ObservableCollection<User>(await UserService.GetStaffByOrganization(StateService.Organization));
             GoToToday();
         }
 

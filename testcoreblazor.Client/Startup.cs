@@ -19,6 +19,8 @@ namespace BlazorAgenda.Client
             services.AddSingleton<IOrganizationService, OrganizationService>();
             services.AddSingleton<IWorkhoursService, WorkhoursService>();
             services.AddSingleton<IEventOptionService, EventOptionService>();
+            services.AddSingleton<IJobService, JobService>();
+            services.AddSingleton<IUserJobService, UserJobService>();
             services.AddSingleton<DragDropService>();
             services.AddSingleton<EventViewService>();
             //services.AddSingleton<UserViewService>();
@@ -28,6 +30,8 @@ namespace BlazorAgenda.Client
             services.AddTransient<IEventOption, EventOption>();
             services.AddTransient<IWorkhours, Workhours>();
             services.AddTransient<IAppointment, Appointment>();
+            services.AddTransient<IJob, Job>();
+            services.AddTransient<IUserJob, UserJob>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

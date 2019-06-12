@@ -10,8 +10,7 @@ namespace BlazorAgenda.Server.DataAccess
 
         public Event GetEvent(int id)
         {
-            List<Event> events = db.Event.Where(g => g.Id == id).ToList();
-            return events.Count > 0 ? events[0] : null;
+            return db.Event.FirstOrDefault(g => g.Id == id);
         }
 
         public List<Event> GetUserEvents(int userid)

@@ -13,27 +13,35 @@ namespace BlazorAgenda.Server.DataAccess
         public List<Option> GetOrganizationOptions(int organizationId)
         {
             IEnumerable<Option> options = db.Option.Where(g => g.Organization.Id == organizationId && g.OptionId == null);
-            options = GetSubOptions(options).OrderBy(x => x.PositionOrder);
+            foreach (Option option in options)
+            {
+                GetSubOptions(option);
+            }
+            options = options.OrderBy(x => x.PositionOrder);
             return options.ToList();
         }
         public Option GetOption(int id)
         {
-            List<Option> options = db.Option.Where(g => g.Id == id).ToList();
-            options = GetSubOptions(options).ToList();
-            return options.Count > 0 ? options[0] : null;
+            Option option = db.Option.FirstOrDefault(g => g.Id == id);
+            option = GetSubOptions(option);
+            return option;
         }
 
-        private IEnumerable<Option> GetSubOptions(IEnumerable<Option> options)
+        private Option GetSubOptions(Option option)
         {
-            foreach (Option option in options)
-            {
-                option.InverseOptionNavigation = db.Option.Where(g => g.OptionId == option.Id).ToList();
-                foreach (Option subOption in option.InverseOptionNavigation)
-                {
-                    subOption.OptionNavigation = null;
-                }
-            }
-            return options;
+            option.InverseOptionNavigation = db.Option.Select(g => new Option {
+                                                          Id = g.Id,
+                                                          Text = g.Text,
+                                                          Description = g.Description,
+                                                          ElementType = g.ElementType,
+                                                          PositionOrder = g.PositionOrder,
+                                                          TimeModifier = g.TimeModifier,
+                                                          OrganizationId = g.OrganizationId,
+                                                          OptionId = g.OptionId,
+                                                          IsMandatory = g.IsMandatory
+                                                      }).Where(g => g.OptionId == option.Id)
+                                                      .ToList();
+            return option;
         }
 
         public bool TryAddOption(Option newOption)

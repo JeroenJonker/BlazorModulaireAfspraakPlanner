@@ -58,17 +58,6 @@ namespace BlazorAgenda.Server.Controllers
             return NotFound();
         }
 
-        [HttpGet("[action]")]
-        public IActionResult GetAllUsers()
-        {
-            IEnumerable<User> users = UserAccess.GetAllUsers();
-            foreach (User user in users)
-            {
-                user.Password = "";
-            }
-            return Ok(users);
-        }
-
         [HttpGet("[action]/{organiationId}")]
         public IActionResult GetStaffByOrganization(int organiationId)
         {

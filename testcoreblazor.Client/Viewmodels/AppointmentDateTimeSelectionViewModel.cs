@@ -31,10 +31,6 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             Workhours = await WorkhoursService.GetWorkhours(StateService.LoginUser);
             Options = await OptionService.GetOptionsAsync(StateService.Organization);
-            foreach (Option option in Options)
-            {
-                Console.WriteLine(option.ElementType);
-            }
         }
 
         public void OnSelectedDate(DateTime date)

@@ -46,5 +46,11 @@ namespace BlazorAgenda.Client.Viewmodels
             StateService.CurrentPage = Pages.Workhours;
             StateService.NotifyStateChanged();
         }
+
+        public void ViewJobs()
+        {
+            StateService.CurrentPage = Pages.Jobs;
+            StateService.NotifyStateChanged();
+        }
     }
 }

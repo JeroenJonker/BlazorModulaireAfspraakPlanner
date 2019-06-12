@@ -30,6 +30,10 @@ else
         {
             <CalendarWorkhoursView />
         }
+        else if (StateService.CurrentPage == Pages.Jobs)
+        {
+            <JobsView />
+        }
     </div>
 }
 @if (StateService.CurrentModalType == ModalTypes.Option)
@@ -43,6 +47,10 @@ else
 @if (StateService.CurrentModalType == ModalTypes.Workhours)
 {
     <WorkhoursView />
+}
+@if (StateService.CurrentModalType == ModalTypes.Job)
+{
+    <JobView />
 }
 
 @*<InlineDatePicker/>*@
