@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlazorAgenda.Shared.Models;
 using BlazorAgenda.Services.Interfaces;
+using BlazorAgenda.Shared.Enums;
 
 namespace BlazorAgenda.Client.Viewmodels
 {
@@ -25,12 +26,18 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             Workhours = await WorkhoursService.GetWorkhours(Event.User);
             Events = await EventService.GetEvents(Event.User);
+            EventDuration += Event.Job.TimeModifier;
             foreach (EventOption eventOption in Event.EventOption)
             {
-                EventDuration += eventOption.Option.TimeModifier;
+                if (!(eventOption.Option.ElementType == (int)ElementTypes.Check && eventOption.Value == "False"))
+                {
+                    Console.WriteLine(eventOption.Option.Id);
+                    Console.WriteLine(eventOption.Option.TimeModifier);
+                    EventDuration += eventOption.Option.TimeModifier;
+                }
+                Console.WriteLine(EventDuration);
                 eventOption.Option = null;
             }
-            Console.WriteLine(EventDuration);
         }
 
         public void OnSelectedDate(DateTime date)
@@ -60,7 +67,9 @@ namespace BlazorAgenda.Client.Viewmodels
         }
 
         public bool IsTimeInConflictWithEvents(DateTime start, DateTime end)
-            => Events.Any(time => (start >= time.Start && start < time.End) || (end > time.Start && end <= time.End) || (start <= time.Start && end >= time.End));
+            => Events.Any(time => (start >= time.Start && start < time.End) || 
+            (end > time.Start && end <= time.End) || 
+            (start <= time.Start && end >= time.End));
 
         public void OnSelectedTime(DateTime selectedTime)
         {

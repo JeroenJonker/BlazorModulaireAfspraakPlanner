@@ -19,7 +19,7 @@ namespace BlazorAgenda.Server.Controllers
             {
                 if (Object.OptionId == default)
                 {
-                    SetSubOptionsINveseOptionNavigation(Object);
+                    SetSubOptionsINveseOptionNavigation(Object, false);
                 }
                 return CreatedAtAction(nameof(GetObjectById), new { id = Object.Id }, Object);
             }
@@ -39,23 +39,26 @@ namespace BlazorAgenda.Server.Controllers
         [HttpPut("[action]")]
         public IActionResult Edit([FromBody] Option Object)
         {
-
             if (OptionAccess.TryUpdateOption(Object))
             {
                 if (Object.OptionId == default)
                 {
-                    SetSubOptionsINveseOptionNavigation(Object);
+                    SetSubOptionsINveseOptionNavigation(Object, true);
                 }
                 return Ok(Object);
             }
             return BadRequest();
         }
 
-        private void SetSubOptionsINveseOptionNavigation(Option Object)
+        private void SetSubOptionsINveseOptionNavigation(Option Object, bool isEdit)
         {
             List<Option> newOptions = Object.InverseOptionNavigation.ToList();
             for (int i = 0; i < newOptions.Count(); i++)
             {
+                if (isEdit)
+                {
+                    Edit(newOptions[i]);
+                }
                 newOptions[i].OptionNavigation = null;
             }
             Object.InverseOptionNavigation = newOptions;

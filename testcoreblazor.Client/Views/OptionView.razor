@@ -55,17 +55,19 @@
                             <tr>
                                 <th>Text</th>
                                 <th>Description</th>
+                                <th>Duration</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (Option dropdownItem in DropdownItemOptions)
                             {
-                                <tr>
-                                    <th><input type="text" bind="@dropdownItem.Text" /></th>
-                                    <th><input type="text" bind="@dropdownItem.Description" /></th>
-                                    <th> <button onclick="@(() => RemoveDropdownItem(dropdownItem))"><span class="oi oi-trash" /></button></th>
+                            <tr>
+                                <th><input type="text" bind="@dropdownItem.Text" /></th>
+                                <th><input type="text" bind="@dropdownItem.Description" /></th>
+                                <th><input type="number" bind="@dropdownItem.TimeModifier" min="0" step="5" /></th>
+                                <th> <button onclick="@(() => RemoveDropdownItem(dropdownItem))"><span class="oi oi-trash" /></button></th>
 
-                                </tr>
+                            </tr>
                             }
                         </tbody>
                     </table>
