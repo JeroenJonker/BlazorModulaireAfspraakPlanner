@@ -102,7 +102,7 @@
     case ElementTypes.Dropdown:
         if (Option.IsMandatory)
         {
-            <select bind="@EventOption.Value" onch required>
+            <select bind="@EventOption.Value" required>
                 <option value="" selected disabled hidden>-- Choose an option --</option>
                 @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {

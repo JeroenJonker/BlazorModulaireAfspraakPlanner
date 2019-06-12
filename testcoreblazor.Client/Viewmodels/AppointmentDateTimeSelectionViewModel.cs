@@ -12,25 +12,15 @@ namespace BlazorAgenda.Client.Viewmodels
 {
     public class AppointmentDateTimeSelectionViewModel : ComponentBase
     {
-        [Inject] protected IStateService StateService { get; set; }
         [Inject] protected IWorkhoursService WorkhoursService { get; set; }
-        [Inject] protected IAppointment Appointment { get; set; }
-        [Inject] protected IEvent Event { get; set; }
-
+        [Parameter][Inject] protected IEvent Event { get; set; }
         public List<DateTime> AvailableTimes { get; set; } = new List<DateTime>();
-
         public List<Workhours> Workhours { get; set; } = new List<Workhours>();
-
-        [Inject] protected IOptionService OptionService { get; set; }
-        public List<Option> Options { get; set; } = new List<Option>();
-
-        [Inject] protected IEventOptionService EventOptionService { get; set; }
-        [Inject] protected IEventService EventService { get; set; }
+        [Parameter] protected Action OnSubmit { get; set; }
 
         protected override async Task OnInitAsync()
         {
-            Workhours = await WorkhoursService.GetWorkhours(StateService.LoginUser);
-            Options = await OptionService.GetOptionsAsync(StateService.Organization);
+            Workhours = await WorkhoursService.GetWorkhours(Event.User);
         }
 
         public void OnSelectedDate(DateTime date)
@@ -46,23 +36,16 @@ namespace BlazorAgenda.Client.Viewmodels
             StateHasChanged();
         }
 
-        public void AddNewEventOption(IEventOption eventOption)
-        {
-            eventOption.OptionId = eventOption.Option.Id;
-            eventOption.Option = default;
-            Event.EventOption.Add(eventOption as EventOption);
-        }
-
-        public void SubmitEventOptions()
-        {
-            EventService.ExecuteAsync(Event as Event);
-        }
-
         public void OnSelectedTime(DateTime selectedTime)
         {
             Event.Start = selectedTime;
             Event.End = selectedTime.AddMinutes(15);
-            Event.UserId = StateService.LoginUser.Id;
+            Submit();
+        }
+
+        public void Submit()
+        {
+            OnSubmit?.Invoke();
         }
     }
 }
