@@ -33,6 +33,8 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void Commit()
         {
+            Event.User = null;
+            Event.Job = null;
             EventService.ExecuteAsync(Event as Event);
         }
 

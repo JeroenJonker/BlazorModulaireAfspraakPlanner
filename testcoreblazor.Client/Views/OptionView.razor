@@ -43,12 +43,12 @@
         </div>
         @if ((ElementTypes)Option.ElementType == ElementTypes.Dropdown)
         {
-        <div>
-            <div class="form-row">
-                <span class="col-sm-5">
-                    <label class="col-form-label">Dropdown items</label>
-                </span>
-            </div>
+            <div>
+                <div class="form-row">
+                    <span class="col-sm-5">
+                        <label class="col-form-label">Dropdown items</label>
+                    </span>
+                </div>
                 <div class="container">
                     <table class="dropdownItemsTable">
                         <thead>
@@ -63,28 +63,31 @@
                                 <tr>
                                     <th><input type="text" bind="@dropdownItem.Text" /></th>
                                     <th><input type="text" bind="@dropdownItem.Description" /></th>
-                                    <th> <button onclick="@(() => RemoveDropdownItem(dropdownItem))"><span class="oi oi-trash"/></button></th>
+                                    <th> <button onclick="@(() => RemoveDropdownItem(dropdownItem))"><span class="oi oi-trash" /></button></th>
 
                                 </tr>
                             }
                         </tbody>
                     </table>
-                       
+
                 </div>
                 <button onclick="@AddDropdownItem"></button>
-        </div>
+            </div>
         }
-        <div class="form-row">
-            <span class="col-sm-5">
-                <label class="col-form-label">Duration in minutes</label>
-            </span>
-            <span class="col-sm-7 input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="oi oi-person"></i></span>
-                </div>
-                <input class="form-control" type="number" step="5" min="0" value="0" bind="@Option.TimeModifier" />
-            </span>
-        </div>
+        @if ((ElementTypes)Option.ElementType == ElementTypes.Check)
+        {
+            <div class="form-row">
+                <span class="col-sm-5">
+                    <label class="col-form-label">Duration in minutes</label>
+                </span>
+                <span class="col-sm-7 input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="oi oi-person"></i></span>
+                    </div>
+                    <input class="form-control" type="number" step="5" min="0" value="0" bind="@Option.TimeModifier" />
+                </span>
+            </div>
+        }
         <div class="form-row">
             <span class="col-sm-5">
                 <label class="col-form-label">Mandatory</label>

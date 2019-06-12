@@ -22,7 +22,7 @@ namespace BlazorAgenda.Client.Viewmodels
         {
                 Options = StateService.Organization.Option.Where(x => x.TimeModifier != 0 || 
                                                                  (x.InverseOptionNavigation.Count != 0 && 
-                                                                 x.InverseOptionNavigation.FirstOrDefault(y => y.TimeModifier != 0) != null)).ToList();
+                                                                 x.InverseOptionNavigation.Any(y => y.TimeModifier != 0))).ToList();
         }
 
         public void SetEventJob(UIChangeEventArgs e)
@@ -32,6 +32,7 @@ namespace BlazorAgenda.Client.Viewmodels
             
             Event.JobId = Int32.Parse(e.Value.ToString());
             Event.Job = StateService.Organization.Job.First(job => job.Id == Event.JobId);
+            Event.Summary = Event.Job.Name;
 
             foreach (User user in StateService.Organization.User.Join(Event.Job.UserJob, u => u.Id, uj => uj.UserId, (u, uj) => u))
             {
@@ -53,7 +54,7 @@ namespace BlazorAgenda.Client.Viewmodels
         public void AddNewEventOption(IEventOption eventOption)
         {
             eventOption.OptionId = eventOption.Option.Id;
-            eventOption.Option = default;
+            //eventOption.Option = default;
             Event.EventOption.Add(eventOption as EventOption);
         }
     }
