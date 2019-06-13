@@ -16,6 +16,7 @@ namespace BlazorAgenda.Shared.Enums
         StaffSelection = 8,
         Date = 9,
         MultiSelect = 10,
-        Dropdown = 11
+        Dropdown = 11,
+        Textarea = 12
     }
 }

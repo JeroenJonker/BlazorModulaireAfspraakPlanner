@@ -67,6 +67,7 @@ namespace BlazorAgenda.Server.Controllers
                         Edit(newOptions[i]);
                     }
                 }
+                newOptions[i].OptionNavigation = null;
             }
             Object.InverseOptionNavigation = newOptions;
         }
