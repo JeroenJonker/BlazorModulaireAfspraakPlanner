@@ -5,7 +5,8 @@
 
 <form onsubmit="@SubmitEventOptions" class="container-fluid">
     <fieldset>
-        @if (StateService.Organization is Organization) {
+        @if (StateService.Organization is Organization)
+        {
             <!-- Job -->
             <div class="form-row">
                 <span class="col-sm-5">
@@ -21,7 +22,8 @@
                     </select>
                 </span>
             </div>
-            @if (SelectedJobUsers.Count != 0) {
+            @if (SelectedJobUsers.Count != 0)
+            {
                 <!-- User -->
                 <div class="form-row">
                     <span class="col-sm-5">
@@ -42,16 +44,20 @@
             }
             @foreach (Option option in Options)
             {
-            <div class="form-row">
-                <span class="col-sm-5">
-                    <label class="col-form-label">@option.Text</label>
-                </span>
-                <span class="col-sm-7 input-group">
-                    <OptionTypeComponent Option="@option" OnNewEventOption="@(eventOption => AddNewEventOption(eventOption))" />
-                </span>
-            </div>
+                <div class="form-row">
+                    <span class="col-sm-5">
+                        <label class="col-form-label">@option.Text</label>
+                    </span>
+                    <span class="col-sm-7 input-group">
+                        <OptionTypeComponent Option="@option" OnNewEventOption="@(eventOption => AddNewEventOption(eventOption))" />
+                    </span>
+                </div>
+            }
         }
-        }
-        <button type="submit" value="Submit" />
+        <button type="submit" value="Submit">
+            <span>
+                <i class="oi-arrow-thick-left" />
+            </span>
+        </button>
     </fieldset>
 </form>

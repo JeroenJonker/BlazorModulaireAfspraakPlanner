@@ -76,6 +76,17 @@
             <input class="form-control" type="email" bind="@EventOption.Value" />
         }
         break;
+
+    case ElementTypes.Textarea:
+        if (Option.IsMandatory)
+        {
+            <textarea class="form-control" bind="@EventOption.Value" />
+        }
+        else
+        {
+            <textarea class="form-control" bind="@EventOption.Value" />
+        }
+        break;
     case ElementTypes.StaffSelection:
         if (Option.IsMandatory)
         {
