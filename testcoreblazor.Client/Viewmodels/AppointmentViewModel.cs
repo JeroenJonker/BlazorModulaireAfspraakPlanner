@@ -18,6 +18,14 @@ namespace BlazorAgenda.Client.Viewmodels
 
         [Inject] protected IOrganizationService OrganizationService { get; set; }
 
+        public List<KeyValuePair<string, string>> Tabs { get; set; } = new List<KeyValuePair<string, string>>()
+        {
+            new KeyValuePair<string, string>("1. Dienst", "appointmentTabSelected"),
+            new KeyValuePair<string, string>("2. Datum", "appointmentTabNormal"),
+            new KeyValuePair<string, string>("3. Algemene gegevens", "appointmentTabNormal"),
+            new KeyValuePair<string, string>("4. Bevestiging", "appointmentTabNormal")
+        };
+
         public int Step { get; set; } = 0;
 
         protected override async Task OnInitAsync()
@@ -27,12 +35,15 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void NextStep()
         {
+            Tabs[Step] = new KeyValuePair<string,string>(Tabs[Step].Key,"appointmentTabNormal");
             Step++;
+            Tabs[Step] = new KeyValuePair<string, string>(Tabs[Step].Key, "appointmentTabSelected");
             StateHasChanged();
         }
 
         public void Commit()
         {
+            //                eventOption.Option = null; stten
             Event.User = null;
             Event.Job = null;
             EventService.ExecuteAsync(Event as Event);

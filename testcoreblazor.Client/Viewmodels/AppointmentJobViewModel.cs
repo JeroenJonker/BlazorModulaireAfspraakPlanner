@@ -54,7 +54,6 @@ namespace BlazorAgenda.Client.Viewmodels
         public void AddNewEventOption(IEventOption eventOption)
         {
             eventOption.OptionId = eventOption.Option.Id;
-            //eventOption.Option = default;
             Event.EventOption.Add(eventOption as EventOption);
         }
     }

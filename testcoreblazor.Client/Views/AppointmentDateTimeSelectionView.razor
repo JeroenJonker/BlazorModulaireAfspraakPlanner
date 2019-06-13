@@ -7,21 +7,18 @@
 
 <div class="dateTimeSelectionView">
     <InlineDatePicker OnSelectedDate="@OnSelectedDate" />
-    <div>
-        <div style="padding: 10px">
-            @if (AvailableTimes.Count > 0)
-            {
-                <h3>Available appointments</h3>
-                @foreach (DateTime time in AvailableTimes)
+    <div style="padding: 10px">
+        <h3 style="text-align: center">Available times</h3>
+        <div class="availableAppointmentTimes">
+                @if (AvailableTimes.Count > 0)
                 {
-                    <div class="timeSlot" onclick="@( () =>  OnSelectedTime(time))">
-                        <span class="input-group-text">
-                            <i class="oi oi-clock" />
-                            &nbsp;@time.ToString("HH:mm")
-                        </span>
+                    @foreach (DateTime time in AvailableTimes)
+                    {
+                    <div class="timeSlot" onclick="@( () => OnSelectedTime(time))">
+                        &nbsp;@time.ToString("HH:mm")
                     </div>
+                    }
                 }
-            }
         </div>
     </div>
 </div>

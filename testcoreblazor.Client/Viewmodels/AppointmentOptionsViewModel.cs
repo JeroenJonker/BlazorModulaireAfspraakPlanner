@@ -13,8 +13,6 @@ namespace BlazorAgenda.Client.Viewmodels
     {
         [Inject] protected IStateService StateService { get; set; }
         [Parameter] [Inject] protected IEvent Event { get; set; }
-
-        [Inject] protected IOptionService OptionService { get; set; }
         public List<Option> Options { get; set; } = new List<Option>();
         [Parameter] Action OnSubmit { get; set; }
 
@@ -27,7 +25,6 @@ namespace BlazorAgenda.Client.Viewmodels
         public void AddNewEventOption(IEventOption eventOption)
         {
             eventOption.OptionId = eventOption.Option.Id;
-            eventOption.Option = default;
             Event.EventOption.Add(eventOption as EventOption);
         }
 

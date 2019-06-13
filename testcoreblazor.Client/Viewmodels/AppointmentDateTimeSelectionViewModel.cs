@@ -31,12 +31,8 @@ namespace BlazorAgenda.Client.Viewmodels
             {
                 if (!(eventOption.Option.ElementType == (int)ElementTypes.Check && eventOption.Value == "False"))
                 {
-                    Console.WriteLine(eventOption.Option.Id);
-                    Console.WriteLine(eventOption.Option.TimeModifier);
                     EventDuration += eventOption.Option.TimeModifier;
                 }
-                Console.WriteLine(EventDuration);
-                eventOption.Option = null;
             }
         }
 
