@@ -41,7 +41,7 @@
                 </select>
             </span>
         </div>
-        @if ((ElementTypes)Option.ElementType == ElementTypes.Dropdown)
+        @if ((ElementTypes)Option.ElementType == ElementTypes.Dropdown || (ElementTypes)Option.ElementType == ElementTypes.MultiSelect)
         {
         <div>
             <div class="form-row">
