@@ -15,7 +15,15 @@ namespace BlazorAgenda.Server.DataAccess
 
         public List<Event> GetUserEvents(int userid)
         {
-            return db.Event.Where(g => g.UserId == userid).ToList();
+            try
+            {
+                return db.Event.Where(g => g.UserId == userid).ToList();
+            }
+            catch
+            {
+                return new List<Event>();
+            }
+            
         }
  
         public bool TryAddEvent(Event newevent)

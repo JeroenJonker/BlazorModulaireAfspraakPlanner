@@ -8,25 +8,42 @@
 
 @inherits AppointmentViewModel
 
-@if (StateService.Organization != null)
-{
-    if (Step == 0)
-    {
-        <AppointmentJobView Event="@Event" OnSubmit="@NextStep" />
+@*<h1 style="text-align: center">@StateService.Organization.Name</h1>*@
+@*span class="input-group-text, timeSlot" onclick="@( () => OnSelectedTime(time))">
+                                <i class="oi oi-clock" />
+                                &nbsp;@time.ToString("HH:mm")
+                            </span>*@
+<div class="appointmentContainer">
+    <div class="appointmentTabs">
+        @foreach(KeyValuePair<string,string> tab in Tabs)
+        {
+            <div class="@tab.Value">@tab.Key</div>
+        }
+    </div>
+    <div>
+        @if (StateService.Organization != null)
+        {
+            if (Step == 0)
+            {
+                <AppointmentJobView Event="@Event" OnSubmit="@NextStep" />
 
-    }
-    else if (Step == 1)
-    {
-        <AppointmentDateTimeSelectionView Event="@Event" OnSubmit="@NextStep" />
-    }
-    else if (Step == 2)
-    {
-        <AppointmentOptionsView Event="@Event" OnSubmit="@Commit"/>
-    }
-}
-
-<button onclick="@Check" />
-
+            }
+            else if (Step == 1)
+            {
+                <AppointmentDateTimeSelectionView Event="@Event" OnSubmit="@NextStep" />
+            }
+            else if (Step == 2)
+            {
+                <AppointmentOptionsView Event="@Event" OnSubmit="@NextStep" />
+            }
+            else if (Step == 3)
+            {
+                <AppointmentConfirmationView Event="@Event" OnSubmit="@Commit" />
+            }
+        }
+        @*<button onclick="@Check" />*@
+    </div>
+</div>
 
 @functions {
     ElementRef myInput;

@@ -2,9 +2,12 @@
 
     <div class="datePickerBox">
         <div class="datePickerHeader">
-            <button onclick="@PreviousMonth"><span class="oi oi-arrow-thick-left"></span></button>
-            <h2 class="datePickerLabel">@CurrentDate.Year @CurrentDate.ToString("MMMM") </h2>
-            <button onclick="@NextMonth"><span class="oi oi-arrow-thick-right"></span></button>
+            @if (CurrentDate.AddMonths(-1) >= new DateTime(DateTime.Now.Year, DateTime.Now.Month,1))
+            {
+                <span onclick="@PreviousMonth" class="oi oi-arrow-thick-left"></span>
+            }
+            <h3 class="datePickerLabel">@CurrentDate.Year @CurrentDate.ToString("MMMM") </h3>
+            <span onclick="@NextMonth" class="oi oi-arrow-thick-right"></span>
         </div>
 
         <div class="grid-container">

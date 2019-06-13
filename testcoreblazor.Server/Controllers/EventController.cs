@@ -14,6 +14,10 @@ namespace BlazorAgenda.Server.Controllers
         {
             if (EventAccess.TryAddEvent(newEvent))
             {
+                foreach (EventOption eventOption in newEvent.EventOption)
+                {
+                    eventOption.Event = null;
+                }
                 return CreatedAtAction(nameof(GetObjectById), new { id = newEvent.Id }, newEvent);
             }
             return BadRequest();

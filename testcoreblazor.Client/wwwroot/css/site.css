@@ -277,14 +277,14 @@ input[type=checkbox] {
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;
+    grid-template-columns: repeat(7, 1fr);
     background-color: #fafafa;
 }
 
-.grid-container > div {
-    text-align: center;
-    padding: 20px 0;
-}
+    .grid-container > div {
+        text-align: center;
+        line-height: 2.5;
+    }
 
 .dateCellSelected {
     background-color: #E7E9ED;
@@ -310,7 +310,7 @@ input[type=checkbox] {
 
 .datePickerHeader {
     display: flex;
-    padding: 1.2rem 1.4rem;
+    padding: 0.8rem;
     align-items: center;
 }
 
@@ -322,7 +322,7 @@ input[type=checkbox] {
 
 .dateCellDay {
     background-color: #E7E9ED;
-    padding: 20px 0;
+    line-height: 2.5;
     font-weight: bold;
     text-align: center;
     grid-row: 1;
@@ -347,4 +347,37 @@ input[type=checkbox] {
 
 .dropdownItemsTable {
     border-bottom: 0px solid #000;
+}
+
+.appointmentContainer {
+    max-width: 600px;
+    margin: 1.75rem auto;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background-color: white;
+}
+
+.appointmentTabs {
+    display: grid;
+    line-height: 2;
+    text-align: center;
+    font-weight: bold;
+    grid-template-columns: auto auto auto auto;
+}
+
+.appointmentTabSelected {
+    color: blue;
+    padding: 6px;
+    border-bottom: 2px solid #0062cc;
+}
+
+.appointmentTabNormal {
+    color: gray;
+    padding: 6px;
+    border-bottom: 2px solid rgba(148, 141, 141, 0.24);
+}
+
+.availableAppointmentTimes {
+    display: grid;
+    grid-template-columns: auto auto auto;
 }

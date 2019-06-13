@@ -13,20 +13,18 @@ namespace BlazorAgenda.Client.Viewmodels
     {
         [Inject] protected IStateService StateService { get; set; }
         [Parameter] [Inject] protected IEvent Event { get; set; }
-
-        [Inject] protected IOptionService OptionService { get; set; }
         public List<Option> Options { get; set; } = new List<Option>();
         [Parameter] Action OnSubmit { get; set; }
 
-        protected override async Task OnInitAsync()
+        protected override void OnInit()
         {
-            Options = await OptionService.GetOptionsAsync(StateService.Organization);
+            Options = StateService.Organization.Option.Where(x => x.TimeModifier == 0 &&
+                                     !x.InverseOptionNavigation.Any(y => y.TimeModifier != 0)).ToList();
         }
 
         public void AddNewEventOption(IEventOption eventOption)
         {
             eventOption.OptionId = eventOption.Option.Id;
-            eventOption.Option = default;
             Event.EventOption.Add(eventOption as EventOption);
         }
 

@@ -20,7 +20,6 @@ namespace BlazorAgenda.Shared.Models
         public virtual DbSet<Organization> Organization { get; set; }
         public virtual DbSet<Job> Job { get; set; }
         public virtual DbSet<UserJob> UserJob { get; set; }
-
         public virtual DbSet<Workhours> Workhours { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

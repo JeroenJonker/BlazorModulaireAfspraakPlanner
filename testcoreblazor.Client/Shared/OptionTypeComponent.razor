@@ -102,7 +102,7 @@
     case ElementTypes.Dropdown:
         if (Option.IsMandatory)
         {
-            <select bind="@EventOption.Value" required>
+            <select onchange="@OnDropdownChange" required>
                 <option value="" selected disabled hidden>-- Choose an option --</option>
                 @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
@@ -112,7 +112,7 @@
         }
         else
         {
-            <select bind="@EventOption.Value">
+            <select onchange="@OnDropdownChange">
                 <option value="" selected>-- Choose an option --</option>
                 @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
@@ -158,7 +158,6 @@
     [Inject] protected IOptionService OptionService { get; set; }
     [Inject] protected IStateService StateService { get; set; }
     [Parameter] public List<User> StaffMembers { get; set; }
-    public List<Option> DropdownItems { get; set; }
     [Parameter] Action<IEventOption> OnNewEventOption { get; set; }
 
 
@@ -184,14 +183,16 @@
             StaffMembers = new List<User>();
             StaffMembers = await UserService.GetStaffByOrganization(StateService.Organization);
         }
-        else if ((ElementTypes)Option.ElementType == ElementTypes.Dropdown)
-        {
-            //DropdownItems = await OptionService.
-        }
     }
 
     public void OnCheckboxChanged(UIChangeEventArgs e)
     {
         EventOption.Value = e.Value.ToString();
+    }
+
+    public void OnDropdownChange(UIChangeEventArgs e)
+    {
+        EventOption.Value = e.Value.ToString();
+        EventOption.Option = Option.InverseOptionNavigation.FirstOrDefault(suboption => suboption.Text == e.Value.ToString());
     }
 }

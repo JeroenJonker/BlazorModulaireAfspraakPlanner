@@ -1,0 +1,18 @@
+﻿@using BlazorAgenda.Client.Viewmodels
+@using BlazorAgenda.Client.Shared;
+@using BlazorAgenda.Shared.Models
+@using BlazorAgenda.Shared.Enums
+
+@inherits AppointmentConfirmationViewModel
+
+    <div>
+        <p>@Event.Start</p>
+        <p>@Event.End</p>
+        @foreach (EventOption eventOption in Event.EventOption)
+        {
+            @if (eventOption.Value is string && eventOption.Option != null)
+            {
+                <p>@eventOption.Option.Text : @eventOption.Value</p>
+            }
+        }
+    </div>
