@@ -14,10 +14,20 @@
                 </span>
                 <span class="col-sm-7 input-group">
                     <select onchange="@SetEventJob" required>
-                        <option value="" selected disabled hidden>-- Choose a job --</option>
+                        @if (Event.Job == null)
+                        {
+                            <option value="" selected disabled hidden>-- Choose a job --</option>
+                        }
                         @foreach (Job job in StateService.Organization.Job)
                         {
-                            <option value="@job.Id">@job.Name</option>
+                            if (job.Id == Event.JobId)
+                            {
+                                <option value="@job.Id" selected>@job.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@job.Id">@job.Name</option>
+                            }
                         }
                     </select>
                 </span>
@@ -31,12 +41,25 @@
                     </span>
                     <span class="col-sm-7 input-group">
                         <select onchange="@SetEventUser" required>
-                            <option value="-1" selected disabled hidden>-- Choose a user --</option>
-                            <option value="-2">No preference</option>
+                            @if (Event.UserId == default)
+                            {
+                                <option selected disabled hidden>-- Choose a user --</option>
+                            }
+                            @if (Event.UserId == -1)
+                            {
+                                <option selected value="-1">No preference</option>
+                            }
 
                             @foreach (User user in SelectedJobUsers)
                             {
-                                <option value="@user.Id">@user.Firstname @user.Lastname</option>
+                                if  (user.Id == Event.UserId)
+                                {
+                                    <option value="@user.Id" selected>@user.Firstname @user.Lastname</option>
+                                }
+                                else
+                                {
+                                    <option value="@user.Id">@user.Firstname @user.Lastname</option>
+                                }
                             }
                         </select>
                     </span>
@@ -49,14 +72,23 @@
                         <label class="col-form-label">@option.Text</label>
                     </span>
                     <span class="col-sm-7 input-group">
-                        <OptionTypeComponent Option="@option" OnNewEventOption="@(eventOption => AddNewEventOption(eventOption))" />
+                        @if (Event.EventOption.FirstOrDefault(evOption => evOption.OptionId == option.Id) is EventOption eventOption && eventOption != default)
+                        {
+                            <OptionTypeComponent Option="@option" EventOption="@eventOption" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
+
+                        }
+                        else
+                        {
+                            <OptionTypeComponent Option="@option" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
+                        }
                     </span>
                 </div>
             }
         }
-        <button type="submit" value="Submit">
+        <button type="submit" value="Submit" class="continue">
+            verder 
             <span>
-                <i class="oi-arrow-thick-left" />
+                <i class="oi oi-arrow-right" />
             </span>
         </button>
     </fieldset>

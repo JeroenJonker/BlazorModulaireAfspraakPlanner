@@ -44,24 +44,24 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void ToTab(AppointmentTab selectedTab)
         {
-            //if (selectedTab.cssClass == "appointmentTabPassed")
-            //{
-            //    bool isPassed = false;
-            //    foreach (AppointmentTab tab in Tabs)
-            //    {
-            //        if (isPassed)
-            //        {
-            //            tab.cssClass = "appointmentTabNormal";
-            //        }
-            //        if (tab == selectedTab)
-            //        {
-            //            Step = tab.Step;
-            //            tab.cssClass = "appointmentTabSelected";
-            //            isPassed = true;
-            //        }
-            //    }
-            //    StateHasChanged();
-            //}
+            if (selectedTab.cssClass == "appointmentTabPassed")
+            {
+                bool isPassed = false;
+                foreach (AppointmentTab tab in Tabs)
+                {
+                    if (isPassed)
+                    {
+                        tab.cssClass = "appointmentTabNormal";
+                    }
+                    if (tab == selectedTab)
+                    {
+                        Step = tab.Step;
+                        tab.cssClass = "appointmentTabSelected";
+                        isPassed = true;
+                    }
+                }
+                StateHasChanged();
+            }
         }
 
         public void Commit()

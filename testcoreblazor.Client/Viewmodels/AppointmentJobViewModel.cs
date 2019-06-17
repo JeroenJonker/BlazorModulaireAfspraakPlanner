@@ -20,9 +20,16 @@ namespace BlazorAgenda.Client.Viewmodels
         
         protected override void OnInit()
         {
-                Options = StateService.Organization.Option.Where(x => x.TimeModifier != 0 || 
+            Options = StateService.Organization.Option.Where(x => x.TimeModifier != 0 || 
                                                                  (x.InverseOptionNavigation.Count != 0 && 
                                                                  x.InverseOptionNavigation.Any(y => y.TimeModifier != 0))).ToList();
+            if (Event.JobId != default)
+            {
+                foreach (User user in StateService.Organization.User.Join(Event.Job.UserJob, u => u.Id, uj => uj.UserId, (u, uj) => u))
+                {
+                    SelectedJobUsers.Add(user);
+                }
+            }
         }
 
         public void SetEventJob(UIChangeEventArgs e)

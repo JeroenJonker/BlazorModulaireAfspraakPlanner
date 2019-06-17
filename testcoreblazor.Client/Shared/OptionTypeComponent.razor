@@ -114,22 +114,45 @@
         if (Option.IsMandatory)
         {
             <select onchange="@OnDropdownChange" required>
-                <option value="" selected disabled hidden>-- Choose an option --</option>
+                @if (EventOption.Value == null)
+                {
+                    <option value="" selected disabled hidden>-- Choose an option --</option>
+                }
                 @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
-                    <option value="@dropdownItem.Text">@dropdownItem.Text</option>
+                    if (EventOption.Value == dropdownItem.Text)
+                    {
+                        <option value="@dropdownItem.Text" selected>@dropdownItem.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@dropdownItem.Text">@dropdownItem.Text</option>
+                    }
                 }
             </select>
         }
         else
         {
-            <select onchange="@OnDropdownChange">
+        <select onchange="@OnDropdownChange">
+            @if (EventOption.Value == null)
+            {
                 <option value="" selected>-- Choose an option --</option>
-                @foreach (Option dropdownItem in Option.InverseOptionNavigation)
+            }
+            @foreach (Option dropdownItem in Option.InverseOptionNavigation)
+            {
+                Console.WriteLine(EventOption.Value + " " + dropdownItem.Text);
+                if (EventOption.Value == dropdownItem.Text)
+                {
+                    <option value="@dropdownItem.Text" selected>@dropdownItem.Text</option>
+                    Console.WriteLine("ok");
+                }
+                else
                 {
                     <option value="@dropdownItem.Text">@dropdownItem.Text</option>
+                    Console.WriteLine("nope");
                 }
-            </select>
+            }
+        </select>
         }
 
         break;
@@ -145,7 +168,7 @@
 {
     [Parameter] protected IOption Option { get; set; }
 
-    [Inject] protected IEventOption EventOption { get; set; }
+    [Parameter][Inject] protected IEventOption EventOption { get; set; }
 
     [Inject] protected IUserService UserService { get; set; }
     [Inject] protected IOptionService OptionService { get; set; }
@@ -153,20 +176,17 @@
     [Parameter] public List<User> StaffMembers { get; set; }
     [Parameter] Action<IEventOption> OnNewEventOption { get; set; }
 
-
-    protected override void OnInit()
-    {
-        if ((ElementTypes)Option.ElementType == ElementTypes.Check)
-        {
-            EventOption.Value = "False";
-        }
-        base.OnInit();
-    }
-
     protected override void OnParametersSet()
     {
         EventOption.Option = Option as Option;
-        OnNewEventOption?.Invoke(EventOption);
+        if (EventOption.Value == null)
+        {
+            OnNewEventOption?.Invoke(EventOption);
+        }
+        if ((ElementTypes)Option.ElementType == ElementTypes.Check && EventOption.Value == string.Empty)
+        {
+            EventOption.Value = "False";
+        }
     }
 
     protected async override Task OnParametersSetAsync()
