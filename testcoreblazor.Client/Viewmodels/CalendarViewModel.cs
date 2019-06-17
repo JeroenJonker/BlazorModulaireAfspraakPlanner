@@ -63,12 +63,13 @@ namespace BlazorAgenda.Client.Viewmodels
             EventViewService.OnSavedChange = CloseEventView;
             SelectedContacts = new ObservableCollection<User>();
             SelectedContacts.Add(StateService.LoginUser);
-            await UpdateEvents();
+            UpdateEvents();
             Contacts = new ObservableCollection<User>(await UserService.GetStaffByOrganization(StateService.Organization));
+            StateService.OnCollectionChanged = UpdateEvents;
             GoToToday();
         }
 
-        public async Task UpdateChosenContacts(User user)
+        public void UpdateChosenContacts(User user)
         {
             if (SelectedContacts.Contains(user))
             {
@@ -78,10 +79,10 @@ namespace BlazorAgenda.Client.Viewmodels
             {
                 SelectedContacts.Add(user);
             }
-            await UpdateEvents();
+            UpdateEvents();
         }
 
-        public async Task UpdateEvents()
+        public async void UpdateEvents()
         {
             List<CalendarEvent> events = await GetCalendarEvents();
             DragDropHelper.Items = events.OrderBy(x => x.Event.Start).ToList();
@@ -183,7 +184,7 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public async Task CloseEventView()
         {
-            await UpdateEvents();
+            UpdateEvents();
         }
     }
 }

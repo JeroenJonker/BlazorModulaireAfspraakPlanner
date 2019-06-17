@@ -13,7 +13,39 @@ namespace BlazorAgenda.Client.Viewmodels
 {
     public class WorkhoursViewModel : ComponentBase
     {
-        [Parameter] protected DateTime Start { get; set; }
+        [Parameter] protected DateTime Start
+        {
+            get
+            {
+                return Workhours.Start;
+            }
+            set
+            {
+                Workhours.Start = CreateNewDatetime(Workhours.Start, value);
+            }
+        }
+
+        public DateTime End
+        {
+            get { return Workhours.End; }
+            set
+            {
+                Workhours.End = CreateNewDatetime(Workhours.End, value);
+            }
+        }
+
+        public DateTime CreateNewDatetime(DateTime oldvalue, DateTime newvalue)
+        {
+            if (newvalue.Hour != oldvalue.Hour || newvalue.Minute != oldvalue.Minute)
+            {
+                return new DateTime(oldvalue.Year, oldvalue.Month, oldvalue.Day, newvalue.Hour, newvalue.Minute, newvalue.Second);
+            }
+            else
+            {
+                return new DateTime(newvalue.Year, newvalue.Month, newvalue.Day, oldvalue.Hour, oldvalue.Minute, oldvalue.Second);
+            }
+        }
+
         [Inject] protected IWorkhours Workhours { get; set; }
         [Inject] protected IWorkhoursService WorkhoursService { get; set; }
         [Inject] protected IStateService StateService { get; set; }

@@ -22,6 +22,7 @@ namespace BlazorAgenda.Client.Viewmodels
             {
                 User = user;
             }
+            User.OrganizationId = StateService.Organization.Id;
             base.OnInit();
         }
 

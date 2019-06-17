@@ -20,6 +20,8 @@ namespace BlazorAgenda.Services
 
         public event Action OnChange;
 
+        public Action OnCollectionChanged { get; set; }
+
         public Func<IBaseObject,IBaseObject> OnSetNewCurrentObject { get; set; }
 
         public StateService()
@@ -35,6 +37,10 @@ namespace BlazorAgenda.Services
             Organization = null;
         }
 
-        public void NotifyStateChanged() => OnChange?.Invoke();
+        public void NotifyStateChanged()
+        {
+            OnCollectionChanged?.Invoke();
+            OnChange?.Invoke();
+        }
     }
 }

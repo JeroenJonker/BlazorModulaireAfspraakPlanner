@@ -52,7 +52,7 @@ namespace BlazorAgenda.Client.Viewmodels
         public void SetAvailableTimes(Workhours workhour)
         {
             DateTime start = workhour.Start;
-            while (start.AddMinutes(EventDuration) != workhour.End)
+            while (start.AddMinutes(EventDuration) <= workhour.End)
             {
                 if (!IsTimeInConflictWithEvents(start, start.AddMinutes(EventDuration)))
                 {

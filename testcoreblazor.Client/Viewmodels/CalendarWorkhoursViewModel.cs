@@ -61,11 +61,12 @@ namespace BlazorAgenda.Client.Viewmodels
         protected override async Task OnInitAsync()
         {
             Contacts = SelectedUsers = new ObservableCollection<User>(await UserService.GetStaffByOrganization(StateService.Organization));
-            await UpdateEvents();
+            UpdateEvents();
+            StateService.OnCollectionChanged = UpdateEvents;
             GoToToday();
         }
 
-        public async Task UpdateChosenContacts(User user)
+        public void UpdateChosenContacts(User user)
         {
             if (SelectedUsers.Contains(user))
             {
@@ -75,10 +76,10 @@ namespace BlazorAgenda.Client.Viewmodels
             {
                 SelectedUsers.Add(user);
             }
-            await UpdateEvents();
+            UpdateEvents();
         }
 
-        public async Task UpdateEvents()
+        public async void UpdateEvents()
         {
             List<CalendarEvent> events = await GetCalendarEvents();
             DragDropHelper.Items = events.OrderBy(x => x.Event.Start).ToList();
@@ -172,11 +173,6 @@ namespace BlazorAgenda.Client.Viewmodels
             StateService.CurrentModalType = BlazorAgenda.Shared.Enums.ModalTypes.Workhours;
             StateService.OnSetNewCurrentObject = SetNewCurrentObject;
             StateService.NotifyStateChanged();
-        }
-
-        public async Task CloseEventView()
-        {
-            await UpdateEvents();
         }
 
         public IBaseObject SetNewCurrentObject(IBaseObject newObject)

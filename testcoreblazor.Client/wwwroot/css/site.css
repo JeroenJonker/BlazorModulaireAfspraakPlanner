@@ -372,6 +372,12 @@ input[type=checkbox] {
 }
 
 .appointmentTabNormal {
+    color: lightgray;
+    padding: 6px;
+    border-bottom: 2px solid rgba(148, 141, 141, 0.24);
+}
+
+.appointmentTabPassed {
     color: gray;
     padding: 6px;
     border-bottom: 2px solid rgba(148, 141, 141, 0.24);

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlazorAgenda.Shared.Enums;
+using System;
 
 namespace BlazorAgenda.Client.Viewmodels
 {
@@ -15,9 +16,17 @@ namespace BlazorAgenda.Client.Viewmodels
         [Inject] IUserService UserService { get; set; }
         [Inject] IStateService StateService { get; set; }
 
-        protected override async Task OnInitAsync()
+        protected override void OnInit()
+        {
+            StateService.OnCollectionChanged = GetUsers;
+            GetUsers();
+        }
+
+        public async void GetUsers()
         {
             Users = new List<User>(await UserService.GetStaffByOrganization(StateService.Organization));
+            StateHasChanged();
+
         }
 
         public void EditUser(User user)

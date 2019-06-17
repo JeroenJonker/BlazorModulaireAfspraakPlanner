@@ -30,7 +30,7 @@ namespace BlazorAgenda.Client.Viewmodels
             SelectedJobUsers.Clear();
             Event.UserId = -1;
             
-            Event.JobId = Int32.Parse(e.Value.ToString());
+            Event.JobId = int.Parse(e.Value.ToString());
             Event.Job = StateService.Organization.Job.First(job => job.Id == Event.JobId);
             Event.Summary = Event.Job.Name;
 
@@ -42,7 +42,7 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void SetEventUser(UIChangeEventArgs e)
         {
-            Event.UserId = Int32.Parse(e.Value.ToString());
+            Event.UserId = int.Parse(e.Value.ToString());
             Event.User = SelectedJobUsers.FirstOrDefault(user => user.Id == Event.UserId);
         }
 
