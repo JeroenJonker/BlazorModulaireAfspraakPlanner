@@ -58,10 +58,23 @@ namespace BlazorAgenda.Client.Viewmodels
             OnSubmit?.Invoke();
         }
 
-        public void AddNewEventOption(IEventOption eventOption)
+        public void AddNewEventOptions(List<IEventOption> eventOptions)
         {
-            eventOption.OptionId = eventOption.Option.Id;
-            Event.EventOption.Add(eventOption as EventOption);
+            foreach (IEventOption eventOption in eventOptions) {
+                eventOption.OptionId = eventOption.Option.Id;
+                Event.EventOption.Add(eventOption as EventOption);
+            }
+        }
+
+        public void SetMultiEventOptions(List<EventOption> eventOptions, Option option)
+        {
+            foreach (EventOption eventOption in Event.EventOption.Where(eo => eo.OptionId == option.Id)) {
+                Event.EventOption.Remove(eventOption);
+            }
+            foreach (EventOption eventOption in eventOptions) {
+                eventOption.OptionId = eventOption.Option.Id;
+                Event.EventOption.Add(eventOption);
+            }
         }
     }
 }
