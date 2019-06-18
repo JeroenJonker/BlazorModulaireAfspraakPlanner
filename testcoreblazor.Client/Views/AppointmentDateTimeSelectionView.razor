@@ -4,21 +4,31 @@
 @using BlazorAgenda.Shared.Enums
 
 @inherits AppointmentDateTimeSelectionViewModel
-
-<div class="dateTimeSelectionView">
-    <InlineDatePicker OnSelectedDate="@OnSelectedDate" />
-    <div style="padding: 10px">
-        <h3 style="text-align: center">Available times</h3>
-        <div class="availableAppointmentTimes">
-                @if (AvailableTimes.Count > 0)
-                {
-                    @foreach (DateTime time in AvailableTimes)
+    <div class="container-fluid">
+        <div class="dateTimeSelectionView">
+            <InlineDatePicker OnSelectedDate="@OnSelectedDate" />
+            <div style="padding: 10px">
+                <h3 style="text-align: center">Available times</h3>
+                <div class="availableAppointmentTimes">
+                    @if (AvailableTimes.Count > 0)
                     {
-                    <div class="timeSlot" onclick="@( () => OnSelectedTime(time))">
-                        &nbsp;@time.ToString("HH:mm")
-                    </div>
+                        @foreach (DateTime time in AvailableTimes)
+                        {
+                            <div class="timeSlot" onclick="@( () => OnSelectedTime(time))">
+                                &nbsp;@time.ToString("HH:mm")
+                            </div>
+                        }
                     }
-                }
+                </div>
+            </div>
+            <div>
+                <button onclick="@ToPreviousTab" class="appointmentNavigationButton previousNavigationButton">
+                    <span>
+                        <i class="oi oi-arrow-left" />
+                    </span>
+                    previous
+                </button>
+            </div>
         </div>
     </div>
-</div>
+

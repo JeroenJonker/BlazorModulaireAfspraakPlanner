@@ -9,71 +9,78 @@
     case ElementTypes.Text:
         if (Option.IsMandatory)
         {
-            <input class="form-control" type="text" bind="@EventOption.Value" required />
+            <input class="textInput" type="text" bind="@EventOption.Value" placeholder="@Option.Description" required />
         }
         else
         {
-            <input class="form-control" type="text" bind="@EventOption.Value" />
+            <input class="textInput" type="text" bind="@EventOption.Value" placeholder="@Option.Description"/>
         }
         break;
     case ElementTypes.Check:
         if (Option.IsMandatory)
         {
-            <input class="form-control" type="checkbox" onchange="@OnCheckboxChanged" required />
+            <label class="Ccontainer">
+                <input class="form-control checkbox" type="checkbox" bind="@CheckBoxValue" required />
+                <span class="Ccheckmark"></span>
+            </label>
+
         }
         else
         {
-            <input class="form-control" type="checkbox" onchange="@OnCheckboxChanged" />
+            <label class="container">
+                <input class="form-control checkbox" type="checkbox" bind="@CheckBoxValue" />
+                <span class="checkmark"></span>
+            </label>
         }
         break;
     case ElementTypes.Number:
         if (Option.IsMandatory)
         {
-            <input class="form-control" type="number" step="1" bind="@EventOption.Value" required />
+            <input class="textInput" type="number" step="1" bind="@EventOption.Value" placeholder=0 required />
         }
         else
         {
-            <input class="form-control" type="number" step="1" bind="@EventOption.Value" />
+            <input class="textInput" type="number" step="1" bind="@EventOption.Value" placeholder=0 />
         }
         break;
     case ElementTypes.Telephonenumber:
         if (Option.IsMandatory)
         {
-            <input class="form-control" type="tel" pattern="[0-9]{8}" bind="@EventOption.Value" required />
+            <input class="textInput" type="tel" pattern="[0-9]{8}" bind="@EventOption.Value" required />
         }
         else
         {
-            <input class="form-control" type="tel" pattern="[0-9]{8}" bind="@EventOption.Value" />
+            <input class="textInput" type="tel" pattern="[0-9]{8}" bind="@EventOption.Value" />
         }
         break;
     case ElementTypes.Address:
         if (Option.IsMandatory)
         {
-            <input class="form-control" type="text" pattern="^\d{4}\D{2}$" bind="@EventOption.Value" required />
+            <input class="textInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOption.Value" required />
         }
         else
         {
-            <input class="form-control" type="text" pattern="^\d{4}\D{2}$" bind="@EventOption.Value" />
+            <input class="textInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOption.Value" />
         }
         break;
     case ElementTypes.Date:
         if (Option.IsMandatory)
         {
-            <input class="form-control" type="date" bind="@EventOption.Value" required />
+            <input class="textInput" type="date" bind="@EventOption.Value" required />
         }
         else
         {
-            <input class="form-control" type="date" bind="@EventOption.Value" />
+            <input class="textInput" type="date" bind="@EventOption.Value" />
         }
         break;
     case ElementTypes.Email:
         if (Option.IsMandatory)
         {
-            <input class="form-control" type="email" bind="@EventOption.Value" />
+            <input class="textInput" type="email" bind="@EventOption.Value" />
         }
         else
         {
-            <input class="form-control" type="email" bind="@EventOption.Value" />
+            <input class="textInput" type="email" bind="@EventOption.Value" />
         }
         break;
 
@@ -133,26 +140,23 @@
         }
         else
         {
-        <select onchange="@OnDropdownChange">
-            @if (EventOption.Value == null)
-            {
-                <option value="" selected>-- Choose an option --</option>
-            }
-            @foreach (Option dropdownItem in Option.InverseOptionNavigation)
-            {
-                Console.WriteLine(EventOption.Value + " " + dropdownItem.Text);
-                if (EventOption.Value == dropdownItem.Text)
+            <select onchange="@OnDropdownChange">
+                @if (EventOption.Value == null)
                 {
-                    <option value="@dropdownItem.Text" selected>@dropdownItem.Text</option>
-                    Console.WriteLine("ok");
+                    <option value="" selected>-- Choose an option --</option>
                 }
-                else
+                @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
-                    <option value="@dropdownItem.Text">@dropdownItem.Text</option>
-                    Console.WriteLine("nope");
+                    if (EventOption.Value == dropdownItem.Text)
+                    {
+                        <option value="@dropdownItem.Text" selected>@dropdownItem.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@dropdownItem.Text">@dropdownItem.Text</option>
+                    }
                 }
-            }
-        </select>
+            </select>
         }
 
         break;
@@ -168,13 +172,25 @@
 {
     [Parameter] protected IOption Option { get; set; }
 
-    [Parameter][Inject] protected IEventOption EventOption { get; set; }
+    [Parameter] [Inject] protected IEventOption EventOption { get; set; }
 
     [Inject] protected IUserService UserService { get; set; }
     [Inject] protected IOptionService OptionService { get; set; }
     [Inject] protected IStateService StateService { get; set; }
     [Parameter] public List<User> StaffMembers { get; set; }
     [Parameter] Action<IEventOption> OnNewEventOption { get; set; }
+    private bool _checkBoxValue = false;
+
+    public bool CheckBoxValue
+    {
+        get { return _checkBoxValue; }
+        set
+        {
+            _checkBoxValue = value;
+            EventOption.Value = CheckBoxValue.ToString();
+        }
+    }
+
 
     protected override void OnParametersSet()
     {
@@ -183,9 +199,16 @@
         {
             OnNewEventOption?.Invoke(EventOption);
         }
-        if ((ElementTypes)Option.ElementType == ElementTypes.Check && EventOption.Value == string.Empty)
+        if ((ElementTypes)Option.ElementType == ElementTypes.Check)
         {
-            EventOption.Value = "False";
+            if (EventOption.Value == string.Empty)
+            {
+                EventOption.Value = "False";
+            }
+            else if (EventOption.Value == "True")
+            {
+                CheckBoxValue = true;
+            }
         }
     }
 

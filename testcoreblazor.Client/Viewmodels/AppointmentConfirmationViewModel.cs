@@ -12,6 +12,7 @@ namespace BlazorAgenda.Client.Viewmodels
     {
         [Parameter] protected Action OnSubmit { get; set; }
         [Parameter] [Inject] protected IEvent Event { get; set; }
+        [Parameter] protected Action ToPreviousTab { get; set; }
 
         public void Commit()
         {

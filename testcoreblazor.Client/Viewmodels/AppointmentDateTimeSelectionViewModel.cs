@@ -21,6 +21,8 @@ namespace BlazorAgenda.Client.Viewmodels
         public List<Event> Events { get; set; } = new List<Event>();
         public int EventDuration { get; set; } = 0;
         [Parameter] protected Action OnSubmit { get; set; }
+        [Parameter] protected Action ToPreviousTab { get; set; }
+
 
         protected override async Task OnInitAsync()
         {

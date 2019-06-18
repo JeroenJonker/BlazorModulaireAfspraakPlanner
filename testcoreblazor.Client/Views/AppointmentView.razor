@@ -25,15 +25,15 @@
             }
             else if (Step == 1)
             {
-                <AppointmentDateTimeSelectionView Event="@Event" OnSubmit="@NextStep" />
+                <AppointmentDateTimeSelectionView Event="@Event" OnSubmit="@NextStep" ToPreviousTab="@PreviousStep"  />
             }
             else if (Step == 2)
             {
-                <AppointmentOptionsView Event="@Event" OnSubmit="@NextStep" />
+                <AppointmentOptionsView Event="@Event" OnSubmit="@NextStep" ToPreviousTab="@PreviousStep" />
             }
             else if (Step == 3)
             {
-                <AppointmentConfirmationView Event="@Event" OnSubmit="@Commit" />
+                <AppointmentConfirmationView Event="@Event" OnSubmit="@Commit" ToPreviousTab="@PreviousStep" />
             }
             @*<button onclick="@Check" />*@
         </div>

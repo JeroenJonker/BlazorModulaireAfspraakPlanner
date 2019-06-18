@@ -15,6 +15,7 @@ namespace BlazorAgenda.Client.Viewmodels
         [Parameter] [Inject] protected IEvent Event { get; set; }
         public List<Option> Options { get; set; } = new List<Option>();
         [Parameter] Action OnSubmit { get; set; }
+        [Parameter] protected Action ToPreviousTab { get; set; }
 
         protected override void OnInit()
         {

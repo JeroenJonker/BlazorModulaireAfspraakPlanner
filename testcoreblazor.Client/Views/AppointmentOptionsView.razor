@@ -6,31 +6,39 @@
 @inherits AppointmentOptionsViewModel
 
 <form onsubmit="@SubmitEventOptions" class="container-fluid">
-    <fieldset>
-        @foreach (Option option in Options)
-        {
-            <div class="form-row">
-                <span class="col-sm-5">
-                    <label class="col-form-label">@option.Text</label>
-                </span>
-                <span class="col-sm-7 input-group">
-                    @if (Event.EventOption.FirstOrDefault(evOption => evOption.OptionId == option.Id) is EventOption eventOption && eventOption != default)
-                    {
-                        <OptionTypeComponent Option="@option" EventOption="@eventOption" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
+    <fieldset >
+        <div class="OptionGrid">
+            @foreach (Option option in Options)
+            {
+                <div class="OptionContainer">
+                    <span class="OptionLabel">
+                        <label>@option.Text</label>
+                    </span>
+                    <span class="OptionInputContainer">
+                        @if (Event.EventOption.FirstOrDefault(evOption => evOption.OptionId == option.Id) is EventOption eventOption && eventOption != default)
+                        {
+                            <OptionTypeComponent Option="@option" EventOption="@eventOption" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
 
-                    }
-                    else
-                    {
-                        <OptionTypeComponent Option="@option" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
-                    }
-                </span>
+                        }
+                        else
+                        {
+                            <OptionTypeComponent Option="@option" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
+                        }
+                    </span>
+                </div>
+            }
             </div>
-        }
-        <button type="submit" value="Submit" class="continue">
-            continue
-            <span>
-                <i class="oi oi-arrow-right" />
-            </span>
-        </button>
-    </fieldset>
+            <button onclick="@ToPreviousTab" class="appointmentNavigationButton previousNavigationButton">
+                <span>
+                    <i class="oi oi-arrow-left" />
+                </span>
+                previous
+            </button>
+            <button type="submit" value="Submit" class="appointmentNavigationButton continueNavigationButton">
+                continue
+                <span>
+                    <i class="oi oi-arrow-right" />
+                </span>
+            </button>
+</fieldset>
 </form>

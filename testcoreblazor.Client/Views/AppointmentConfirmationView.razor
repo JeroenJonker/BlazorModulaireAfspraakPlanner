@@ -5,15 +5,21 @@
 
 @inherits AppointmentConfirmationViewModel
 
-    <div>
-        <p>@Event.Start</p>
-        <p>@Event.End</p>
-        @foreach (EventOption eventOption in Event.EventOption)
+<div>
+    <p>@Event.Start</p>
+    <p>@Event.End</p>
+    @foreach (EventOption eventOption in Event.EventOption)
+    {
+        @if (eventOption.Value is string && eventOption.Option != null)
         {
-            @if (eventOption.Value is string && eventOption.Option != null)
-            {
-                <p>@eventOption.Option.Text : @eventOption.Value</p>
-            }
+            <p>@eventOption.Option.Text : @eventOption.Value</p>
         }
-    </div>
+    }
+</div>
+<button onclick="@ToPreviousTab" class="appointmentNavigationButton previousNavigationButton">
+    <span>
+        <i class="oi oi-arrow-left" />
+    </span>
+    previous
+</button>
 <button onclick="@Commit">hello</button>
