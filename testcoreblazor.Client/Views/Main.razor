@@ -3,7 +3,7 @@
 @using BlazorAgenda.Shared.Enums
 @page "/"
 @inherits MainViewmodel
-
+@inject IJSRuntime JSRuntime
 
 @if (StateService.LoginUser == default(User) || StateService.LoginUser == null)
 {
@@ -53,3 +53,12 @@ else
 }
 
 @*<InlineDatePicker/>*@
+
+@functions {
+    protected override void OnAfterRender()
+    {
+        base.OnAfterRender();
+        JSRuntime.InvokeAsync<string>(
+                "JsFunctions.initializeSelect2");
+    }
+}

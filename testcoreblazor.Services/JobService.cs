@@ -18,5 +18,9 @@ namespace BlazorAgenda.Services
         {
             return await http.GetJsonAsync<List<Job>>(Resources.JobApi_GetOrganizationJobs + organization.Id);
         }
+        public async Task<List<Job>> GetJobsByUserAsync(User user)
+        {
+            return await http.GetJsonAsync<List<Job>>(Resources.JobApi_GetJobsByUser + user.Id);
+        }
     }
 }

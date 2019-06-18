@@ -22,6 +22,11 @@ namespace BlazorAgenda.Server.DataAccess
             return db.UserJob.Where(g => g.Job.Id == jobId);;
         }
 
+        public IEnumerable<UserJob> GetUserJobsByUser(int userId)
+        {
+            return db.UserJob.Where(g => g.User.Id == userId);;
+        }
+
         public bool TryAddUserJob(UserJob newUserJob)
         {
             try
@@ -55,6 +60,24 @@ namespace BlazorAgenda.Server.DataAccess
             try
             {
                 db.UserJob.Remove(userJob);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool SetUserJobsforUser(User user)
+        {
+            try
+            {
+                db.UserJob.RemoveRange(db.UserJob.Where(uj => uj.UserId == user.Id));
+                foreach(UserJob userJob in user.UserJob)
+                {
+                    TryAddUserJob(userJob);
+                }
                 db.SaveChanges();
                 return true;
             }

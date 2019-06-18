@@ -2,6 +2,7 @@
 @using BlazorAgenda.Services.Interfaces
 @using BlazorAgenda.Client.Views.BaseViews
 @using BlazorAgenda.Client.Viewmodels
+@using BlazorAgenda.Shared.Models
 
 @inherits UserViewModel
 
@@ -50,6 +51,34 @@
                 </div>
                 <input class="form-control" type="password" placeholder="Password" bind="@User.Password" />
             </span>
+        </div>
+        <div>
+            <div class="form-row">
+                <span class="col-sm-5">
+                    <label class="col-form-label">Jobs</label>
+                </span>
+            </div>
+            <div class="container">
+                <select class="select-multiple-option-type-component" multiple="multiple" onchange="@OnMultiSelectChange" onchange="selectChange(this)" ref="@multiSelect">
+                    @foreach (Job job in Jobs)
+                    {
+                        bool found = false;
+                        foreach (UserJob userJob in User.UserJob)
+                        {
+                            if (userJob.JobId == job.Id)
+                            {
+                                found = true;
+                                <option value="@job.Id" selected="selected">@job.Name</option>
+                                break;
+                            }
+                        } 
+                        if( !found )
+                        {
+                            <option value="@job.Id">@job.Name</option>
+                        }
+                    }
+                </select>
+            </div>
         </div>
     </ModalContent>
     <FooterContent>

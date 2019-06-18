@@ -3,6 +3,8 @@
 @using BlazorAgenda.Shared.Interfaces;
 @using BlazorAgenda.Shared.Interfaces.BaseObjects;
 @using BlazorAgenda.Services.Interfaces;
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
 
 @switch ((ElementTypes)Option.ElementType)
 {
@@ -134,9 +136,9 @@
 
         break;
     case ElementTypes.MultiSelect:
-        if (Option.IsMandatory)
+        @*if (Option.IsMandatory)
         {
-            <select class="select-multiple-option-type-component" bind="@EventOption.Value" multiple="multiple" required>
+            <select class="select-multiple-option-type-component" onchange="@OnMultiSelectChange" onchange="selectChange(this)" ref="@multiSelect" multiple="multiple" required>
                 @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
                     <option value="@dropdownItem.Text">@dropdownItem.Text</option>
@@ -145,13 +147,13 @@
         }
         else
         {
-            <select class="select-multiple-option-type-component" bind="@EventOption.Value" multiple="multiple">
+            <select class="select-multiple-option-type-component" onchange="@OnMultiSelectChange" onchange="selectChange(this)" ref="@multiSelect" multiple="multiple" required>
                 @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
                     <option value="@dropdownItem.Text">@dropdownItem.Text</option>
                 }
             </select>
-        }
+        }*@
 
         break;
     @*case ElementTypes.Radiobutton:
@@ -170,6 +172,8 @@
     [Inject] protected IStateService StateService { get; set; }
     [Parameter] public List<User> StaffMembers { get; set; }
     [Parameter] Action<IEventOption> OnNewEventOption { get; set; }
+
+    ElementRef multiSelect;
 
 
     protected override void OnInit()
@@ -205,5 +209,20 @@
     {
         EventOption.Value = e.Value.ToString();
         EventOption.Option = Option.InverseOptionNavigation.FirstOrDefault(suboption => suboption.Text == e.Value.ToString());
+    }
+
+    public async void OnMultiSelectChange(UIChangeEventArgs e)
+    {
+        List<string> selectedList = await JSRuntime.InvokeAsync<List<string>>(
+        "JsFunctions.getSelectedList", multiSelect);
+        
+        if (selectedList.Count != 0) {
+            foreach (string option in selectedList)
+            {
+                Console.WriteLine(option);
+            }
+        }
+        //EventOption.Value = e.Value.ToString();
+        //EventOption.Option = Option.InverseOptionNavigation.FirstOrDefault(suboption => suboption.Text == e.Value.ToString());
     }
 }

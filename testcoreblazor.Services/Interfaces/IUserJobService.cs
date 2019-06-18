@@ -8,6 +8,6 @@ namespace BlazorAgenda.Services.Interfaces
 {
     public interface IUserJobService : IDefaultObjectService<UserJob>
     {
-        //
+        Task<List<UserJob>> GetUserJobsByUser(User user);
     }
 }
