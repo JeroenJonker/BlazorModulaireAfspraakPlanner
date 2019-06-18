@@ -58,7 +58,7 @@ namespace BlazorAgenda.Client.Viewmodels
             OnSubmit?.Invoke();
         }
 
-        public void AddNewEventOptions(List<IEventOption> eventOptions)
+        public void AddNewEventOptions(List<EventOption> eventOptions)
         {
             foreach (IEventOption eventOption in eventOptions) {
                 eventOption.OptionId = eventOption.Option.Id;

@@ -22,7 +22,7 @@ namespace BlazorAgenda.Client.Viewmodels
                                      !x.InverseOptionNavigation.Any(y => y.TimeModifier != 0)).ToList();
         }
 
-        public void AddNewEventOptions(List<IEventOption> eventOptions)
+        public void AddNewEventOptions(List<EventOption> eventOptions)
         {
             foreach (IEventOption eventOption in eventOptions) {
                 eventOption.OptionId = eventOption.Option.Id;
@@ -30,12 +30,12 @@ namespace BlazorAgenda.Client.Viewmodels
             }
         }
 
-        public void SetMultiEventOptions(List<IEventOption> eventOptions, Option option)
+        public void SetMultiEventOptions(List<EventOption> eventOptions, Option option)
         {
             foreach (EventOption eventOption in Event.EventOption.Where(eo => eo.OptionId == option.Id)) {
                 Event.EventOption.Remove(eventOption);
             }
-            foreach (IEventOption eventOption in eventOptions) {
+            foreach (EventOption eventOption in eventOptions) {
                 eventOption.OptionId = eventOption.Option.Id;
                 Event.EventOption.Add(eventOption as EventOption);
             }
