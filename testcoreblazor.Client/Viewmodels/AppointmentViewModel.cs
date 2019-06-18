@@ -1,4 +1,5 @@
-﻿using BlazorAgenda.Services.Interfaces;
+﻿using BlazorAgenda.Client.Services;
+using BlazorAgenda.Services.Interfaces;
 using BlazorAgenda.Shared.Interfaces;
 using BlazorAgenda.Shared.Models;
 using Microsoft.AspNetCore.Components;
@@ -18,13 +19,13 @@ namespace BlazorAgenda.Client.Viewmodels
 
         [Inject] protected IOrganizationService OrganizationService { get; set; }
 
-        public List<KeyValuePair<string, string>> Tabs { get; set; } = new List<KeyValuePair<string, string>>()
-        {
-            new KeyValuePair<string, string>("1. Dienst", "appointmentTabSelected"),
-            new KeyValuePair<string, string>("2. Datum", "appointmentTabNormal"),
-            new KeyValuePair<string, string>("3. Algemene gegevens", "appointmentTabNormal"),
-            new KeyValuePair<string, string>("4. Bevestiging", "appointmentTabNormal")
-        };
+        public List<AppointmentTab> Tabs { get; set; } = new List<AppointmentTab>()
+            {
+                new AppointmentTab("1. Dienst") { cssClass= "appointmentTabSelected"},
+                new AppointmentTab("2. Datum"){ Step=1 },
+                new AppointmentTab("3. Algemene gegevens"){ Step=2 },
+                new AppointmentTab("4. Bevestiging"){ Step=3 }
+            };
 
         public int Step { get; set; } = 0;
 
@@ -35,10 +36,32 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void NextStep()
         {
-            Tabs[Step] = new KeyValuePair<string,string>(Tabs[Step].Key,"appointmentTabNormal");
+            Tabs[Step].cssClass = "appointmentTabPassed";
             Step++;
-            Tabs[Step] = new KeyValuePair<string, string>(Tabs[Step].Key, "appointmentTabSelected");
+            Tabs[Step].cssClass = "appointmentTabSelected";
             StateHasChanged();
+        }
+
+        public void ToTab(AppointmentTab selectedTab)
+        {
+            if (selectedTab.cssClass == "appointmentTabPassed")
+            {
+                bool isPassed = false;
+                foreach (AppointmentTab tab in Tabs)
+                {
+                    if (isPassed)
+                    {
+                        tab.cssClass = "appointmentTabNormal";
+                    }
+                    if (tab == selectedTab)
+                    {
+                        Step = tab.Step;
+                        tab.cssClass = "appointmentTabSelected";
+                        isPassed = true;
+                    }
+                }
+                StateHasChanged();
+            }
         }
 
         public void Commit()

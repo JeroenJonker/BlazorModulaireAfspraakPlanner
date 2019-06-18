@@ -341,6 +341,13 @@ input[type=checkbox] {
     grid-template-columns: auto auto;
 }
 
+@media (max-width: 600px) {
+    .dateTimeSelectionView {
+        display: grid;
+        grid-template-columns: auto;
+    }
+}
+
 .scrollAble {
     overflow-y: auto;
 }
@@ -372,12 +379,29 @@ input[type=checkbox] {
 }
 
 .appointmentTabNormal {
+    color: lightgray;
+    padding: 6px;
+    border-bottom: 2px solid rgba(148, 141, 141, 0.24);
+}
+
+.appointmentTabPassed {
     color: gray;
     padding: 6px;
     border-bottom: 2px solid rgba(148, 141, 141, 0.24);
+}
+.appointmentTabPassed:hover {
+    cursor:pointer;
 }
 
 .availableAppointmentTimes {
     display: grid;
     grid-template-columns: auto auto auto;
+}
+
+.continue {
+    background: none;
+    border: none;
+    float: right;
+    color: blue;
+    font-weight: bold;
 }

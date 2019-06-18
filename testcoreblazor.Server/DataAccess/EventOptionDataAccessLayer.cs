@@ -56,5 +56,17 @@ namespace BlazorAgenda.Server.DataAccess
                 return false;
             }
         }
+
+        public IEnumerable<EventOption> GetEventOptionsByEventId (int eventId)
+        {
+            try
+            {
+                return db.EventOption.Where(eventOption => eventOption.EventId == eventId);
+            }
+            catch
+            {
+                return Enumerable.Empty<EventOption>();
+            }
+        }
     }
 }

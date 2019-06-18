@@ -23,6 +23,13 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             Options = new List<Option>();
             Options = await OptionService.GetOptionsAsync(StateService.Organization);
+            StateService.OnCollectionChanged = GetOptions;
+        }
+
+        public async void GetOptions()
+        {
+            Options = new List<Option>(await OptionService.GetOptionsAsync(StateService.Organization));
+            StateHasChanged();
         }
 
         public void EditOption(Option option)

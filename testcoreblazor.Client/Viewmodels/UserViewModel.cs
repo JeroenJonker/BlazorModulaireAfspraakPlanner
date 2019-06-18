@@ -32,6 +32,8 @@ namespace BlazorAgenda.Client.Viewmodels
                 User.UserJob = await UserJobService.GetUserJobsByUser(User as User);
             }
             Jobs = await JobService.GetJobsAsync(StateService.Organization);
+            User.OrganizationId = StateService.Organization.Id;
+            base.OnInit();
         }
 
         public string Title

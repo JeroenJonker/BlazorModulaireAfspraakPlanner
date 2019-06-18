@@ -14,10 +14,23 @@
                     <label class="col-form-label">@option.Text</label>
                 </span>
                 <span class="col-sm-7 input-group">
-                    <OptionTypeComponent Option="@option" OnNewEventOption="@(eventOption => AddNewEventOption(eventOption))" />
+                    @if (Event.EventOption.FirstOrDefault(evOption => evOption.OptionId == option.Id) is EventOption eventOption && eventOption != default)
+                    {
+                        <OptionTypeComponent Option="@option" EventOption="@eventOption" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
+
+                    }
+                    else
+                    {
+                        <OptionTypeComponent Option="@option" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
+                    }
                 </span>
             </div>
         }
-        <button type="submit" value="Submit" />
+        <button type="submit" value="Submit" class="continue">
+            continue
+            <span>
+                <i class="oi oi-arrow-right" />
+            </span>
+        </button>
     </fieldset>
 </form>

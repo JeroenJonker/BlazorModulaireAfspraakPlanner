@@ -18,5 +18,6 @@ namespace BlazorAgenda.Services.Interfaces
         event Action OnChange;
         Pages CurrentPage { get; set; }
         void NotifyStateChanged();
+            Action OnCollectionChanged { get; set; }
     }
 }

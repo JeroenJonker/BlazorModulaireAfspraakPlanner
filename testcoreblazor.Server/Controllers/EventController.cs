@@ -1,6 +1,8 @@
 ﻿using BlazorAgenda.Server.DataAccess;
 using BlazorAgenda.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BlazorAgenda.Server.Controllers
 {
@@ -8,6 +10,8 @@ namespace BlazorAgenda.Server.Controllers
     public class EventController : Controller, IObjectController<Event>
     {
         EventDataAccessLayer EventAccess = new EventDataAccessLayer();
+        OptionDataAccessLayer OptionAccess = new OptionDataAccessLayer();
+        EventOptionDataAccessLayer EventOptionAccess = new EventOptionDataAccessLayer();
 
         [HttpPost("[action]")]
         public IActionResult Add([FromBody] Event newEvent)
@@ -55,7 +59,16 @@ namespace BlazorAgenda.Server.Controllers
         [HttpGet("[action]/{userid}")]
         public IActionResult GetUserEvents(int userid)
         {
-            return Ok(EventAccess.GetUserEvents(userid));
+            List<Event> UserEvents = EventAccess.GetUserEvents(userid);
+            foreach (Event userEvent in UserEvents)
+            {
+                userEvent.EventOption = EventOptionAccess.GetEventOptionsByEventId(userEvent.Id).ToList();
+                foreach (EventOption eventOption in userEvent.EventOption)
+                {
+                    eventOption.Option = OptionAccess.GetOption(eventOption.OptionId);
+                }
+            }
+            return Ok(UserEvents);
         }
     }
 }

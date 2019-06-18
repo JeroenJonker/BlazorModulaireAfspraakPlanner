@@ -19,6 +19,13 @@ namespace BlazorAgenda.Client.Viewmodels
         protected override async Task OnInitAsync()
         {
             Jobs = new List<Job>(await JobService.GetJobsAsync(StateService.Organization));
+            StateService.OnCollectionChanged = GetJobs;
+        }
+
+        public async void GetJobs()
+        {
+            Jobs = new List<Job>(await JobService.GetJobsAsync(StateService.Organization));
+            StateHasChanged();
         }
 
         public void EditJob(Job job)

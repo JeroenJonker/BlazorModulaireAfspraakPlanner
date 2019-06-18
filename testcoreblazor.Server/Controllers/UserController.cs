@@ -28,6 +28,7 @@ namespace BlazorAgenda.Server.Controllers
                 {
                     UserJobAccess.TryAddUserJob(userJob);
                 }
+                newuser.UserJob = null;
                 return CreatedAtAction(nameof(GetObjectById), new { id = newuser.Id }, newuser);
             }
             return BadRequest();

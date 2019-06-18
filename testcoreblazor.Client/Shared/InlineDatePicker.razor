@@ -13,7 +13,7 @@
         <div class="grid-container">
             @foreach (string day in Days)
             {
-                <span class="dateCellDay" style="grid-column:@Days.FindIndex(day.StartsWith)">@day</span>
+                <span class="dateCellDay" style="grid-column:@(Days.FindIndex(day.StartsWith) + 1)">@day</span>
             }
             @foreach (DateCell datecell in DateCells)
             {
