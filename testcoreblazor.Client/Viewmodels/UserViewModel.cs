@@ -7,21 +7,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.JSInterop;
 
 namespace BlazorAgenda.Client.Viewmodels
 {
     public class UserViewModel : ComponentBase
     {
         [Inject] protected IUser User { get; set; }
+        [Inject] protected IUserJobService UserJobService { get; set; }
         [Inject] protected IUserService UserService { get; set; }
+        [Inject] protected IJobService JobService { get; set; }
         [Inject] protected IStateService StateService { get; set; }
+        [Inject] IJSRuntime JSRuntime { get; set; }
 
-        protected override void OnInit()
+        protected List<Job> Jobs { get; set; } = new List<Job>();
+
+        protected ElementRef multiSelect;
+
+        protected override async Task OnInitAsync()
         {
             if (StateService.CurrentObject is IUser user)
             {
                 User = user;
+                User.UserJob = await UserJobService.GetUserJobsByUser(User as User);
             }
+            Jobs = await JobService.GetJobsAsync(StateService.Organization);
             User.OrganizationId = StateService.Organization.Id;
             base.OnInit();
         }
@@ -48,6 +58,21 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             await UserService.Delete(User as User);
             OnClose();
+        }
+
+        public async void OnMultiSelectChange(UIChangeEventArgs e)
+        {
+            List<string> selectedList = await JSRuntime.InvokeAsync<List<string>>(
+            "JsFunctions.getSelectedList", multiSelect);
+
+            User.UserJob = new List<UserJob>();
+            
+            if (selectedList.Count != 0) {
+                foreach (string option in selectedList)
+                {
+                    User.UserJob.Add(new UserJob() { JobId = Int32.Parse(option), UserId = User.Id });
+                }
+            }
         }
     }
 }

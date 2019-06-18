@@ -14,6 +14,7 @@ namespace BlazorAgenda.Server.Controllers
     public class UserController : Controller, IObjectController<User>
     {
         UserDataAccessLayer UserAccess = new UserDataAccessLayer();
+        UserJobDataAccessLayer UserJobAccess = new UserJobDataAccessLayer();
 
         [HttpPost("[action]")]
         public IActionResult Add([FromBody]User newuser)
@@ -23,6 +24,11 @@ namespace BlazorAgenda.Server.Controllers
                 new MailAddress(newuser.Emailadress).Address == newuser.Emailadress &&
                 UserAccess.TryAddUser(newuser))
             {
+                foreach(UserJob userJob in newuser.UserJob)
+                {
+                    UserJobAccess.TryAddUserJob(userJob);
+                }
+                newuser.UserJob = null;
                 return CreatedAtAction(nameof(GetObjectById), new { id = newuser.Id }, newuser);
             }
             return BadRequest();
@@ -34,6 +40,7 @@ namespace BlazorAgenda.Server.Controllers
             updateUser.Password = ConvertStringToHash(updateUser.Password);
             if (UserAccess.TryUpdateUser(updateUser))
             {
+                UserJobAccess.SetUserJobsforUser(updateUser);
                 return Ok(updateUser);
             }
             return BadRequest();

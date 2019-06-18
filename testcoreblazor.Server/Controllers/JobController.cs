@@ -12,6 +12,7 @@ namespace BlazorAgenda.Server.Controllers
     public class JobController : Controller, IObjectController<Job>
     {
         JobDataAccessLayer JobAccess = new JobDataAccessLayer();
+        UserJobDataAccessLayer UserJobAccess = new UserJobDataAccessLayer();
 
         [HttpPost("[action]")]
         public IActionResult Add([FromBody] Job Object)
@@ -47,6 +48,20 @@ namespace BlazorAgenda.Server.Controllers
         public IActionResult GetOrganizationJobs(int organizationId)
         {
             return Ok(JobAccess.GetOrganizationJobs(organizationId));
+        }
+
+        [HttpGet("[action]/{userId}")]
+        public IActionResult GetJobsByUser(int userId)
+        {
+            List<Job> jobs = new List<Job>();
+
+            if (UserJobAccess.GetUserJobsByUser(userId).ToList() is List<UserJob> userJobs) {
+                foreach (UserJob userJob in userJobs) {
+                    jobs.Add(JobAccess.GetJob(userJob.JobId));
+                }
+                return Ok(jobs);
+            }
+            return NotFound();
         }
 
         private IActionResult GetObjectById(int id)

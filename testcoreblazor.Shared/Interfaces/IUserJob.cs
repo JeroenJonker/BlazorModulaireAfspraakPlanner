@@ -6,8 +6,8 @@ namespace BlazorAgenda.Shared.Interfaces
 {
     public interface IUserJob : IBaseObject
     {
-        int? UserId { get; set; }
-        int? JobId { get; set; }
+        int UserId { get; set; }
+        int JobId { get; set; }
         User User { get; set; }
         Job Job { get; set; }
     }

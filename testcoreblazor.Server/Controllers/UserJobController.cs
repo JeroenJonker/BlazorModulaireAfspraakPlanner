@@ -43,10 +43,16 @@ namespace BlazorAgenda.Server.Controllers
             return BadRequest();
         }
         
-        [HttpGet("[action]/{organizationId}")]
+        [HttpGet("[action]/{jobId}")]
         public IActionResult GetUserJobs(int jobId)
         {
             return Ok(UserJobAccess.GetUserJobs(jobId));
+        }
+
+        [HttpGet("[action]/{userId}")]
+        public IActionResult GetUserJobsByUser(int userId)
+        {
+            return Ok(UserJobAccess.GetUserJobsByUser(userId));
         }
 
         private IActionResult GetObjectById(int id)
