@@ -68,7 +68,9 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void SetMultiEventOptions(List<EventOption> eventOptions, Option option)
         {
-            foreach (EventOption eventOption in Event.EventOption.Where(eo => eo.OptionId == option.Id)) {
+            List<EventOption> oldEventOptions = option.InverseOptionNavigation.Join(Event.EventOption, x => x.Id, y => y.OptionId, (x, y) => y).ToList();
+            foreach (EventOption eventOption in oldEventOptions)
+            {
                 Event.EventOption.Remove(eventOption);
             }
             foreach (EventOption eventOption in eventOptions) {

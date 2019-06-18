@@ -3,6 +3,7 @@
 @using BlazorAgenda.Shared.Interfaces;
 @using BlazorAgenda.Shared.Interfaces.BaseObjects;
 @using BlazorAgenda.Services.Interfaces;
+@using System;
 @using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
 
@@ -162,7 +163,7 @@
 
         break;
     case ElementTypes.MultiSelect:
-        @*if (Option.IsMandatory)
+        if (Option.IsMandatory)
         {
             <select class="select-multiple-option-type-component" onchange="@OnMultiSelectChange" onchange="selectChange(this)" ref="@multiSelect" multiple="multiple" required>
                 @foreach (Option dropdownItem in Option.InverseOptionNavigation)
@@ -179,7 +180,7 @@
                     <option value="@dropdownItem.Text">@dropdownItem.Text</option>
                 }
             </select>
-        }*@
+        }
 
         break;
     @*case ElementTypes.Radiobutton:
@@ -191,7 +192,7 @@
 {
     [Parameter] protected IOption Option { get; set; }
 
-    [Parameter][Inject] protected List<EventOption> EventOptions { get; set; }
+    [Parameter] protected List<EventOption> EventOptions { get; set; }
 
     [Inject] protected IUserService UserService { get; set; }
     [Inject] protected IOptionService OptionService { get; set; }
@@ -205,12 +206,23 @@
 
     protected override void OnParametersSet()
     {
+        EventOptions = new List<EventOption>();
+        Console.WriteLine("test1");
         if ((ElementTypes)Option.ElementType != ElementTypes.MultiSelect) {
+            Console.WriteLine("test2");
+            if (EventOptions.Count == 0) {
+                EventOptions.Add(new EventOption());
+            }
+
+            Console.WriteLine("test3");
             EventOptions[0].Option = Option as Option;
             if (EventOptions[0].Value == null)
             {
+                Console.WriteLine("test4");
                 OnNewEventOptions?.Invoke(EventOptions);
+                Console.WriteLine("test5");
             }
+            Console.WriteLine("test6");
             if ((ElementTypes)Option.ElementType == ElementTypes.Check && EventOptions[0].Value == string.Empty)
             {
                 EventOptions[0].Value = "False";
