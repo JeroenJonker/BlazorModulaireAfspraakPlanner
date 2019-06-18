@@ -405,3 +405,7 @@ input[type=checkbox] {
     color: blue;
     font-weight: bold;
 }
+
+.select-multiple-option-type-component {
+    width: 100%
+}
