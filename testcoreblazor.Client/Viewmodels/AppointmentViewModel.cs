@@ -72,21 +72,12 @@ namespace BlazorAgenda.Client.Viewmodels
             }
         }
 
-        public void Commit()
+        public async void Commit()
         {
-            //                eventOption.Option = null; stten
             Event.User = null;
             Event.Job = null;
-            EventService.ExecuteAsync(Event as Event);
-        }
-
-        public void Check()
-        {
-            Console.WriteLine(Event.JobId);
-            Console.WriteLine(Event.UserId);
-            Console.WriteLine(Event.Start.ToString());
-            Console.WriteLine(Event.End.ToString());
-
+            Task task = EventService.ExecuteAsync(Event as Event);
+            await task.ContinueWith(t => { if (task.IsFaulted) { Console.WriteLine("owh"); } else { Console.WriteLine("ye"); } });
         }
     }
 

@@ -5,21 +5,40 @@
 
 @inherits AppointmentConfirmationViewModel
 
-<div>
-    <p>@Event.Start</p>
-    <p>@Event.End</p>
+@if (Status == TaskStatus.RanToCompletion)
+{
+    <p>Succes</p>
+}
+@if (Status == TaskStatus.Faulted)
+{
+    <p>fAULTED</p>
+}
+<div class="container-fluid">
+    <div class="OptionGrid">
+        <div class="OptionContainer">
+            <p>@Event.Start</p>
+            <p>@Event.End</p>
+        </div>
     @foreach (EventOption eventOption in Event.EventOption)
     {
+        <div class="OptionContainer">
         @if (eventOption.Value is string && eventOption.Option != null)
         {
             <p>@eventOption.Option.Text : @eventOption.Value</p>
         }
-    }
+        </div>
+    }             
+    </div>
+    <button onclick="@ToPreviousTab" class="appointmentNavigationButton previousNavigationButton">
+        <span>
+            <i class="oi oi-arrow-left" />
+        </span>
+        previous
+    </button>
+    <button onclick="@Commit" class="appointmentNavigationButton continueNavigationButton">
+        Confirm appointment
+        <span>
+            <i class="oi oi-check" />
+        </span>
+    </button>
 </div>
-<button onclick="@ToPreviousTab" class="appointmentNavigationButton previousNavigationButton">
-    <span>
-        <i class="oi oi-arrow-left" />
-    </span>
-    previous
-</button>
-<button onclick="@Commit">hello</button>

@@ -1,4 +1,5 @@
-﻿using BlazorAgenda.Shared.Interfaces;
+﻿using BlazorAgenda.Services.Interfaces;
+using BlazorAgenda.Shared.Interfaces;
 using BlazorAgenda.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -13,14 +14,22 @@ namespace BlazorAgenda.Client.Viewmodels
         [Parameter] protected Action OnSubmit { get; set; }
         [Parameter] [Inject] protected IEvent Event { get; set; }
         [Parameter] protected Action ToPreviousTab { get; set; }
+        [Inject] protected IEventService EventService { get; set; }
+        public TaskStatus Status { get; set; }
 
-        public void Commit()
+        public async void Commit()
         {
             foreach (EventOption eventOption in Event.EventOption)
             {
                 eventOption.Option = null;
             }
-            OnSubmit?.Invoke();
+            Event.User = null;
+            Event.Job = null;
+            Task task = EventService.ExecuteAsync(Event as Event);
+            await task.ContinueWith(t => { if (task.Status== TaskStatus.Faulted) { Console.WriteLine("owh"); } else { Console.WriteLine("ye"); } });
+            Status = task.Status;
+            StateHasChanged();
+            //OnSubmit?.Invoke();
         }
 
     }
