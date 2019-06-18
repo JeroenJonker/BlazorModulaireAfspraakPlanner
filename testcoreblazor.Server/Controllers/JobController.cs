@@ -57,7 +57,7 @@ namespace BlazorAgenda.Server.Controllers
 
             if (UserJobAccess.GetUserJobsByUser(userId).ToList() is List<UserJob> userJobs) {
                 foreach (UserJob userJob in userJobs) {
-                    jobs.Add(JobAccess.GetJob(userJob.JobId));
+                    jobs.Add(JobAccess.GetJob((int)userJob.JobId));
                 }
                 return Ok(jobs);
             }
