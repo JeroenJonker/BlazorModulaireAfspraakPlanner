@@ -283,7 +283,7 @@ input[type=checkbox] {
 
     .grid-container > div {
         text-align: center;
-        line-height: 2.3;
+        line-height: 2.2;
     }
 
 .dateCellSelected {
@@ -350,7 +350,7 @@ input[type=checkbox] {
 
 .dateTimeSelectionView {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 @media (max-width: 600px) {
@@ -407,7 +407,7 @@ input[type=checkbox] {
 
 .availableAppointmentTimes {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .continueNavigationButton {
@@ -428,7 +428,7 @@ input[type=checkbox] {
 
 .OptionGrid {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 @media (max-width: 600px) {

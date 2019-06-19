@@ -36,6 +36,10 @@ namespace BlazorAgenda.Client.Viewmodels
                     EventDuration += eventOption.Option.TimeModifier;
                 }
             }
+            if (Event.Start != default)
+            {
+                OnSelectedDate(Event.Start);
+            }
         }
 
         public void OnSelectedDate(DateTime date)
@@ -56,7 +60,7 @@ namespace BlazorAgenda.Client.Viewmodels
             DateTime start = workhour.Start;
             while (start.AddMinutes(EventDuration) <= workhour.End)
             {
-                if (!IsTimeInConflictWithEvents(start, start.AddMinutes(EventDuration)))
+                if (!IsTimeInConflictWithEvents(start, start.AddMinutes(EventDuration)) && start >= DateTime.Now)
                 {
                     AvailableTimes.Add(start);
                 }

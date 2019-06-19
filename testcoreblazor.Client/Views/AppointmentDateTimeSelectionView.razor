@@ -6,7 +6,7 @@
 @inherits AppointmentDateTimeSelectionViewModel
     <div class="container-fluid">
         <div class="dateTimeSelectionView">
-            <InlineDatePicker OnSelectedDate="@OnSelectedDate" />
+            <InlineDatePicker SelectedDate="@Event.Start" OnSelectedDate="@OnSelectedDate" />
             <div style="padding: 10px">
                 <h3 style="text-align: center">Available times</h3>
                 <div class="availableAppointmentTimes">
@@ -14,9 +14,18 @@
                     {
                         @foreach (DateTime time in AvailableTimes)
                         {
-                            <div class="timeSlot" onclick="@( () => OnSelectedTime(time))">
-                                &nbsp;@time.ToString("HH:mm")
-                            </div>
+                            @if (Event.Start != default && Event.Start == time)
+                            {
+                                <div class="timeSlot" style="background-color: lightblue" onclick="@( () => OnSelectedTime(time))">
+                                    &nbsp;@time.ToString("HH:mm")
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="timeSlot" onclick="@( () => OnSelectedTime(time))">
+                                    &nbsp;@time.ToString("HH:mm")
+                                </div>
+                            }
                         }
                     }
                 </div>
@@ -28,6 +37,17 @@
                     </span>
                     previous
                 </button>
+                </div>
+            <div>
+                @if (Event.End != default)
+                {
+                    <button onclick="@Submit" class="appointmentNavigationButton continueNavigationButton">
+                        continue
+                        <span>
+                            <i class="oi oi-arrow-right" />
+                        </span>
+                    </button>
+                }
             </div>
         </div>
     </div>
