@@ -452,10 +452,10 @@ input[type=checkbox] {
     width: 75%;
 }
 
-    .OptionInputContainer * {
-        height: 30px;
-        width: 100%;
-    }
+.OptionInput {
+    height: 30px;
+    width: 100%;
+}
 
 .textInput {
     border-top: 0px;
@@ -468,6 +468,11 @@ input[type=checkbox] {
     .textInput:focus {
         border-bottom: 1.2px solid blue;
     }
+
+.optionTableInput {
+    width: 100%;
+    box-sizing: border-box;
+}
 
 ::placeholder {
     opacity: 0.8;
