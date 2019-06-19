@@ -27,6 +27,11 @@ namespace BlazorAgenda.Client.Viewmodels
             {
                 selectedElementType = value;
                 Enum.TryParse(selectedElementType, out ElementTypes myStatus);
+                if (myStatus != ElementTypes.Dropdown && myStatus != ElementTypes.MultiSelect)
+                {
+                    Option.InverseOptionNavigation.Clear();
+                    DropdownItemOptions.Clear();
+                }
                 Option.ElementType = (int)myStatus;
                 StateHasChanged();
             }

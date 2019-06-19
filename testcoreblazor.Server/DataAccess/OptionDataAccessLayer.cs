@@ -62,6 +62,9 @@ namespace BlazorAgenda.Server.DataAccess
         {
             try
             {
+                IEnumerable<Option> suboptions = db.Option.Where(option => option.OptionId == updatedOption.Id);
+                IEnumerable<Option> deletedsubOptions = suboptions.Where(option => !updatedOption.InverseOptionNavigation.Any(uOption => uOption.Id == option.Id));
+                db.Option.RemoveRange(deletedsubOptions);
                 foreach (Option option in updatedOption.InverseOptionNavigation)
                 {
                     if (option.Id == default)
