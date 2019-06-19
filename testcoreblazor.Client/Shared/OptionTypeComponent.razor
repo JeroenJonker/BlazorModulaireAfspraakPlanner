@@ -12,18 +12,18 @@
     case ElementTypes.Text:
         if (Option.IsMandatory)
         {
-            <input class="textInput" type="text" bind="@EventOptions[0].Value" placeholder="@Option.Description" required />
+            <input class="textInput OptionInput" type="text" bind="@EventOptions[0].Value" placeholder="@Option.Description" required />
         }
         else
         {
-            <input class="textInput" type="text" bind="@EventOptions[0].Value" placeholder="@Option.Description"/>
+            <input class="textInput OptionInput" type="text" bind="@EventOptions[0].Value" placeholder="@Option.Description"/>
         }
         break;
     case ElementTypes.Check:
         if (Option.IsMandatory)
         {
             <label class="Ccontainer">
-                <input class="form-control checkbox" type="checkbox" bind="@CheckBoxValue" required />
+                <input class="form-control checkbox OptionInput" type="checkbox" bind="@CheckBoxValue" required />
                 <span class="Ccheckmark"></span>
             </label>
 
@@ -31,7 +31,7 @@
         else
         {
             <label class="container">
-                <input class="form-control checkbox" type="checkbox" bind="@CheckBoxValue" />
+                <input class="form-control checkbox OptionInput" type="checkbox" bind="@CheckBoxValue" />
                 <span class="checkmark"></span>
             </label>
         }
@@ -39,51 +39,51 @@
     case ElementTypes.Number:
         if (Option.IsMandatory)
         {
-            <input class="textInput" type="number" step="1" bind="@EventOptions[0].Value" placeholder=0 required />
+            <input class="textInput OptionInput" type="number" step="1" bind="@EventOptions[0].Value" placeholder=0 required />
         }
         else
         {
-            <input class="textInput" type="number" step="1" bind="@EventOptions[0].Value" placeholder=0 />
+            <input class="textInput OptionInput" type="number" step="1" bind="@EventOptions[0].Value" placeholder=0 />
         }
         break;
     case ElementTypes.Telephonenumber:
         if (Option.IsMandatory)
         {
-            <input class="textInput" type="tel" pattern="[0-9]{8}" bind="@EventOptions[0].Value" required />
+            <input class="textInput OptionInput" type="tel" pattern="[0-9]{8}" bind="@EventOptions[0].Value" required />
         }
         else
         {
-            <input class="textInput" type="tel" pattern="[0-9]{8}" bind="@EventOptions[0].Value" />
+            <input class="textInput OptionInput" type="tel" pattern="[0-9]{8}" bind="@EventOptions[0].Value" />
         }
         break;
     case ElementTypes.Address:
         if (Option.IsMandatory)
         {
-            <input class="textInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOptions[0].Value" required />
+            <input class="textInput OptionInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOptions[0].Value" required />
         }
         else
         {
-            <input class="textInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOptions[0].Value" />
+            <input class="textInput OptionInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOptions[0].Value" />
         }
         break;
     case ElementTypes.Date:
         if (Option.IsMandatory)
         {
-            <input class="textInput" type="date" bind="@EventOptions[0].Value" required />
+            <input class="textInput OptionInput" type="date" bind="@EventOptions[0].Value" required />
         }
         else
         {
-            <input class="textInput" type="date" bind="@EventOptions[0].Value" />
+            <input class="textInput OptionInput" type="date" bind="@EventOptions[0].Value" />
         }
         break;
     case ElementTypes.Email:
         if (Option.IsMandatory)
         {
-            <input class="textInput" type="email" bind="@EventOptions[0].Value" />
+            <input class="textInput OptionInput" type="email" bind="@EventOptions[0].Value" />
         }
         else
         {
-            <input class="textInput" type="email" bind="@EventOptions[0].Value" />
+            <input class="textInput OptionInput" type="email" bind="@EventOptions[0].Value" />
         }
         break;
 
@@ -100,7 +100,7 @@
     case ElementTypes.StaffSelection:
         if (Option.IsMandatory)
         {
-            <select bind="@EventOptions[0].Value" required>
+            <select class="OptionInput" bind="@EventOptions[0].Value" required>
                 <option value="" selected disabled hidden>-- Choose a staffmember --</option>
                 @foreach (User dropdownItem in StaffMembers)
                 {
@@ -110,7 +110,7 @@
         }
         else
         {
-            <select bind="@EventOptions[0].Value">
+            <select class="OptionInput" bind="@EventOptions[0].Value">
                 <option value="" selected>-- Choose a staffmember --</option>
                 @foreach (User dropdownItem in StaffMembers)
                 {
@@ -123,7 +123,7 @@
     case ElementTypes.Dropdown:
         if (Option.IsMandatory)
         {
-            <select onchange="@OnDropdownChange" required>
+            <select class="OptionInput" onchange="@OnDropdownChange" required>
                 @if (EventOptions[0].Value == null)
                 {
                     <option value="" selected disabled hidden>-- Choose an option --</option>
@@ -143,7 +143,7 @@
         }
         else
         {
-            <select onchange="@OnDropdownChange">
+            <select class="OptionInput" onchange="@OnDropdownChange">
                 @if (EventOptions.Count == 0)
                 {
                     <option value="" selected>-- Choose an option --</option>

@@ -43,38 +43,42 @@
         </div>
         @if ((ElementTypes)Option.ElementType == ElementTypes.Dropdown || (ElementTypes)Option.ElementType == ElementTypes.MultiSelect)
         {
-            <div>
-                <div class="form-row">
-                    <span class="col-sm-5">
-                        <label class="col-form-label">Dropdown items</label>
-                    </span>
-                </div>
-                <div class="container">
-                    <table class="dropdownItemsTable">
-                        <thead>
+    <div>
+        @if (DropdownItemOptions.Count > 0)
+        {
+            <div class="form-row">
+                <span class="col-sm-5">
+                    <label class="col-form-label">Dropdown items</label>
+                </span>
+            </div>
+            <div class="container">
+                <table class="dropdownItemsTable">
+                    <thead>
+                        <tr>
+                            <th>Text</th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Option dropdownItem in DropdownItemOptions)
+                        {
                             <tr>
-                                <th>Text</th>
-                                <th>Description</th>
-                                <th>Duration</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (Option dropdownItem in DropdownItemOptions)
-                            {
-                            <tr>
-                                <th><input type="text" bind="@dropdownItem.Text" /></th>
-                                <th><input type="text" bind="@dropdownItem.Description" /></th>
-                                <th><input type="number" bind="@dropdownItem.TimeModifier" min="0" step="5" /></th>
+                                <th><input type="text" class="optionTableInput" bind="@dropdownItem.Text" /></th>
+                                <th><input type="text" class="optionTableInput" bind="@dropdownItem.Description" /></th>
+                                <th><input type="number" class="optionTableInput" bind="@dropdownItem.TimeModifier" min="0" step="5" /></th>
                                 <th> <button onclick="@(() => RemoveDropdownItem(dropdownItem))"><span class="oi oi-trash" /></button></th>
 
                             </tr>
-                            }
-                        </tbody>
-                    </table>
+                        }
+                    </tbody>
+                </table>
 
-                </div>
-                <button onclick="@AddDropdownItem"></button>
             </div>
+        }
+
+        <button onclick="@AddDropdownItem"></button>
+    </div>
         }
         @if ((ElementTypes)Option.ElementType == ElementTypes.Check)
         {

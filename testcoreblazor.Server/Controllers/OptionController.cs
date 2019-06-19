@@ -17,10 +17,7 @@ namespace BlazorAgenda.Server.Controllers
         {
             if (OptionAccess.TryAddOption(Object))
             {
-                if (Object.OptionId == default)
-                {
-                    SetSubOptions(Object, false);
-                }
+                SetSubOptions(Object);
                 return CreatedAtAction(nameof(GetObjectById), new { id = Object.Id }, Object);
             }
             return BadRequest();
@@ -41,35 +38,18 @@ namespace BlazorAgenda.Server.Controllers
         {
             if (OptionAccess.TryUpdateOption(Object))
             {
-                if (Object.OptionId == default)
-                {
-                    SetSubOptions(Object, true);
-                }
+                SetSubOptions(Object);
                 return Ok(Object);
             }
             return BadRequest();
         }
 
-        private void SetSubOptions(Option Object, bool isEdit)
+        private void SetSubOptions(Option Object)
         {
-            List<Option> newOptions = Object.InverseOptionNavigation.ToList();
-            for (int i = 0; i < newOptions.Count(); i++)
+            foreach (Option option in Object.InverseOptionNavigation)
             {
-                newOptions[i].OptionNavigation = null;
-                if (isEdit)
-                {
-                    if (newOptions[i].Id == default)
-                    {
-                        Add(newOptions[i]);
-                    }
-                    else
-                    {
-                        Edit(newOptions[i]);
-                    }
-                }
-                newOptions[i].OptionNavigation = null;
+                option.OptionNavigation = null;
             }
-            Object.InverseOptionNavigation = newOptions;
         }
 
         [HttpGet("[action]/{organizationId}")]

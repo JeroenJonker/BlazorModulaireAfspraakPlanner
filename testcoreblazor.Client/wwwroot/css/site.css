@@ -452,6 +452,11 @@ input[type=checkbox] {
     width: 75%;
 }
 
+.OptionInput {
+    height: 30px;
+    width: 100%;
+}
+
 .select2-container {
     height: 30px;
     width: 100% !important;
@@ -475,6 +480,11 @@ input[type=checkbox] {
 
 .textInput:focus {
     border-bottom: 1.2px solid blue;
+}
+
+.optionTableInput {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 ::placeholder {
