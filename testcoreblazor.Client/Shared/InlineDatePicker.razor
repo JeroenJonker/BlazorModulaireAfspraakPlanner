@@ -58,6 +58,7 @@
 
     public void SetDataCells()
     {
+        DateCells.Clear();
         List<DateTime> dates = GetDates(CurrentDate.Year, CurrentDate.Month).ToList();
         int row = 2;
         foreach (DateTime date in dates)
@@ -74,6 +75,11 @@
             {
                 row++;
             }
+        }
+        if (SelectedDateCell != null && DateCells.FirstOrDefault(cell => cell.Date.Year == SelectedDateCell.Date.Year && cell.Date.Month == SelectedDateCell.Date.Month && cell.Date.Day == SelectedDateCell.Date.Day) is DateCell newSelectedDataCell)
+        { 
+            newSelectedDataCell.StyleClass = SelectedDateCell.StyleClass;
+            SelectedDateCell = newSelectedDataCell;
         }
     }
 

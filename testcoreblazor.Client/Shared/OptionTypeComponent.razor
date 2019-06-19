@@ -166,18 +166,32 @@
             <select class="select-multiple-option-type-component" onchange="@OnMultiSelectChange" onchange="selectChange(this)" ref="@multiSelect" multiple="multiple" required>
                 @foreach (Option dropdownItem in Option.InverseOptionNavigation)
                 {
-                    <option value="@dropdownItem.Text">@dropdownItem.Text</option>
+                    @if (EventOptions.FirstOrDefault(evOp => evOp.Value == dropdownItem.Text) is EventOption eventOption)
+                    {
+                        <option selected value="@dropdownItem.Text">@dropdownItem.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@dropdownItem.Text">@dropdownItem.Text</option>
+                    }
                 }
             </select>
         }
         else
         {
-            <select class="select-multiple-option-type-component" onchange="@OnMultiSelectChange" onchange="selectChange(this)" ref="@multiSelect" multiple="multiple" required>
-                @foreach (Option dropdownItem in Option.InverseOptionNavigation)
+        <select class="select-multiple-option-type-component" onchange="@OnMultiSelectChange" onchange="selectChange(this)" ref="@multiSelect" multiple="multiple" required>
+            @foreach (Option dropdownItem in Option.InverseOptionNavigation)
+            {
+                @if (EventOptions.FirstOrDefault(evOp => evOp.Value == dropdownItem.Text) is EventOption eventOption)
+                {
+                    <option selected value="@dropdownItem.Text">@dropdownItem.Text</option>
+                }
+                else
                 {
                     <option value="@dropdownItem.Text">@dropdownItem.Text</option>
                 }
-            </select>
+            }
+        </select>
         }
 
         break;
@@ -265,8 +279,8 @@
         if (selectedList.Count != 0) {
             foreach (string option in selectedList)
             {
-                EventOption eventOption = new EventOption() { Value = option, Option = Option as Option };
-                eventOption.Option = Option.InverseOptionNavigation.FirstOrDefault(suboption => suboption.Text == e.Value.ToString());
+                EventOption eventOption = new EventOption() { Value = option };
+                eventOption.Option = Option as Option;
 
                 EventOptions.Add(eventOption);
             }
