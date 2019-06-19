@@ -44,13 +44,14 @@
         @if ((ElementTypes)Option.ElementType == ElementTypes.Dropdown || (ElementTypes)Option.ElementType == ElementTypes.MultiSelect)
         {
     <div>
+
+        <div class="form-row">
+            <span class="col-sm-5">
+                <label class="col-form-label">Dropdown items</label>
+            </span>
+        </div>
         @if (DropdownItemOptions.Count > 0)
         {
-            <div class="form-row">
-                <span class="col-sm-5">
-                    <label class="col-form-label">Dropdown items</label>
-                </span>
-            </div>
             <div class="container">
                 <table class="dropdownItemsTable">
                     <thead>
@@ -77,7 +78,7 @@
             </div>
         }
 
-        <button onclick="@AddDropdownItem"></button>
+        <button onclick="@AddDropdownItem"><span class="oi oi-plus" /></button>
     </div>
         }
         @if ((ElementTypes)Option.ElementType == ElementTypes.Check)

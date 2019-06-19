@@ -67,6 +67,7 @@ namespace BlazorAgenda.Server.DataAccess
                 db.Option.RemoveRange(deletedsubOptions);
                 foreach (Option option in updatedOption.InverseOptionNavigation)
                 {
+                    option.OptionId = updatedOption.Id;
                     if (option.Id == default)
                     {
                         TryAddOption(option);
