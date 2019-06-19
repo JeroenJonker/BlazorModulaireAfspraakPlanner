@@ -1,0 +1,41 @@
+@using BlazorAgenda.Client.Viewmodels
+@using BlazorAgenda.Shared.Models
+@using BlazorAgenda.Shared.Enums
+@page "/test/"
+@inherits MainViewmodel
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+<select class="select-multiple-option-type-component" multiple="multiple" onchange="@OnMultiSelectChange" onchange="selectChange(this)" ref="@multiSelect">
+  <option value="AL">Alabama</option>
+  <option value="WY">Wyoming</option>
+</select>
+
+
+@functions {
+  ElementRef multiSelect;
+
+  protected override void OnAfterRender()
+  {
+    base.OnAfterRender();
+    JSRuntime.InvokeAsync<string>(
+      "JsFunctions.initializeSelect2");
+  }
+
+  public void OnMultiSelectChange(UIChangeEventArgs e)
+  {
+    getSelectedList();
+  }
+
+  public async void getSelectedList()
+  {
+    List<string> selectedList = await JSRuntime.InvokeAsync<List<string>>(
+      "JsFunctions.getSelectedList", multiSelect);
+    if (selectedList.Count != 0) {
+      foreach (string option in selectedList)
+      {
+        Console.WriteLine(option);
+      }
+    }
+  }
+}

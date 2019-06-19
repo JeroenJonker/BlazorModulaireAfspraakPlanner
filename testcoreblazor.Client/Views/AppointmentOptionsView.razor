@@ -14,14 +14,15 @@
                     <label class="col-form-label">@option.Text</label>
                 </span>
                 <span class="col-sm-7 input-group">
-                    @if (Event.EventOption.FirstOrDefault(evOption => evOption.OptionId == option.Id) is EventOption eventOption && eventOption != default)
+                    @if (Event.EventOption.Where(evOption => evOption.OptionId == option.Id).ToList() is List<EventOption> eventOptions
+                         && eventOptions.Count != 0 && eventOptions[0] != null && eventOptions[0] != default)
                     {
-                        <OptionTypeComponent Option="@option" EventOption="@eventOption" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
+                        <OptionTypeComponent Option="@option" EventOptions="@eventOptions" OnNewEventOptions="@(neweventOptions => AddNewEventOptions(neweventOptions))"  OnSetMultiEventOptions="@(multiEventOptions => SetMultiEventOptions(multiEventOptions, option))" />
 
                     }
                     else
                     {
-                        <OptionTypeComponent Option="@option" OnNewEventOption="@(neweventOption => AddNewEventOption(neweventOption))" />
+                        <OptionTypeComponent Option="@option" OnNewEventOptions="@(neweventOptions => AddNewEventOptions(neweventOptions))" OnSetMultiEventOptions="@(multiEventOptions => SetMultiEventOptions(multiEventOptions, option))" />
                     }
                 </span>
             </div>
