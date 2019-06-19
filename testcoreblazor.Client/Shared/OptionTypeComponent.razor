@@ -143,29 +143,20 @@
         }
         else
         {
-            <select class="OptionInput" onchange="@OnDropdownChange">
-                @if (EventOptions.Count == 0)
+        <select class="OptionInput" onchange="@OnDropdownChange">
+            <option value="" selected>-- Choose an option --</option>
+            @foreach (Option dropdownItem in Option.InverseOptionNavigation)
+            {
+                if (EventOptions[0].Value == dropdownItem.Text)
                 {
-                    <option value="" selected>-- Choose an option --</option>
+                    <option value="@dropdownItem.Text" selected>@dropdownItem.Text</option>
                 }
-                @foreach (Option dropdownItem in Option.InverseOptionNavigation)
+                else
                 {
-                    bool found = false;
-                    foreach (EventOption eventOption in EventOptions)
-                    {
-                        if (eventOption.Value == dropdownItem.Text)
-                        {
-                            found = true;
-                            <option value="@dropdownItem.Text" selected>@dropdownItem.Text</option>
-                            break;
-                        }
-                    } 
-                    if( !found )
-                    {
-                        <option value="@dropdownItem.Text">@dropdownItem.Text</option>
-                    }
+                    <option value="@dropdownItem.Text">@dropdownItem.Text</option>
                 }
-            </select>
+            }
+        </select>
         }
 
         break;
@@ -199,7 +190,7 @@
 {
     [Parameter] protected IOption Option { get; set; }
 
-    [Parameter] protected List<EventOption> EventOptions { get; set; }
+    [Parameter] protected List<EventOption> EventOptions { get; set; } = new List<EventOption>();
 
     [Inject] protected IUserService UserService { get; set; }
     [Inject] protected IOptionService OptionService { get; set; }
@@ -219,19 +210,14 @@
         }
     }
 
-
     ElementRef multiSelect;
 
-
-    protected override void OnParametersSet()
+    protected override void OnInit()
     {
-        EventOptions = new List<EventOption>();
         if ((ElementTypes)Option.ElementType != ElementTypes.MultiSelect) {
             if (EventOptions.Count == 0) {
-                EventOptions.Add(new EventOption());
+                EventOptions.Add(new EventOption() { Option = Option as Option });
             }
-
-            EventOptions[0].Option = Option as Option;
             if (EventOptions[0].Value == null)
             {
                 OnNewEventOptions?.Invoke(EventOptions);
@@ -274,7 +260,7 @@
     {
         List<string> selectedList = await JSRuntime.InvokeAsync<List<string>>(
             "JsFunctions.getSelectedList", multiSelect);
-        
+
         EventOptions = new List<EventOption>();
         if (selectedList.Count != 0) {
             foreach (string option in selectedList)
