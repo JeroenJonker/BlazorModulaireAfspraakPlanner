@@ -62,6 +62,17 @@ namespace BlazorAgenda.Server.DataAccess
         {
             try
             {
+                foreach (Option option in updatedOption.InverseOptionNavigation)
+                {
+                    if (option.Id == default)
+                    {
+                        TryAddOption(option);
+                    }
+                    else
+                    {
+                        TryUpdateOption(option);
+                    }
+                }
                 db.Entry(updatedOption).State = EntityState.Modified;
                 db.SaveChanges();
                 return true;
@@ -76,6 +87,7 @@ namespace BlazorAgenda.Server.DataAccess
         {
             try
             {
+                db.Option.RemoveRange(deletedOption.InverseOptionNavigation);
                 db.Option.Remove(deletedOption);
                 db.SaveChanges();
                 return true;
