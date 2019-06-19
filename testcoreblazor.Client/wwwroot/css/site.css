@@ -457,6 +457,22 @@ input[type=checkbox] {
     width: 100%;
 }
 
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-selection {
+    min-height: 30px !important;
+}
+
+.select2-selection__rendered {
+    margin-bottom: -8px !important;
+}
+
+.select2-selection__choice {
+    margin-top: 1px !important;
+}
+
 .textInput {
     border-top: 0px;
     border-right: 0px;
@@ -465,9 +481,9 @@ input[type=checkbox] {
     outline: none;
 }
 
-    .textInput:focus {
-        border-bottom: 1.2px solid blue;
-    }
+.textInput:focus {
+    border-bottom: 1.2px solid blue;
+}
 
 .optionTableInput {
     width: 100%;
@@ -477,30 +493,30 @@ input[type=checkbox] {
 ::placeholder {
     opacity: 0.8;
 }
-    /*------------------*/
-    /*https://www.w3schools.com/howto/howto_css_custom_checkbox.asp*/
-    /* The container */
-    .Ccontainer {
-        display: block;
-        position: relative;
-        padding-left: 35px;
-        margin-bottom: 12px;
-        cursor: pointer;
-        font-size: 22px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
+/*------------------*/
+/*https://www.w3schools.com/howto/howto_css_custom_checkbox.asp*/
+/* The container */
+.Ccontainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
-    /* Hide the browser's default checkbox */
-    .Ccontainer input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-    }
+/* Hide the browser's default checkbox */
+.Ccontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
 
 /* Create a custom checkbox */
 .Ccheckmark {
