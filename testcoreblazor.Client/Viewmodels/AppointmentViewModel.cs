@@ -21,10 +21,10 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public List<AppointmentTab> Tabs { get; set; } = new List<AppointmentTab>()
             {
-                new AppointmentTab("1. Dienst") { cssClass= "appointmentTabSelected"},
-                new AppointmentTab("2. Datum"){ Step=1 },
-                new AppointmentTab("3. Algemene gegevens"){ Step=2 },
-                new AppointmentTab("4. Bevestiging"){ Step=3 }
+                new AppointmentTab("1. Service") { cssClass= "appointmentTabSelected"},
+                new AppointmentTab("2. Date"){ Step=1 },
+                new AppointmentTab("3. Further info"){ Step=2 },
+                new AppointmentTab("4. Confirmation"){ Step=3 }
             };
 
         public int Step { get; set; } = 0;
@@ -32,6 +32,14 @@ namespace BlazorAgenda.Client.Viewmodels
         protected override async Task OnInitAsync()
         {
             StateService.Organization = await OrganizationService.GetObjectByName(OrgName);
+        }
+
+        public void PreviousStep()
+        {
+            Tabs[Step].cssClass = "appointmentTabNormal";
+            Step--;
+            Tabs[Step].cssClass = "appointmentTabSelected";
+            StateHasChanged();
         }
 
         public void NextStep()
@@ -64,21 +72,12 @@ namespace BlazorAgenda.Client.Viewmodels
             }
         }
 
-        public void Commit()
+        public async void Commit()
         {
-            //                eventOption.Option = null; stten
             Event.User = null;
             Event.Job = null;
-            EventService.ExecuteAsync(Event as Event);
-        }
-
-        public void Check()
-        {
-            Console.WriteLine(Event.JobId);
-            Console.WriteLine(Event.UserId);
-            Console.WriteLine(Event.Start.ToString());
-            Console.WriteLine(Event.End.ToString());
-
+            Task task = EventService.ExecuteAsync(Event as Event);
+            await task.ContinueWith(t => { if (task.IsFaulted) { Console.WriteLine("owh"); } else { Console.WriteLine("ye"); } });
         }
     }
 

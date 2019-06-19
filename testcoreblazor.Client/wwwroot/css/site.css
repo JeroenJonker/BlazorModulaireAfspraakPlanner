@@ -283,11 +283,13 @@ input[type=checkbox] {
 
     .grid-container > div {
         text-align: center;
-        line-height: 2.5;
+        line-height: 2.3;
     }
 
 .dateCellSelected {
-    background-color: #E7E9ED;
+    background-color: blue;
+    color: white;
+    border-radius: 25px;
 }
 
 .dateCellNormal {
@@ -295,6 +297,13 @@ input[type=checkbox] {
     cursor: pointer;
 }
 
+    .dateCellNormal:hover {
+        background-color: lightblue;
+        color: white;
+        border-radius: 25px;
+        cursor: pointer;
+    }
+    
 .dateCellNotAvailable {
     color: lightgray;
     cursor: not-allowed;
@@ -326,10 +335,13 @@ input[type=checkbox] {
     font-weight: bold;
     text-align: center;
     grid-row: 1;
+    font-size: 17px;
 }
 
 .timeSlot {
-    border-top: 1px solid #ddd; 
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
 }
 
 .timeSlot:hover {
@@ -398,14 +410,145 @@ input[type=checkbox] {
     grid-template-columns: auto auto auto;
 }
 
-.continue {
-    background: none;
-    border: none;
+.continueNavigationButton {
     float: right;
-    color: blue;
-    font-weight: bold;
 }
 
-.select-multiple-option-type-component {
-    width: 100%
+.previousNavigationButton {
+    float: left;
 }
+
+.appointmentNavigationButton {
+    background: none;
+    border: none;
+    color: blue;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.OptionGrid {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+@media (max-width: 600px) {
+    .OptionGrid {
+        display: grid;
+        grid-template-columns: auto;
+    }
+}
+
+.OptionContainer {
+    display: grid;
+    margin: 10px;
+}
+
+.OptionLabel {
+    width: 75%;
+    font-size: small;
+}
+
+.OptionInputContainer {
+    width: 75%;
+}
+
+.select2-container {
+    height: 30px;
+    width: 100% !important;
+}
+
+.select2-selection {
+    height: 30px;
+}
+
+.select2-selection__choice {
+    margin-top: 2px !important;
+}
+
+.textInput {
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-bottom: 1.2px solid #ced4da;
+    outline: none;
+}
+
+.textInput:focus {
+    border-bottom: 1.2px solid blue;
+}
+
+::placeholder {
+    opacity: 0.8;
+}
+/*------------------*/
+/*https://www.w3schools.com/howto/howto_css_custom_checkbox.asp*/
+/* The container */
+.Ccontainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.Ccontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.Ccheckmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border: 1px solid rgb(169, 169, 169);
+}
+
+/* On mouse-over, add a grey background color */
+.Ccontainer:hover input ~ .Ccheckmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.Ccontainer input:checked ~ .Ccheckmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.Ccheckmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.Ccontainer input:checked ~ .Ccheckmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.Ccontainer .Ccheckmark:after {
+    left: 9px;
+    top: 4px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/*--------*/

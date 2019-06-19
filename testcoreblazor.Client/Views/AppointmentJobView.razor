@@ -4,90 +4,92 @@
 @inherits AppointmentJobViewModel
 
 <form onsubmit="@SubmitEventOptions" class="container-fluid">
-    <fieldset>
-        @if (StateService.Organization is Organization)
-        {
-            <!-- Job -->
-            <div class="form-row">
-                <span class="col-sm-5">
-                    <label class="col-form-label">Job</label>
-                </span>
-                <span class="col-sm-7 input-group">
-                    <select onchange="@SetEventJob" required>
-                        @if (Event.Job == null)
-                        {
-                            <option value="" selected disabled hidden>-- Choose a job --</option>
-                        }
-                        @foreach (Job job in StateService.Organization.Job)
-                        {
-                            if (job.Id == Event.JobId)
-                            {
-                                <option value="@job.Id" selected>@job.Name</option>
-                            }
-                            else
-                            {
-                                <option value="@job.Id">@job.Name</option>
-                            }
-                        }
-                    </select>
-                </span>
-            </div>
-            @if (SelectedJobUsers.Count != 0)
+    <fieldset class="">
+        <div class="OptionGrid">
+            @if (StateService.Organization is Organization)
             {
-                <!-- User -->
-                <div class="form-row">
-                    <span class="col-sm-5">
-                        <label class="col-form-label">User</label>
+                <!-- Job -->
+                <div class="OptionContainer">
+                    <span class="OptionLabel">
+                        <label class="">Job</label>
                     </span>
-                    <span class="col-sm-7 input-group">
-                        <select onchange="@SetEventUser" required>
-                            @if (Event.UserId == default)
+                    <span class="OptionInputContainer">
+                        <select onchange="@SetEventJob" required class="OptionInput">
+                            @if (Event.Job == null)
                             {
-                                <option selected disabled hidden>-- Choose a user --</option>
+                                <option value="" selected disabled hidden>-- Choose a job --</option>
                             }
-                            @if (Event.UserId == -1)
+                            @foreach (Job job in StateService.Organization.Job)
                             {
-                                <option selected value="-1">No preference</option>
-                            }
-
-                            @foreach (User user in SelectedJobUsers)
-                            {
-                                if  (user.Id == Event.UserId)
+                                if (job.Id == Event.JobId)
                                 {
-                                    <option value="@user.Id" selected>@user.Firstname @user.Lastname</option>
+                                    <option value="@job.Id" selected>@job.Name</option>
                                 }
                                 else
                                 {
-                                    <option value="@user.Id">@user.Firstname @user.Lastname</option>
+                                    <option value="@job.Id">@job.Name</option>
                                 }
                             }
                         </select>
                     </span>
                 </div>
-            }
-            @foreach (Option option in Options)
-            {
-                <div class="form-row">
-                    <span class="col-sm-5">
-                        <label class="col-form-label">@option.Text</label>
-                    </span>
-                    <span class="col-sm-7 input-group">
-                        @if (Event.EventOption.Where(evOption => evOption.OptionId == option.Id).ToList() is List<EventOption> eventOptions
-                             && eventOptions.Count != 0 && eventOptions[0] != null && eventOptions[0] != default)
-                        {
-                            <OptionTypeComponent Option="@option" EventOptions="@eventOptions" OnNewEventOptions="@(neweventOptions => AddNewEventOptions(neweventOptions))"  OnSetMultiEventOptions="@(multiEventOptions => SetMultiEventOptions(multiEventOptions, option))" />
+                @if (SelectedJobUsers.Count != 0)
+                {
+                    <!-- User -->
+                    <div class="OptionContainer">
+                        <span class="OptionLabel">
+                            <label class="">User</label>
+                        </span>
+                        <span class="OptionInputContainer">
+                            <select onchange="@SetEventUser" required class="OptionInput">
+                                @if (Event.UserId == default)
+                                {
+                                    <option selected disabled hidden>-- Choose a user --</option>
+                                }
+                                @if (Event.UserId == -1)
+                                {
+                                    <option selected value="-1">No preference</option>
+                                }
 
-                        }
-                        else    
-                        {
-                            <OptionTypeComponent Option="@option" OnNewEventOptions="@(neweventOptions => AddNewEventOptions(neweventOptions))" OnSetMultiEventOptions="@(multiEventOptions => SetMultiEventOptions(multiEventOptions, option))" />
-                        }
-                    </span>
-                </div>
+                                @foreach (User user in SelectedJobUsers)
+                                {
+                                    if (user.Id == Event.UserId)
+                                    {
+                                        <option value="@user.Id" selected>@user.Firstname @user.Lastname</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@user.Id">@user.Firstname @user.Lastname</option>
+                                    }
+                                }
+                            </select>
+                        </span>
+                    </div>
+                }
+                @foreach (Option option in Options)
+                {
+                    <div class="OptionContainer">
+                        <span class="OptionLabel">
+                            <label class="">@option.Text</label>
+                        </span>
+                        <span class="OptionInputContainer">
+                            @if (Event.EventOption.Where(evOption => evOption.OptionId == option.Id).ToList() is List<EventOption> eventOptions
+                                 && eventOptions.Count != 0 && eventOptions[0] != null && eventOptions[0] != default)
+                            {
+                                <OptionTypeComponent Option="@option" EventOptions="@eventOptions" OnNewEventOptions="@(neweventOptions => AddNewEventOptions(neweventOptions))"  OnSetMultiEventOptions="@(multiEventOptions => SetMultiEventOptions(multiEventOptions, option))" />
+
+                            }
+                            else    
+                            {
+                                <OptionTypeComponent Option="@option" OnNewEventOptions="@(neweventOptions => AddNewEventOptions(neweventOptions))" OnSetMultiEventOptions="@(multiEventOptions => SetMultiEventOptions(multiEventOptions, option))" />
+                            }
+                        </span>
+                    </div>
+                }
             }
-        }
-        <button type="submit" value="Submit" class="continue">
-            verder 
+        </div>
+        <button type="submit" value="Submit" class="appointmentNavigationButton continueNavigationButton">
+            continue
             <span>
                 <i class="oi oi-arrow-right" />
             </span>
