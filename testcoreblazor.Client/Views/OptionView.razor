@@ -4,7 +4,7 @@
 @using BlazorAgenda.Shared.Enums
 @inherits OptionViewModel
 
-<ModalTemplateView Title="@Title" IsVisible="true" OnClose="@OnClose">
+<ModalTemplateView Title="@Title" IsVisible="true" OnClose="@OnClose" OnSubmit="@Save">
     <ModalContent>
         <div class="form-row">
             <span class="col-sm-5">
@@ -12,9 +12,9 @@
             </span>
             <span class="col-sm-7 input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">&#64;</span>
+                    <span class="input-group-text"><i class="oi oi-text"></i></span>
                 </div>
-                <input class="form-control" type="text" placeholder="Text" bind="@Option.Text" />
+                <input class="form-control" type="text" placeholder="Text" bind="@Option.Text" required/>
             </span>
         </div>
         <div class="form-row">
@@ -23,7 +23,7 @@
             </span>
             <span class="col-sm-7 input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="oi oi-person"></i></span>
+                    <span class="input-group-text"><i class="oi oi-tag"></i></span>
                 </div>
                 <input class="form-control" type="text" placeholder="Description" bind="@Option.Description" />
             </span>
@@ -33,7 +33,10 @@
                 <label class="col-form-label">Field type</label>
             </span>
             <span class="col-sm-7 input-group">
-                <select bind="@SelectedElementType">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="oi oi-puzzle-piece"></i></span>
+                </div>
+                <select class="form-control" bind="@SelectedElementType">
                     @foreach (ElementTypes elementType in AvailableElementTypes)
                     {
                         <option value="@elementType" selected="@(nameof(elementType) == SelectedElementType )">@elementType</option>
@@ -43,15 +46,15 @@
         </div>
         @if ((ElementTypes)Option.ElementType == ElementTypes.Dropdown || (ElementTypes)Option.ElementType == ElementTypes.MultiSelect)
         {
-    <div>
-
         <div class="form-row">
             <span class="col-sm-5">
                 <label class="col-form-label">Dropdown items</label>
             </span>
+            <button type="button" onclick="@AddDropdownItem"><span class="oi oi-plus" /></button>
+
         </div>
-        @if (DropdownItemOptions.Count > 0)
-        {
+            @if (DropdownItemOptions.Count > 0)
+            {
             <div class="container">
                 <table class="dropdownItemsTable">
                     <thead>
@@ -68,7 +71,7 @@
                                 <th><input type="text" class="optionTableInput" bind="@dropdownItem.Text" /></th>
                                 <th><input type="text" class="optionTableInput" bind="@dropdownItem.Description" /></th>
                                 <th><input type="number" class="optionTableInput" bind="@dropdownItem.TimeModifier" min="0" step="5" /></th>
-                                <th> <button onclick="@(() => RemoveDropdownItem(dropdownItem))"><span class="oi oi-trash" /></button></th>
+                                <th> <button type="button" onclick="@(() => RemoveDropdownItem(dropdownItem))"><span class="oi oi-trash" /></button></th>
 
                             </tr>
                         }
@@ -76,10 +79,7 @@
                 </table>
 
             </div>
-        }
-
-        <button onclick="@AddDropdownItem"><span class="oi oi-plus" /></button>
-    </div>
+            }
         }
         @if ((ElementTypes)Option.ElementType == ElementTypes.Check)
         {
@@ -89,7 +89,7 @@
                 </span>
                 <span class="col-sm-7 input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="oi oi-person"></i></span>
+                        <span class="input-group-text"><i class="oi oi-timer"></i></span>
                     </div>
                     <input class="form-control" type="number" step="5" min="0" value="0" bind="@Option.TimeModifier" />
                 </span>
@@ -101,20 +101,23 @@
             </span>
             <span class="col-sm-7 input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="oi oi-person"></i></span>
+                    <span class="input-group-text"><i class="oi oi-warning"></i></span>
                 </div>
-                <input class="form-control" type="checkbox" bind="@Option.IsMandatory" />
+                <label class="Ccontainer">
+                    <input class="form-control checkbox OptionInput" type="checkbox" bind="@Option.IsMandatory" />
+                    <span class="CheckMarkForm Ccheckmark"></span>
+                </label>
             </span>
         </div>
     </ModalContent>
     <FooterContent>
         @if (Option.Id != default)
         {
-            <ObjectBaseFooterView ObjectState="@BlazorAgenda.Shared.Enums.ObjectState.Edit" OnSave="@Save" OnDelete="@Delete" />
+            <ObjectBaseFooterView ObjectState="@BlazorAgenda.Shared.Enums.ObjectState.Edit" OnDelete="@Delete" />
         }
         else
         {
-            <ObjectBaseFooterView ObjectState="@BlazorAgenda.Shared.Enums.ObjectState.Add" OnSave="@Save" />
+            <ObjectBaseFooterView ObjectState="@BlazorAgenda.Shared.Enums.ObjectState.Add" />
         }
     </FooterContent>
 </ModalTemplateView>

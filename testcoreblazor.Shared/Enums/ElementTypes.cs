@@ -9,7 +9,6 @@ namespace BlazorAgenda.Shared.Enums
         Text = 1,
         Check = 2,
         Number = 3,
-        Radiobutton = 4,
         Email = 5,
         Address = 6,
         Telephonenumber = 7,

@@ -6,7 +6,7 @@
 
 @inherits UserViewModel
 
-<ModalTemplateView Title="@Title" OnClose="@OnClose" IsVisible="true">
+<ModalTemplateView Title="@Title" OnClose="@OnClose" IsVisible="true" OnSubmit="@Save">
     <ModalContent>
         <div class="form-row">
             <span class="col-sm-5">
@@ -16,7 +16,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">&#64;</span>
                 </div>
-                <input class="form-control" type="text" placeholder="Email" bind="@User.Emailadress" />
+                <input class="form-control" type="text" placeholder="Email" bind="@User.Emailadress" required />
             </span>
         </div>
         <div class="form-row">
@@ -27,7 +27,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="oi oi-person"></i></span>
                 </div>
-                <input class="form-control" type="text" placeholder="First name" bind="@User.Firstname" />
+                <input class="form-control" type="text" placeholder="First name" bind="@User.Firstname" required/>
             </span>
         </div>
         <div class="form-row">
@@ -38,7 +38,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="oi oi-person"></i></span>
                 </div>
-                <input class="form-control" type="text" placeholder="Last Name" bind="@User.Lastname" />
+                <input class="form-control" type="text" placeholder="Last Name" bind="@User.Lastname" required/>
             </span>
         </div>
         <div class="form-row">
@@ -49,7 +49,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="oi oi-lock-locked"></i></span>
                 </div>
-                <input class="form-control" type="password" placeholder="Password" bind="@User.Password" />
+                <input class="form-control" type="password" placeholder="Password" bind="@User.Password" required/>
             </span>
         </div>
         <div>
@@ -84,11 +84,11 @@
     <FooterContent>
         @if (User.Id != default)
         {
-            <ObjectBaseFooterView ObjectState="BlazorAgenda.Shared.Enums.ObjectState.Edit" OnSave="@Save" OnDelete="@Delete" />
+            <ObjectBaseFooterView ObjectState="BlazorAgenda.Shared.Enums.ObjectState.Edit" OnDelete="@Delete" />
         }
         else
         {
-            <ObjectBaseFooterView ObjectState=@BlazorAgenda.Shared.Enums.ObjectState.Add OnSave="@Save" />
+            <ObjectBaseFooterView ObjectState=@BlazorAgenda.Shared.Enums.ObjectState.Add />
         }
     </FooterContent>
 </ModalTemplateView>

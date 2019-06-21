@@ -10,11 +10,17 @@ namespace BlazorAgenda.Client.Viewmodels.BaseViewModels
         [Parameter] protected bool IsVisible { get; set; }
         [Parameter] protected string Title { get; set; }
         [Parameter] protected RenderFragment FooterContent { get; set; }
+        [Parameter] protected Action OnSubmit { get; set; }
 
         public void Close()
         {
             OnClose?.Invoke();
             IsVisible = false;
+        }
+
+        public void Submit()
+        {
+            OnSubmit?.Invoke();
         }
     }
 }

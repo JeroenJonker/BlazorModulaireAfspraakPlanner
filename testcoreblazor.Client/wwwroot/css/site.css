@@ -565,3 +565,14 @@ input[type=checkbox] {
 }
 
 /*--------*/
+.Ccontainer .CheckMarkForm {
+    height: 38px;
+    width: 38px;
+}
+
+.Ccontainer .CheckMarkForm::after {
+    left: 14px;
+    top: 8px;
+    width: 6px;
+    height: 17px;
+}
