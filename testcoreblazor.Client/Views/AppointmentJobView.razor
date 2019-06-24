@@ -11,7 +11,7 @@
                 <!-- Job -->
                 <div class="OptionContainer">
                     <span class="OptionLabel">
-                        <label class="">Job</label>
+                        <label class="">Service</label>
                     </span>
                     <span class="OptionInputContainer">
                         <select onchange="@SetEventJob" required class="OptionInput">
@@ -38,18 +38,18 @@
                     <!-- User -->
                     <div class="OptionContainer">
                         <span class="OptionLabel">
-                            <label class="">User</label>
+                            <label class="">Employee</label>
                         </span>
                         <span class="OptionInputContainer">
                             <select onchange="@SetEventUser" required class="OptionInput">
-                                @if (Event.UserId == default)
+                                @if (Event.User == null)
                                 {
-                                    <option selected disabled hidden>-- Choose a user --</option>
+                                    <option value="" selected disabled hidden>-- Choose an employee --</option>
                                 }
-                                @if (Event.UserId == -1)
+                                @*@if (Event.UserId == -1)
                                 {
                                     <option selected value="-1">No preference</option>
-                                }
+                                }*@
 
                                 @foreach (User user in SelectedJobUsers)
                                 {

@@ -576,3 +576,21 @@ input[type=checkbox] {
     width: 6px;
     height: 17px;
 }
+
+.summaryAppointmentLabelcontainer {
+    text-align: center;
+}
+
+.summaryAppointmentLabelbox{
+    display: -webkit-inline-box;
+}
+
+.appointmentSummaryContainer {
+    text-align: center;
+}
+
+.summaryAppointmentLabelbox p {
+    padding-left: 5px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}

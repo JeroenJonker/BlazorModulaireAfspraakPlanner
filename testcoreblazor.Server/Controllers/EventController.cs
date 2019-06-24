@@ -16,6 +16,12 @@ namespace BlazorAgenda.Server.Controllers
         [HttpPost("[action]")]
         public IActionResult Add([FromBody] Event newEvent)
         {
+            foreach (EventOption eventOption in newEvent.EventOption)
+            {
+                eventOption.Option = null;
+            }
+            newEvent.User = null;
+            newEvent.Job = null;
             if (EventAccess.TryAddEvent(newEvent))
             {
                 foreach (EventOption eventOption in newEvent.EventOption)

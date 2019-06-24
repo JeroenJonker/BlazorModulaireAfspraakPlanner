@@ -7,38 +7,79 @@
 
 @if (Status == TaskStatus.RanToCompletion)
 {
-    <p>Succes</p>
+    <div class="appointmentSummaryContainer">
+        <p>Your appointment</p>
+        <p>has been succesfully send.</p>
+    </div>
 }
 @if (Status == TaskStatus.Faulted)
 {
-    <p>fAULTED</p>
-}
-<div class="container-fluid">
-    <div class="OptionGrid">
-        <div class="OptionContainer">
-            <p>@Event.Start</p>
-            <p>@Event.End</p>
-        </div>
-    @foreach (EventOption eventOption in Event.EventOption)
-    {
-        <div class="OptionContainer">
-        @if (eventOption.Value is string && eventOption.Option != null)
-        {
-            <p>@eventOption.Option.Text : @eventOption.Value</p>
-        }
-        </div>
-    }             
+    <div class="appointmentSummaryContainer">
+        <p>Please resend or refresh</p>
+        <p>the appointment met some issues.</p>
     </div>
-    <button onclick="@ToPreviousTab" class="appointmentNavigationButton previousNavigationButton">
-        <span>
-            <i class="oi oi-arrow-left" />
-        </span>
-        previous
-    </button>
-    <button onclick="@Commit" class="appointmentNavigationButton continueNavigationButton">
-        Confirm appointment
-        <span>
-            <i class="oi oi-check" />
-        </span>
-    </button>
-</div>
+}
+
+@if (Status == default)
+{
+    <div class="container-fluid appointmentSummaryContainer">
+        <h3>Appointment</h3>
+        <form>
+            <fieldset>
+                <div class="OptionGrid">
+                    <div class="OptionContainer">
+                        <div class="summaryAppointmentLabelcontainer">
+                            <div class="summaryAppointmentLabelbox">
+                                <span class="oi oi-calendar" />
+                                <p>Date</p>
+                            </div>
+                        </div>
+                        <p>@Event.Start.ToString("D")</p>
+                    </div>
+                    <div class="OptionContainer">
+                        <div class="summaryAppointmentLabelcontainer">
+                            <div class="summaryAppointmentLabelbox">
+                                <span class="oi oi-calendar" />
+                                <p>Time</p>
+                            </div>
+                        </div>
+                        <p>@Event.Start.ToString("HH:mm") - @Event.End.ToString("HH:mm")</p>
+                    </div>
+                    <div class="OptionContainer">
+                        <div class="summaryAppointmentLabelcontainer">
+                            <div class="summaryAppointmentLabelbox">
+                                <span class="oi oi-person" />
+                                <p>Employee</p>
+                            </div>
+                        </div>
+                        <p>@Event.User.Firstname @Event.User.Lastname</p>
+                    </div>
+                    <div class="OptionContainer">
+                        <div class="summaryAppointmentLabelcontainer">
+                            <div class="summaryAppointmentLabelbox">
+                                <span class="oi oi-briefcase" />
+                                <p>Service</p>
+                            </div>
+                        </div>
+                        <p>@Event.Job.Name</p>
+                    </div>
+                </div>
+                <button onclick="@ToPreviousTab" type="button" class="appointmentNavigationButton previousNavigationButton">
+                    <span>
+                        <i class="oi oi-arrow-left" />
+                    </span>
+                    previous
+                </button>
+                <button onclick="@Commit" type="button" class="appointmentNavigationButton continueNavigationButton">
+                    confirm appointment
+                    <span>
+                        <i class="oi oi-check" />
+                    </span>
+                </button>
+            </fieldset>
+        </form>
+
+    </div>
+}
+
+

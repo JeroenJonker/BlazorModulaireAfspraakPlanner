@@ -40,6 +40,8 @@ namespace BlazorAgenda.Client.Viewmodels
             Event.JobId = int.Parse(e.Value.ToString());
             Event.Job = StateService.Organization.Job.First(job => job.Id == Event.JobId);
             Event.Summary = Event.Job.Name;
+            Event.Start = default;
+            Event.End = default;
 
             foreach (User user in StateService.Organization.User.Join(Event.Job.UserJob, u => u.Id, uj => uj.UserId, (u, uj) => u))
             {
@@ -51,6 +53,8 @@ namespace BlazorAgenda.Client.Viewmodels
         {
             Event.UserId = int.Parse(e.Value.ToString());
             Event.User = SelectedJobUsers.FirstOrDefault(user => user.Id == Event.UserId);
+            Event.Start = default;
+            Event.End = default;
         }
 
         public void SubmitEventOptions()
@@ -77,6 +81,11 @@ namespace BlazorAgenda.Client.Viewmodels
                 eventOption.OptionId = eventOption.Option.Id;
                 Event.EventOption.Add(eventOption);
             }
+        }
+
+        public void test()
+        {
+            Console.WriteLine("changed");
         }
     }
 }

@@ -16,6 +16,10 @@ namespace BlazorAgenda.Client.Viewmodels
         [Inject] protected IStateService StateService { get; set; }
         [Inject] protected IEventService EventService { get; set; }
         [Parameter][Inject] protected IEvent Event { get; set; }
+        //protected TaskStatus Status { get; set; } = default;
+        public TaskStatus Status { get; set; }
+
+
 
         [Inject] protected IOrganizationService OrganizationService { get; set; }
 

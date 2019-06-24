@@ -16,7 +16,15 @@
         <div class="appointmentTabs">
             @foreach (AppointmentTab tab in Tabs)
             {
-                <div class="@tab.cssClass" onclick="@(()=>ToTab(tab))">@tab.Name</div>
+                @if (Status == TaskStatus.RanToCompletion)
+                {
+                    <div class="@tab.cssClass">@tab.Name</div>
+
+                }
+                else
+                {
+                    <div class="@tab.cssClass" onclick="@(()=>ToTab(tab))">@tab.Name</div>
+                }
             }
         </div>
         <div>
@@ -35,9 +43,8 @@
             }
             else if (Step == 3)
             {
-                <AppointmentConfirmationView Event="@Event" OnSubmit="@Commit" ToPreviousTab="@PreviousStep" />
+                <AppointmentConfirmationView Event="@Event" OnSubmit="@Commit" ToPreviousTab="@PreviousStep" Status="@Status" />
             }
-            @*<button onclick="@Check" />*@
         </div>
     </div>
 }
