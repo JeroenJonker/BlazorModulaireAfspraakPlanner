@@ -172,6 +172,7 @@ namespace BlazorAgenda.Client.Viewmodels
             Start = start;
             StateService.CurrentModalType = BlazorAgenda.Shared.Enums.ModalTypes.Workhours;
             StateService.OnSetNewCurrentObject = SetNewCurrentObject;
+            Console.WriteLine("check");
             StateService.NotifyStateChanged();
         }
 

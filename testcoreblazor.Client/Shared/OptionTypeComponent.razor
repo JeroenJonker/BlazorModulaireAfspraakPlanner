@@ -49,21 +49,21 @@
     case ElementTypes.Telephonenumber:
         if (Option.IsMandatory)
         {
-            <input class="textInput OptionInput" type="tel" pattern="[0-9]{8}" bind="@EventOptions[0].Value" required />
+            <input class="textInput OptionInput" type="tel" pattern="[0-9]{8}" bind="@EventOptions[0].Value" placeholder="@Option.Description" required />
         }
         else
         {
-            <input class="textInput OptionInput" type="tel" pattern="[0-9]{8}" bind="@EventOptions[0].Value" />
+            <input class="textInput OptionInput" type="tel" pattern="[0-9]{8}" bind="@EventOptions[0].Value" placeholder="@Option.Description" />
         }
         break;
     case ElementTypes.Address:
         if (Option.IsMandatory)
         {
-            <input class="textInput OptionInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOptions[0].Value" required />
+            <input class="textInput OptionInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOptions[0].Value" placeholder="@Option.Description" required />
         }
         else
         {
-            <input class="textInput OptionInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOptions[0].Value" />
+            <input class="textInput OptionInput" type="text" pattern="^\d{4}\D{2}$" bind="@EventOptions[0].Value" placeholder="@Option.Description" />
         }
         break;
     case ElementTypes.Date:
@@ -79,22 +79,22 @@
     case ElementTypes.Email:
         if (Option.IsMandatory)
         {
-            <input class="textInput OptionInput" type="email" bind="@EventOptions[0].Value" />
+            <input class="textInput OptionInput" type="email" bind="@EventOptions[0].Value" placeholder="@Option.Description" required/>
         }
         else
         {
-            <input class="textInput OptionInput" type="email" bind="@EventOptions[0].Value" />
+            <input class="textInput OptionInput" type="email" bind="@EventOptions[0].Value" placeholder="@Option.Description" />
         }
         break;
 
     case ElementTypes.Textarea:
         if (Option.IsMandatory)
         {
-            <textarea class="form-control" bind="@EventOptions[0].Value" />
+            <textarea class="form-control" bind="@EventOptions[0].Value" placeholder="@Option.Description" required/>
         }
         else
         {
-            <textarea class="form-control" bind="@EventOptions[0].Value" />
+            <textarea class="form-control" bind="@EventOptions[0].Value" placeholder="@Option.Description" />
         }
         break;
     case ElementTypes.StaffSelection:

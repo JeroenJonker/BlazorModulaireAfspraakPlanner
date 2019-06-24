@@ -70,7 +70,14 @@
                 {
                     <div class="OptionContainer">
                         <span class="OptionLabel">
-                            <label class="">@option.Text</label>
+                            @if (option.IsMandatory)
+                            {
+                                <label>*@option.Text</label>
+                            }
+                            else
+                            {
+                                <label>@option.Text</label>
+                            }
                         </span>
                         <span class="OptionInputContainer">
                             @if (Event.EventOption.Where(evOption => evOption.OptionId == option.Id).ToList() is List<EventOption> eventOptions
