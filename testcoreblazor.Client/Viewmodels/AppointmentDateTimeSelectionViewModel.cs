@@ -31,7 +31,7 @@ namespace BlazorAgenda.Client.Viewmodels
             EventDuration += Event.Job.TimeModifier;
             foreach (EventOption eventOption in Event.EventOption)
             {
-                if (!(eventOption.Option.ElementType == (int)ElementTypes.Check && eventOption.Value == "False"))
+                if (!(eventOption.Option.ElementType == (int)ElementTypes.Check && eventOption.Value == "True"))
                 {
                     EventDuration += eventOption.Option.TimeModifier;
                 }

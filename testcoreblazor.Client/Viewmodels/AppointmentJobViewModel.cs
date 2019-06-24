@@ -82,10 +82,5 @@ namespace BlazorAgenda.Client.Viewmodels
                 Event.EventOption.Add(eventOption);
             }
         }
-
-        public void test()
-        {
-            Console.WriteLine("changed");
-        }
     }
 }
