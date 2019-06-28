@@ -31,7 +31,7 @@ namespace BlazorAgenda.Client.Viewmodels
 
         public void ChangeShowModalEvent()
         {
-            if (CalendarEvent.Event is Event && CalendarEvent.Event.UserId == StateService.LoginUser.Id || StateService.LoginUser.IsAdmin)
+            if (CalendarEvent.Event is Event && ( CalendarEvent.Event.UserId == StateService.LoginUser.Id || StateService.LoginUser.IsAdmin))
             {
                 UserView.CurrentObject = CalendarEvent.Event as Event;
                 UserView.ChangeVisibility();
